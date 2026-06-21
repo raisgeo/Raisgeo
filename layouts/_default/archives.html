@@ -20,7 +20,7 @@
 <div class="page-wrap">
   <div class="page-eyebrow">Semua tulisan</div>
   <h1 class="page-title">Arsip</h1>
-  {{ range (.Pages.GroupByDate "2006") }}
+{{ range (where .Site.RegularPages "Type" "posts").GroupByDate "2006" }}
   <div class="arch-year">
     <div class="arch-year-label">{{ .Key }}</div>
     {{ range (.Pages.GroupByDate "January 2006") }}
