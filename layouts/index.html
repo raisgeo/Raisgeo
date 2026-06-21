@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ .Site.Title }}</title>
+<link rel="stylesheet" href="/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="/">The <span>Geographer</span> Journal</a>
+  <div class="nav-r">
+    <a href="/archives/">Arsip</a>
+    <a href="/about/">Tentang</a>
+    <button class="tog" id="tog" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="tog-knob"></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero">
+  <canvas id="map"></canvas>
+  <div class="hero-text">
+    <div class="eyebrow">Raisgeo</div>
+    <h1>Notes from<br>every <em>journey</em></h1>
+    <p>Thinking about life.</p>
+    <div class="coord">3°26′S · 114°45′E</div>
+  </div>
+</section>
+
+<div class="karto-sep">
+  <svg width="100%" height="12" viewBox="0 0 900 12" preserveAspectRatio="none">
+    <line x1="0" y1="6" x2="375" y2="6" stroke="#8B5E1A" stroke-width="0.5" opacity="0.25"/>
+    <polygon points="395,1 403,6 395,11 387,6" fill="#8B5E1A" opacity="0.35"/>
+    <polygon points="415,3 421,6 415,9 409,6" fill="none" stroke="#8B5E1A" stroke-width="0.6" opacity="0.2"/>
+    <polygon points="435,1 443,6 435,11 427,6" fill="#8B5E1A" opacity="0.55"/>
+    <circle cx="435" cy="6" r="2" fill="var(--bg)"/>
+    <polygon points="455,3 461,6 455,9 449,6" fill="none" stroke="#8B5E1A" stroke-width="0.6" opacity="0.2"/>
+    <polygon points="475,1 483,6 475,11 467,6" fill="#8B5E1A" opacity="0.35"/>
+    <line x1="495" y1="6" x2="900" y2="6" stroke="#8B5E1A" stroke-width="0.5" opacity="0.25"/>
+  </svg>
+</div>
+
+<main class="posts-wrap">
+  <div class="sec-label">Tulisan terbaru</div>
+  <div class="posts-grid">
+    {{ $pages := where .Site.RegularPages "Type" "posts" }}
+    {{ range $i, $p := first 5 $pages }}
+    <article class="pcard {{ if eq $i 0 }}featured{{ end }}">
+      <a href="{{ $p.RelPermalink }}">
+        <div class="ptag">
+          <span class="pdot"></span>
+          {{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}
+        </div>
+        <h2 class="ptitle">{{ $p.Title }}</h2>
+        <p class="pexcerpt">{{ $p.Summary | plainify | truncate 120 }}</p>
+        <div class="pmeta">{{ $p.Date.Format "2 Jan 2006" }} · {{ $p.ReadingTime }} menit</div>
+        <div class="pline"></div>
+        <div class="pnum">{{ printf "%02d" (add $i 1) }}</div>
+      </a>
+    </article>
+    {{ end }}
+  </div>
+</main>
+
+<footer>
+  <span>© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <svg width="44" height="14" viewBox="0 0 44 14" fill="none">
+    <path d="M0,7 Q11,1 22,7 Q33,13 44,7" stroke="#8B5E1A" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <circle cx="22" cy="7" r="2.5" fill="#8B5E1A" opacity="0.35"/>
+  </svg>
+</footer>
+
+<script src="/js/map.js"></script>
+</body>
+</html>
