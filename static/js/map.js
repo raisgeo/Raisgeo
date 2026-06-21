@@ -15,7 +15,6 @@ resize();window.addEventListener('resize',resize);
 
 const BJ={lon:114.75,lat:-3.426};
 
-// Proyeksi Mercator
 function mercator(lon,lat){
   const x=(lon+180)/360;
   const latR=lat*Math.PI/180;
@@ -32,7 +31,7 @@ function project(lon,lat,s,W,H){
 let worldData=null;
 
 function drawGrid(s,W,H,dk){
-  ctx.strokeStyle=dk?'rgba(200,146,26,0.08)':'rgba(80,60,20,0.06)';
+  ctx.strokeStyle=dk?'rgba(200,146,26,0.07)':'rgba(100,80,50,0.07)';
   ctx.lineWidth=0.4;ctx.setLineDash([2,8]);
   for(let lon=-180;lon<=180;lon+=15){
     ctx.beginPath();
@@ -90,29 +89,6 @@ function drawGeoJSON(data,s,W,H,fill,stroke,lw){
   });
 }
 
-// Highlight Kalimantan dari GeoJSON
-function drawKalimantan(kalData,s,W,H,fill,stroke){
-  if(!kalData)return;
-  kalData.features.forEach(f=>{
-    const geom=f.geometry;
-    if(!geom)return;
-    const polys=geom.type==='Polygon'?[geom.coordinates]:geom.type==='MultiPolygon'?geom.coordinates:[];
-    polys.forEach(poly=>{
-      poly.forEach(ring=>{
-        ctx.beginPath();
-        ring.forEach(([lon,lat],i)=>{
-          if(lat>85||lat<-85)return;
-          const[x,y]=project(lon,lat,s,W,H);
-          i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-        });
-        ctx.closePath();
-        ctx.fillStyle=fill;ctx.fill();
-        ctx.strokeStyle=stroke;ctx.lineWidth=1;ctx.stroke();
-      });
-    });
-  });
-}
-
 const phases=[
   {cx:20,cy:20,scale:0.55,dur:1400},
   {cx:118,cy:-3,scale:3.5,dur:1800},
@@ -141,18 +117,20 @@ function draw(now){
   const dk=document.documentElement.classList.contains('dark');
   const s=getState(now);
 
+  // Background ocean - sepia/warm neutral
   const g=ctx.createLinearGradient(0,0,0,H);
-  if(dk){g.addColorStop(0,'#1C1005');g.addColorStop(1,'#100E08');}
-  else{g.addColorStop(0,'#D5EAFF');g.addColorStop(1,'#EBF4FF');}
+  if(dk){g.addColorStop(0,'#1A1208');g.addColorStop(1,'#100E08');}
+  else{g.addColorStop(0,'#EBF0F5');g.addColorStop(1,'#F2F5F8');}
   ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
-  ctx.fillStyle=dk?'rgba(20,10,2,0.35)':'rgba(180,212,242,0.2)';
+  ctx.fillStyle=dk?'rgba(18,10,2,0.3)':'rgba(200,210,220,0.18)';
   ctx.fillRect(0,0,W,H);
 
   drawGrid(s,W,H,dk);
 
   if(worldData){
-    const lf=dk?'rgba(65,42,14,0.78)':'rgba(168,198,138,0.68)';
-    const ls=dk?'rgba(95,65,22,0.42)':'rgba(108,140,82,0.42)';
+    // Daratan - warna sepia/pasir, tidak mencolok
+    const lf=dk?'rgba(72,55,30,0.7)':'rgba(200,190,170,0.6)';
+    const ls=dk?'rgba(95,75,42,0.38)':'rgba(165,150,128,0.45)';
     drawGeoJSON(worldData,s,W,H,lf,ls,0.4);
   }
 
@@ -168,9 +146,10 @@ function draw(now){
       )
     };
     if(kalFeatures.features.length>0){
+      // Indonesia - sedikit lebih gelap dari kontinen lain
       drawGeoJSON(kalFeatures,s,W,H,
-        dk?'rgba(85,58,18,0.92)':'rgba(142,182,105,0.78)',
-        dk?'rgba(130,90,30,0.6)':'rgba(80,120,52,0.6)',
+        dk?'rgba(90,68,35,0.88)':'rgba(182,168,142,0.72)',
+        dk?'rgba(120,92,48,0.5)':'rgba(145,128,102,0.5)',
         0.6
       );
     }
@@ -212,11 +191,9 @@ function draw(now){
   requestAnimationFrame(draw);
 }
 
-// Load GeoJSON dunia dari CDN
 fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
   .then(r=>r.json())
   .then(topo=>{
-    // Convert TopoJSON ke GeoJSON menggunakan topojson-client
     const script=document.createElement('script');
     script.src='https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js';
     script.onload=()=>{
