@@ -1,6 +1,6 @@
 baseURL = "https://raisgeo.pages.dev/"
 languageCode = "id"
-title = "Raisgeo — Geographer Journal"
+title = "The Geographer Journal"
 theme = "PaperMod"
 pagination.pagerSize = 10
 
@@ -16,7 +16,7 @@ pagination.pagerSize = 10
   ShowToc = false
 
 [params.homeInfoParams]
-  Title = "Selamat Datang di Raisgeo"
+  Title = "Raisgeo"
   Content = "Notes from every journey"
 
 [[params.socialIcons]]
