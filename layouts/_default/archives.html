@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arsip · {{ .Site.Title }}</title>
+<link rel="stylesheet" href="/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">The <span>Geographer</span> Journal</a>
+  <div class="nav-r">
+    <a href="/archives/">Arsip</a>
+    <a href="/about/">Tentang</a>
+    <button class="tog" onclick="toggleTheme()" aria-label="Toggle theme"><span class="tog-knob"></span></button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-eyebrow">Semua tulisan</div>
+  <h1 class="page-title">Arsip</h1>
+  {{ range (.Pages.GroupByDate "2006") }}
+  <div class="arch-year">
+    <div class="arch-year-label">{{ .Key }}</div>
+    {{ range (.Pages.GroupByDate "January 2006") }}
+    <div class="arch-month">
+      <div class="arch-month-label">{{ .Key }}</div>
+      <div class="arch-posts">
+        {{ range .Pages }}
+        <a href="{{ .RelPermalink }}" class="arch-item">
+          <span class="arch-title">{{ .Title }}</span>
+          <span class="arch-meta">{{ .Date.Format "2 Jan" }} · {{ .ReadingTime }} menit</span>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+
+<footer>
+  <span>© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <svg width="44" height="14" viewBox="0 0 44 14" fill="none">
+    <path d="M0,7 Q11,1 22,7 Q33,13 44,7" stroke="#8B5E1A" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <circle cx="22" cy="7" r="2.5" fill="#8B5E1A" opacity="0.35"/>
+  </svg>
+</footer>
+<script src="/js/map.js"></script>
+</body>
+</html>

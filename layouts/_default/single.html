@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ .Title }} · {{ .Site.Title }}</title>
+<link rel="stylesheet" href="/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/">The <span>Geographer</span> Journal</a>
+  <div class="nav-r">
+    <a href="/archives/">Arsip</a>
+    <a href="/about/">Tentang</a>
+    <button class="tog" onclick="toggleTheme()" aria-label="Toggle theme"><span class="tog-knob"></span></button>
+  </div>
+</nav>
+
+<article class="post-wrap">
+  <div class="post-header">
+    <div class="page-eyebrow">{{ .Date.Format "2 January 2006" }} · {{ .ReadingTime }} menit baca</div>
+    <h1 class="post-title">{{ .Title }}</h1>
+  </div>
+  <div class="post-body">
+    {{ .Content }}
+  </div>
+  <div class="post-nav">
+    {{ with .PrevInSection }}
+    <a href="{{ .RelPermalink }}" class="post-nav-link">
+      <span class="post-nav-label">Sebelumnya</span>
+      <span class="post-nav-title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+    {{ with .NextInSection }}
+    <a href="{{ .RelPermalink }}" class="post-nav-link post-nav-next">
+      <span class="post-nav-label">Berikutnya</span>
+      <span class="post-nav-title">{{ .Title }}</span>
+    </a>
+    {{ end }}
+  </div>
+</article>
+
+<footer>
+  <span>© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <svg width="44" height="14" viewBox="0 0 44 14" fill="none">
+    <path d="M0,7 Q11,1 22,7 Q33,13 44,7" stroke="#8B5E1A" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <circle cx="22" cy="7" r="2.5" fill="#8B5E1A" opacity="0.35"/>
+  </svg>
+</footer>
+<script src="/js/map.js"></script>
+</body>
+</html>
