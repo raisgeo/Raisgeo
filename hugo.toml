@@ -17,7 +17,7 @@ pagination.pagerSize = 10
 
 [params.homeInfoParams]
   Title = "Selamat Datang di Raisgeo"
-  Content = "Jurnal pemikiran dan refleksi diri — dari bangku kuliah hingga tepian Kalimantan"
+  Content = "Notes from every journey"
 
 [[params.socialIcons]]
   name = "wordpress"
