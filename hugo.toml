@@ -1,7 +1,7 @@
 baseURL = "https://raisgeo.pages.dev/"
 languageCode = "id"
 title = "The Geographer Journal"
-theme = "PaperMod"
+theme = ""
 pagination.pagerSize = 10
 
 [params]
