@@ -1,48 +1,52 @@
 (function(){
 
-// DARK MODE TOGGLE
 function initTheme(){
-  const saved = localStorage.getItem('theme');
-  if(saved === 'dark') document.body.classList.add('dark-mode');
+  const saved=localStorage.getItem('rg-theme');
+  if(saved==='dark')document.body.classList.add('dark-mode');
 }
 
 function toggleTheme(){
   document.body.classList.toggle('dark-mode');
-  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+  localStorage.setItem('rg-theme',document.body.classList.contains('dark-mode')?'dark':'light');
 }
 
-// Inject toggle button ke nav
 function injectToggle(){
-  const nav = document.querySelector('.nav');
-  if(!nav) return;
-  const btn = document.createElement('button');
-  btn.id = 'theme-toggle';
+  const nav=document.querySelector('.nav');
+  if(!nav)return;
+  const old=document.querySelector('.theme-toggle-papermod');
+  if(old)old.remove();
+  const btn=document.createElement('button');
+  btn.id='theme-toggle';
   btn.setAttribute('aria-label','Toggle dark mode');
-  btn.onclick = toggleTheme;
+  btn.onclick=toggleTheme;
   nav.appendChild(btn);
 }
 
-// MAP CANVAS
 function initMap(){
-  const hero = document.querySelector('.home-info');
-  if(!hero) return;
+  const hero=document.querySelector('.home-info');
+  if(!hero)return;
+  hero.style.minHeight='420px';
+  hero.style.position='relative';
+  hero.style.overflow='hidden';
 
-  const canvas = document.createElement('canvas');
-  canvas.id = 'hero-map';
-  canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity 1.2s';
-  hero.style.position = 'relative';
-  hero.insertBefore(canvas, hero.firstChild);
+  const canvas=document.createElement('canvas');
+  canvas.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0;transition:opacity 1.2s';
+  hero.insertBefore(canvas,hero.firstChild);
 
-  const ctx = canvas.getContext('2d');
+  // Beri z-index ke konten hero supaya di atas canvas
+  Array.from(hero.children).forEach(el=>{
+    if(el!==canvas)el.style.position='relative',el.style.zIndex='1';
+  });
+
+  const ctx=canvas.getContext('2d');
   function resize(){
-    canvas.width = hero.offsetWidth;
-    canvas.height = hero.offsetHeight || 400;
+    canvas.width=hero.offsetWidth||window.innerWidth;
+    canvas.height=hero.offsetHeight||420;
   }
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize',()=>{resize();});
 
-  const BJ = {lon:114.75, lat:-3.426};
-
+  const BJ={lon:114.75,lat:-3.426};
   const continents=[
     [[0,71],[20,72],[40,68],[60,65],[80,55],[100,50],[120,42],[135,38],[140,30],[130,22],[120,18],[110,12],[105,5],[100,2],[103,-4],[108,-6],[110,-2],[115,3],[120,8],[128,18],[135,25],[138,38],[140,42],[145,44],[150,42],[155,38],[160,45],[162,52],[166,56],[168,60],[160,62],[150,58],[140,55],[130,48],[120,38],[110,36],[100,26],[90,26],[80,28],[65,26],[55,20],[45,15],[35,12],[25,15],[15,18],[5,20],[0,22],[-5,35],[-8,44],[-5,55],[0,56],[5,58],[8,60],[4,64],[0,70]],
     [[-8,14],[-14,10],[-15,4],[-10,-2],[-5,-10],[0,-16],[10,-26],[20,-35],[28,-36],[34,-30],[38,-20],[42,-12],[44,-2],[46,5],[48,12],[44,12],[38,16],[30,22],[25,32],[20,38],[14,40],[8,40],[2,36],[-5,24],[-8,14]],
@@ -56,11 +60,10 @@ function initMap(){
   const kalimantan=[[108,-3.8],[109.5,-3],[111,-2],[112.5,-1.5],[114,-1],[115,-0.5],[116.5,-0.8],[117.5,-1.8],[118,-2.8],[117.5,-3.8],[117,-4.5],[116,-5.2],[115,-5.6],[114,-5.4],[113,-5],[112,-4.5],[110.5,-4],[109,-3.8],[108,-3.8]];
 
   function toXY(lon,lat,st,W,H){
-    const ox=(st.cx+180)/360*W, oy=(90-st.cy)/180*H;
-    const px=(lon+180)/360*W, py=(90-lat)/180*H;
-    return [(px-ox)*st.scale+W/2,(py-oy)*st.scale+H/2];
+    const ox=(st.cx+180)/360*W,oy=(90-st.cy)/180*H;
+    const px=(lon+180)/360*W,py=(90-lat)/180*H;
+    return[(px-ox)*st.scale+W/2,(py-oy)*st.scale+H/2];
   }
-
   function drawPoly(pts,st,W,H,fill,stroke,lw){
     if(!pts||pts.length<2)return;
     ctx.beginPath();
@@ -71,21 +74,17 @@ function initMap(){
     if(fill){ctx.fillStyle=fill;ctx.fill();}
     if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw||0.5;ctx.stroke();}
   }
-
   function drawGrid(st,W,H,dark){
     ctx.strokeStyle=dark?'rgba(180,120,30,0.1)':'rgba(80,60,20,0.08)';
     ctx.lineWidth=0.4;ctx.setLineDash([2,8]);
     for(let lon=-180;lon<=180;lon+=15){
-      ctx.beginPath();const[x]=toXY(lon,90,st,W,H);
-      ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
+      ctx.beginPath();const[x]=toXY(lon,90,st,W,H);ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();
     }
     for(let lat=-90;lat<=90;lat+=15){
-      ctx.beginPath();const[,y]=toXY(-180,lat,st,W,H);
-      ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
+      ctx.beginPath();const[,y]=toXY(-180,lat,st,W,H);ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();
     }
     ctx.setLineDash([]);
   }
-
   function drawCompass(x,y,r,dark){
     const ac=dark?'rgba(200,146,26,0.55)':'rgba(139,94,26,0.45)';
     ctx.save();ctx.translate(x,y);
@@ -94,8 +93,6 @@ function initMap(){
     ctx.setLineDash([1,5]);ctx.beginPath();ctx.arc(0,0,r*.65,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
     ctx.fillStyle=dark?'rgba(200,146,26,0.75)':'rgba(139,94,26,0.65)';
     ctx.beginPath();ctx.moveTo(0,-r*.85);ctx.lineTo(r*.15,-r*.25);ctx.lineTo(0,-r*.1);ctx.lineTo(-r*.15,-r*.25);ctx.closePath();ctx.fill();
-    ctx.globalAlpha=.4;ctx.strokeStyle=ac;
-    ctx.beginPath();ctx.moveTo(0,r*.85);ctx.lineTo(r*.15,r*.25);ctx.lineTo(0,r*.1);ctx.lineTo(-r*.15,r*.25);ctx.closePath();ctx.stroke();
     ctx.globalAlpha=.75;ctx.fillStyle=dark?'rgba(200,146,26,0.85)':'rgba(139,94,26,0.75)';
     ctx.font='bold '+(r*.42)+'px serif';ctx.textAlign='center';
     ctx.fillText('N',0,-r-5);
@@ -194,7 +191,6 @@ function initMap(){
   requestAnimationFrame(render);
 }
 
-// INIT
 document.addEventListener('DOMContentLoaded',function(){
   initTheme();
   injectToggle();
