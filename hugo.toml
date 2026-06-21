@@ -19,10 +19,6 @@ pagination.pagerSize = 10
   Title = "Raisgeo"
   Content = "Notes from every journey"
 
-[[params.socialIcons]]
-  name = "wordpress"
-  url = "https://raisgeo.wordpress.com"
-
 [menu]
   [[menu.main]]
     name = "Arsip"
