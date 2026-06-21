@@ -4,8 +4,8 @@
   --ac:#8B5E1A;--border:#DDE0EF;--card:#FFFFFF;--tag:#6B4818;--tag-bg:#F0EADc;--title:#142848;
 }
 html.dark{
-  --bg:#100E08;--bg2:#18140C;--text:#F0E8D8;--text2:#907860;--text3:#504030;
-  --ac:#C8921A;--border:#241C10;--card:#18140C;--tag:#C8921A;--tag-bg:#1E1408;--title:#D4A870;
+  --bg:#0F0E0C;--bg2:#171510;--text:#F5F5F5;--text2:#E0E0E0;--text3:#A0A0A0;
+  --ac:#C8921A;--border:#2A2418;--card:#171510;--tag:#C8921A;--tag-bg:#1E1408;--title:#C8921A;
 }
 body{background:var(--bg);color:var(--text);font-family:'Lora',Georgia,serif;transition:background .5s,color .5s;min-height:100vh}
 
