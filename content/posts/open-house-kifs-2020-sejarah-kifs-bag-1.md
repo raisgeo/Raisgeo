@@ -1,0 +1,145 @@
+---
+title: "OPEN HOUSE KIFS 2020 : Sejarah KIFS (Bag. 1)"
+date: 2020-10-25T07:42:11+07:00
+draft: false
+---
+
+<!-- wp:image {"id":186,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/10/whatsapp-image-2020-10-25-at-11.21.36.jpeg?w=1024" alt="" class="wp-image-186" /></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Dalam postingan kali ini saya akan membagikan sebuah catatan perjalanan LDF KIFS&nbsp; yang juga menjadi bagian dari perjalanan kehidupan berorganisasi saya selama di UNNES. Materi ini saya susun untuk disampaikan dalam acara Open House peserta magang KIFS 2020.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Karena keterbatasan waktu untuk menyusun materi ini, mengharuskan saya membuat narasi yang singkat dan padat dari perjalanan sebuah lembaga yang sebetulnya memiliki rantai sejarah yang panjang dan memiliki pertautan dengan organisasi besar di Indonesia baik yang sudah menyejarah maupun yang masih eksis hingga saat ini.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Oleh sebab itu saya akan menuliskan nya secara parsial sehingga di lain waktu saya dapat melengkapi tulisannya dengan postingan berikutnya.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Sebagai catatan.. karena rentang generasi yang relatif jauh antara penulis dan para pencetus lembaga, tulisan ini mungkin akan lebih banyak mengulas kontribusi sejarah yang dilahirkan oleh generasi yang tidak jauh dari penulis yang dihimpun dari catatan-catanan digital dari berbagai situs pengurus KIFS sebelumnya. Selamat membaca ...</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Selayang Pandang sejarah berdirinya FIS, LDK UNNES, dan BSO KIFS</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Fakultas Ilmu Sosial (IKIP Semarang-&gt; UNNES)</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>FKIS berdiri pada tahun 1964 (IKIP Cabang Yogyakarta, dulu FKIP UNDIP) (5 Jurusan : Sejarah, Geografi, Ekonomi Umum, Ekonomi Perusahaan, Civics Hukum)</li><li>1982 : berubah menjadi FPIPS (+ Pendidikan Moral PKN)</li><li>2000 : berubah menjadi FIS</li><li>2006 : berdiri Fakultas Ekonomi</li><li>2007 : berdiri Fakultas Hukum</li><li>2013 : Ilmu Politik</li><li>2014 : Prodi IPS</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p><strong>Lembaga Dakwah Kampus (LDK)</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">UKKI UNNES berdiri pada 7 Februari 1988 yang diketuai oleh mahasiswa dari Jurusan Geografi, Drs. Sigit yang sebelumnya pernah mengikuti Latihan Mujahid Dakwah (LMD) di Masjid Salman ITB sementara Prof. Amin selaku Kepala Jurusan Geografi pada saat itu menjadi Pembina UKKI periode pertama.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Lembaga Dakwah Fakultas</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Berdiri pada bulan September 1998 (AD KIFS). KIFS merupakan salah satu Badan Semi Otonom (BSO) di bawah naungan Fakultas Ilmu Sosial yang termasuk paling lama berdiri dibandingkan BSO lainnya seperti SAC (2005, sebelumnya bernama KSG/1997), ERC (2014, sebelumnya bernama ISEC/2012).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>ROHIS tingkat Jurusan</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Secara struktural Rohis Jurusan merupakan lembaga otonom di bawah himpunan mahasiswa (HIMA) jurusan.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>- Rohis Jurusan Ekonomi –&gt; EKSIS FE UNNES (2006)</li><li>- Kelompok Studi Islam HKN* -&gt; LSHI (2007) -&gt; KIFH (2009)</li><li>- Forum Islam Sejarah</li><li>- Forum Studi Islam Geografi (FSIG)</li><li>- Ibny Khaldun Sosio-Anthro</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p><strong>Ketua KIFS dan dinamika struktur kepengurusan</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>1998-2004 : ?</li><li>2005 : Suroto</li><li>2006 : Heni Purwono</li><li>2007 : Tur Santoso</li><li>2008 : Agus Setiyawan</li><li>2009 : Widodo Pratama</li><li>2010 : Himawan*</li><li>2011 : Syukur*</li><li>2012 : Isa*</li><li>2013 : Pradika Adi Wijayanto</li><li>2014 : Miftakhul Hadi</li><li>2015 : Irfan Sugianto</li><li>2016 : Ilham Nugraha</li><li>2017 : Ibnu Hermawan</li><li>2018 : Muhammad Rais</li><li>2019 : Arif Nur Hidayat</li><li>2020 : Ikuh Iskandar</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Pada tahun 2017 GAMAIS ITB pernah melakukan kunjungan silaturahmi ke LDK di Semarang (UNDIP dan UNNES). Pada kunjungannya &nbsp;ke UKKI UNNES tersebut di C7 Lt. 3 yang juga turut diikuti oleh ADK KIFS menginspirasi pengurus KIFS waktu itu untuk merombak struktur kepengurusannya yang kemudian terdiri ke beberapa divisi di bawah garis koordinasi 4 departemen utama, yaitu Syiar (Medkominfo, PK,  dan SOSMAS), Kaderisasi (Pengkaderan dan Pembinaan), Ekonomi (Ekraf dan Relasi), dan Annisa yang kemudian diterapkan pada kepengurusan tahun 2018. Pada tahun tersebut pula menjadi awal penamaan departeman Ekonomi yang sebelumnya bernama departemen dana dan usaha (2011 dan 2016) sedangkan pada kepengurusan tahun 2008 bernama departemen kewirausahaan.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><strong>Jaringan Nasional : Forum Silaturahmi Lembaga Dakwah Kampus</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>Bermula dari acara sarah sehan yang diikuti oleh 13 LDK se-Jawa di JS UGM lalu terbentuklah FSLDK Indonesia pada tahun 1986 sebagai forum koordinasi LDK skala nasional.</li><li>Pada tahun 2007 diselenggarakan silaturahmi Lembaga Dakwah Kampus Fakultas Ilmu Sosial dan Ilmu Politik di UNY yang diikuti oleh 11 LDF ISIP yang menghasilkan kesepakatan bersama untuk mendeklarasikan terbentunya forum kordinasi nasional LDF ISIP bernama FSLDK ISIP.</li><li>Setelah resmi didirikan, FSLDK ISIP rutin melaksanakan MUNAS setiap tahunnya, walalu pun pada tahun 2007 tersebut KIFS tidak hadir dalam acara silaturahmi, namun yang penulis ketahui KIFS pernah mendelegasikan fungsionaris nya pada MUNAS FSLDK ISIP di UNPAD tahun 2016 bahkan pada tahun 2012 pernah menjadi tuan rumah pemrakarsa FSLDK ISIP.</li></ul>
+<!-- /wp:list -->
+
+<!-- wp:paragraph -->
+<p><strong>Program Kerja KIFS</strong></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Sebuah lembaga dakwah mempunyai dua peran utama yakni, Syiar dan Kaderisasi. Dalam tulisan ini penulis hanya menyebutkan beberapa program utama saja dari kedua bidang tersebut.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><em>-Event Keislaman-</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Dalam program event tahunan, KIFS secara konsisten menyelenggarakan Great National Moslem Festival (GNMF) sejak 2011, dalam rangkaian acaranya terdapat lomba tingkat SMA bernama Islamic Art Festival (IAF), Lomba tingkat Mahasiswa, dan Seminar atau Tabliq Akbar.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Pada tahun 2017 sejumlah delegasi KIFS berhasil menjurai cabang lomba MTQ yang diselenggarakan UKM TQ bersama KIFH yang merupakan ajang seleksi delegasi UNNES untuk MTQ MN yang diselenggarakan oleh KEMENRISTEKDIKTI. Keberhasilan tersebut diapresiasi oleh WD III FIS waktu itu Bpk. Ngabyanto untuk mengadopsi GNMF sebagai program tahunan Fakultas, dimana pada tahun 2018-2019 event tersebut ditingkatkan ke skala internasional menjadi GIMF selaras dengan Visi UNNES 2018, internasionalisasi.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><em>-Kaderisasi-</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Program tahunan KIFS dari departemen kaderisasi yang tidak kalah besar adalah Forsimaba yang rutin dilaksanakan dalam rangakaian acara penyambutan mahasiswa baru UNNES. Pada tahun 2011 program ini pernah dinamakan FORSIMUS (Forum Mahasiswa Muslim)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Sementara kegiatan training berjenjang yang diselenggarakan oleh KIFS setiap tahunnya adalahh PKMIT 1 dan 2. Sebelumnya dinamakan TPI (Training Pemuda Islam), TDR (Training Dasar Rohis), dan TEKAD (Training Kader Dakwah)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><em>-Kajian Rutin-</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Kajian rutin merupakan program dari departemen Syiar (PSDM/2017, Divisi PK/2018), dan Departemen Kemuslimahan.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">2011 : Krempeyeng Q (Kajian Remaja Penyejuk Qalbu), ?-2018, 2020 : KISMIS, 2019 : Oksigen-Z dsb.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><em>-Desa Binaan-</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">KIFS memiliki desa binaan yang berpusat di TPQ Deliksari. 2015 adalah tahun pertama pengabdian KIFS di desa Deliksari yng sebelumnya memang merupakan desa binaan UNNES yang sudah tidak berjalan. Menurut referensi yang penulis dapat desa binaan tersebut berawal dari salahsatu proposal Program Kreativitas Mahasiswa (PKM) dari fungsionari KIFS. Di desa tersebut KIFS rutin melaksanakan kegiatan bimbel, belajar Al-Qur’an, Lomba, peringatan HBI, dan bakti sosial.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p><em>-Media Sosial-</em></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:list -->
+<ul><li>kifsprogresif.blogspot (2008)</li><li>kifsmedia.wordpress.com (2013)</li><li>kifsunnes.blogspot.com (2015) IG : @kifsfisunnes (2016), @annisakifs (2018), dll (GIMF / GNMF)</li></ul>
+<!-- /wp:list -->

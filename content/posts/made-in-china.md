@@ -1,0 +1,97 @@
+---
+title: "Book Review : Jack Ma (Biografi)"
+date: 2020-11-23T13:58:00+07:00
+draft: false
+---
+
+<!-- wp:image {"id":216,"sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/11/dsc1110.jpg?w=1024" alt="" class="wp-image-216" /></figure>
+<!-- /wp:image -->
+
+<!-- wp:paragraph -->
+<p>Hari ini saya telah menukar setengah hari saya dengan menuntaskan satu buku setebal 188 halaman ini.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">***</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Belakangan ini saya kembali mendesign diri untuk mempelajari bisnis. Artikel, video, dan buku tentang bisnis adalah asupan sehari-hari. Alasanya sederhana, saya sedang dihampiri banyak ide dan saya harus mengeksekusi ide-ide tersebut bersama teman-teman saya. Tentu dari ide-ide tersebut ada ide yang paling baik tapi ada ide yang terbaik yang mungkin belum saya pikirkan. Oleh karena itu saya harus belajar.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Kali ini, saya mencari inspirasi dari seorang pengusaha terkenal dan terkaya asal Tiongkok. Saya tidak akan mengulas siapa dirinya karena saya tahu kalian mengenalinya. Banyak media Indonesia yang menyebut namanya, karena koneksinya dengan pemerintah Indonesia. Dialah Jack Ma, Pendiri Alibaba. &nbsp;oleh pemerintah Indonesia ditunjuk menjadi Advisor e-<em>commerce</em> Indonesia.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Di tulisan kali ini saya hendak mengutip salah satu isi pidatonya. Pidato yang berisi tentang cerita ‘filosofi’ khas Tiongkok. Jika kalian mengikuti artikel di blog saya, mungkin kalian akan sering menemukan cerita klasik tiongkok. Saya memang banyak belajar dari filosofi china.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">***</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify"><em>ketika badai datang. Ada tiga orang, satu dari mereka punya payung yang sangat baik, satu lagi memiliki jas hujan yang sangat baik, dan yang satu lagi tidak mempunyai keduanya.</em> </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify"><em>Saat badai akhirnya tiba, dua orang dengan payung dan jas hujan pergi keluar, beranggapan bahwa mereka akan bisa tiba di tempat tujuan mereka. Pada akhirnya, keduanya tidak ada yang tiba di tempat tujuan mereka, karena salah satu dari mereka tergelincir dan kakinya patah, sementara yang lainnya tergelincir dan punggungnya patah. Namun orang yang tidak punya baik jas hujan ataupun payung itu hanya diam menunggu di dalam selama dua jam, meregangkan tubuhnya. Saat hujan berenti ia keluar dari pintu dan menjadi yang pertama tiba di tempat tujuan.</em>  </p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">(Dikutip dari buku biografi ‘Jack Ma &amp; Alibaba oleh Yan Qicheng hlm. 146)</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"center"} -->
+<p class="has-text-align-center">***</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Sebenarnya cerita ini memang sederhana, tapi pesan moralnya penting.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Jack Ma meneruskan dalam pidatonya bahwa bersikap tenang dan objektif saat ekonomi terlihat suram memang mudah dikatakan tapi sulit diterapkan. Kita perlu berpikir rasional dan futuristis.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Satu hal yang ditonjolkan dari seorang Jack Ma dalam buku ini. Dia adalah seorang pembicara berbakat. Ia juga pernah menjadi seorang Presiden Mahasiswa di Kampusnya. Ia pandai berbahasa Inggris sejak muda dan melatih skillnya dengan menemui wisatawan asing dan menjadi pemandu gratis. Kemampuan komunikasinya ini  (<em>Gift of the Gab</em>) menjadi modal dalam kesuksesan karirnya.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Satu lagi, kisah ia dan ayahnya. (<em>Entah mengapa tiap saya membaca cerita pembisnis sukses, selalu dikisahkan peran seorang ayah yang membentuk mental sang anak</em>).. dalam kisah Jack Ma ini, ia awalnya seorang siswa yang lemah dalam matematika namun ayahnya mencarikan ia seorang guru matematika terbaik di Hangzhou hingga berhasil menghidupkan minat Jack Ma terhadap pelajaran matematika. Kemudian ia berhasil diterima di Universitas, setelah gagal 2 kali karna skor ujiannya yang di bawah minimum. (<em>saya belajar lagi, bahwa tidak ada murid yang bodoh, yang ada dia belum mendapatkan guru terbaik, bahkan untuk pelajaran yang membosankan sekalipun bagi siswa, guru terbaik dapat membuat mereka tertarik. Jika siswa tidak paham bahkan sudah diajar oleh guru terbaik, itu baru salah siswa yang tidak sungguh-sungguh dalam belajar</em>).</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Dari sekian pelajaran bisnis dan hal-hal teknis tentang bisnis di buku ini, saya memilih untuk menuliskan hal ringan di blog ini.. seperti pentingnya pendidikan dan peran orang tua. Ringan tetapi penting. Kita tahu bahwa ilmu bisnis dapat kita pelajari saat beranjak dewasa, tetapi soal bakat, sangat penting untuk dikenali dan dikembangkan sedini mungkin.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Puluhan tahun karir yang dilalui seseorang dalam hidupnya adalah hasil keputusannya ketika berusia 18 tahun (rata-rata), yakni keputusan tentang bidang apa yang akan ia pelajari di perkuliahan. &nbsp;Maka bagi saya masa SMA adalah masa penting bagi seorang anak. Masa dimana ia sudah harus memiliki konsep diri, mental dan pemikiran yang dewasa. Masa SMP juga tidak kalah penting, ia sudah harus membuat target dalam hidupnya. Salah satu keputusan besar dalam hidupnya adalah memilih jurusan apa kelak di masa SMA. Sedangkan masa SD adalah masa fondasi, ia perlu belajar banyak, mengumpulkan pengalaman, dan membangun serta mengenali bakat. Intinya setiap masa dalam hidup, semuanya sama pentingnya dengan keharusan yang berbeda. Kalo perlu, memasuki usia kelas 4 SD, seorang anak sudah harus mengontrol diri dari kegiatan yang minim manfaat bagi masa depanya, orang tua lah yang saat itu berperan, bukan dengan otoriter tetapi melalui komunikasi/diskusi dengan anak itu sendiri.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Anda dan saya pernah menjadi anak-anak. Saya tahu betul di usia kelas 4 SD itulah kita sudah bisa berdikusi dengan orang tua tentang masa depan seperti apa yang kita mau. Orang tua perlu mengenalkan dan mengajarkan banyak hal tentang kehidupan pada masa itu. Di usia itu juga seorang anak sudah bisa diajak untuk menghasilkan karya yang mengagumkan bahkan menjadi pemimpin bagi teman-temanya. Begitulah saya, di usia kelas 3 SD saya sudah bisa merencanakan keuangan saya. Mulai menabung dari uang jajan yang saya sisihkan. Menjadi ketua kelas dan ranking 3 besar. Usia kelas 3 SD saya memang belum tahu banyak tentang kehidupan, tapi apabila saya diarahkan, saya yakin saya bisa berperan lebih baik.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Semoga dari catatan ini bisa saya terapkan baik untuk adik-adik saya, ataupun kelak ketika saya menjadi orang tua. Karna apabila tidak dicatat dan direncanakan, kita akan mulai disibukkan dengan pekerjaan-pekerjaan kita. Orang hebat adalah mereka yang tidak dikalahkan usia untuk tetap memujudkan idealismenya..</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Sampai di sini dulu ya postingan kali ini. Semoga sedikit kutipan cerita di atas menjadi pelajaran berharga untuk hari ini dan hari esok. Saya tutup dengan <strong>quotes</strong> dari <strong>Jack Ma</strong> :</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p><em>“Banyak orang muda memimpikan berbagai jalan hidup yang luar biasa sebelum mereka tidur, tapi saat mereka bangun mereka masih melanjutkan berjalan di jalan yang sama”</em></p></blockquote>
+<!-- /wp:quote -->
+
+<!-- wp:paragraph {"align":"justify"} -->
+<p class="has-text-align-justify">Hal terpenting saat mendirikan bisnis baru di Tiongkok bukanlah soal anda memiliki ide, idealism, atau mimpi yang sangat hebat. Yang terpenting adalah apakah anda bersedia membayar harga yang harus dibayar dan apakah anda bersedia mengerahkan segala yang anda miliki untuk membuktikan anda benar.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:quote -->
+<blockquote class="wp-block-quote"><p><em>“setiap pengalam adalah sebuah kesuksesan tersendiri. Anda harus mencobanya. Jika gagal, anda bisa selalu mengambil jalan lain. tapi jika anda tidak pernah mencoba, anda hanya akan menjadi salah satu dari mereka yang mengambil jalan yang sama setiap pagi dan tak pernah merealisasikan jalan yang mereka bayangkan dalam pikiran mereka sebelum tidur.”</em></p></blockquote>
+<!-- /wp:quote -->
