@@ -2,7 +2,7 @@ baseURL = "https://raisgeo.pages.dev/"
 languageCode = "id"
 title = "Raisgeo — Geographer Journal"
 theme = "PaperMod"
-paginate = 10
+pagination.pagerSize = 10
 
 [params]
   author = "Rais"
