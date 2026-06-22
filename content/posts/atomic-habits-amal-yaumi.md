@@ -83,4 +83,7 @@ categories: ["Reflections"]
 
 <!-- wp:paragraph -->
 <p>Oh ya teman-teman. Tujuan sukses itu tidak hanya perihal dunia.<br>Namun juga kehidupan setelahnya.<br>Kalau kamu hanya mengejar dunia, akhirat belum tentu didapat.<br>milikilah tujuan yang lebih besar.<br>Jika kamu punya cita-cita besar di akhirat, masa capaian-capaian besar di dunia tidak bisa kamu dapatkan<br>Kamu harus hebat di keduannya.</p>
+<!-- /wp:paragraph --><!-- wp:paragraph -->
+
+<p>Ada pepatah yang mengatakan<br>Kalau kamu minta gelas, kamu akan dapat gelas.<br>Kalau kamu minta air, kamu akan dapat air dan gelas.<br>Kalau kamu kejar dunia, kamu akan dapat dunia<br>Tapi jika kamu akhirat, kamu akan dapat dunia dan akhirat.</p>
 <!-- /wp:paragraph -->
