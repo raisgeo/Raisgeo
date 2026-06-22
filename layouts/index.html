@@ -9,20 +9,68 @@
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-l">{{ now.Format "Monday, 2 January 2006" }}</div>
-</div>
+<!-- ========== HEADER BARU ========== -->
+<header class="site-header">
 
-<nav>
-  <a class="logo" href="/">The Geographer's Journal</a>
-  <button class="tog" id="tog" onclick="toggleTheme()" aria-label="Toggle theme"></button>
-</nav>
+  <!-- Topbar merah: tanggal auto-update via JS -->
+  <div class="hdr-topbar">
+    <span id="hdr-date"></span>
+  </div>
 
-<div class="subnav">
-  <a href="/" class="subnav-item active">Terbaru</a>
-  <a href="/archives/" class="subnav-item">Arsip</a>
-  <a href="/about/" class="subnav-item">Tentang</a>
-</div>
+  <!-- Baris utama: logo + nav pills + dark toggle -->
+  <div class="hdr-main">
+    <a href="/" class="hdr-logo">
+      The Geographer's <span class="logo-accent">Journal</span>
+    </a>
+    <nav class="hdr-nav" aria-label="Navigasi utama">
+      <a href="/"        class="hdr-pill" id="pill-blog">Blog</a>
+      <a href="/webgis/" class="hdr-pill" id="pill-webgis">WebGIS</a>
+      <a href="/archives/" class="hdr-pill" id="pill-arsip">Arsip</a>
+      <a href="/about/"  class="hdr-pill" id="pill-about">About</a>
+    </nav>
+    <button class="tog" id="tog" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+  </div>
+
+  <!-- Subtitle dinamis -->
+  <div class="hdr-subtitle" id="hdr-subtitle"></div>
+
+</header>
+
+<script>
+(function () {
+  // Tanggal auto-update — tidak bergantung Hugo template
+  var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  var now = new Date();
+  document.getElementById('hdr-date').textContent =
+    DAYS[now.getDay()] + ', ' + now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
+
+  // Subtitle + active pill berdasarkan path
+  var path = window.location.pathname;
+  var subtitle = '';
+  var activeId = 'pill-blog';
+
+  if (path.startsWith('/webgis')) {
+    subtitle  = "The Geographer\u2019s Journal \u2022 WebGIS Dashboard";
+    activeId  = 'pill-webgis';
+  } else if (path.startsWith('/archives') || path.startsWith('/arsip')) {
+    subtitle  = "The Geographer\u2019s Journal \u2022 Arsip";
+    activeId  = 'pill-arsip';
+  } else if (path.startsWith('/about') || path.startsWith('/tentang')) {
+    subtitle  = "The Geographer\u2019s Journal \u2022 About";
+    activeId  = 'pill-about';
+  } else {
+    subtitle  = "The Geographer\u2019s Journal \u2022 Notes From Every Journey";
+    activeId  = 'pill-blog';
+  }
+
+  document.getElementById('hdr-subtitle').textContent = subtitle;
+  var pill = document.getElementById(activeId);
+  if (pill) pill.classList.add('active');
+})();
+</script>
+<!-- ========== / HEADER BARU ========== -->
 
 <section class="hero">
   <canvas id="heroCanvas"></canvas>

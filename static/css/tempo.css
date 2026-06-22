@@ -112,3 +112,138 @@ footer{padding:20px 48px;border-top:1px solid var(--border);display:flex;justify
 .post-nav-next{text-align:right}
 .post-nav-label{display:block;font-size:10px;letter-spacing:0.12em;color:var(--ac);text-transform:uppercase;font-weight:700;margin-bottom:6px}
 .post-nav-title{font-family:'Playfair Display',serif;font-size:14px;color:var(--text);font-weight:700;line-height:1.3}
+/* ================================================
+   HEADER BARU RAISGEO
+   Tempel di bagian PALING BAWAH file tempo.css
+   ================================================ */
+
+/* --- Struktur utama header --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: #fff;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+/* --- Topbar merah tipis (tanggal) --- */
+.hdr-topbar {
+  background: #CC0000;
+  padding: 4px 28px;
+  line-height: 1;
+}
+.hdr-topbar span {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+
+/* --- Baris logo + nav + toggle --- */
+.hdr-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 28px;
+}
+
+/* --- Logo --- */
+.hdr-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: #111;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.hdr-logo:hover {
+  color: #111;
+  text-decoration: none;
+}
+.logo-accent {
+  color: #CC0000;
+}
+
+/* --- Nav pills --- */
+.hdr-nav {
+  display: flex;
+  gap: 6px;
+}
+.hdr-pill {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  color: #555;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.hdr-pill:hover {
+  border-color: #CC0000;
+  color: #CC0000;
+  text-decoration: none;
+}
+.hdr-pill.active {
+  background: #CC0000;
+  color: #fff !important;
+  border-color: #CC0000;
+}
+
+/* --- Subtitle bawah navbar --- */
+.hdr-subtitle {
+  padding: 5px 28px 7px;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: #999;
+  border-top: 1px solid #f2f2f2;
+  letter-spacing: 0.01em;
+}
+
+/* ================================================
+   DARK MODE
+   ================================================ */
+html.dark .site-header {
+  background: #111;
+  border-bottom-color: #2a2a2a;
+}
+html.dark .hdr-topbar {
+  background: #990000;
+}
+html.dark .hdr-logo {
+  color: #f0ece4;
+}
+html.dark .logo-accent {
+  color: #FF3333;
+}
+html.dark .hdr-pill {
+  color: #aaa;
+  border-color: #3a3a3a;
+}
+html.dark .hdr-pill:hover {
+  color: #FF3333;
+  border-color: #FF3333;
+}
+html.dark .hdr-pill.active {
+  background: #FF3333;
+  border-color: #FF3333;
+  color: #fff !important;
+}
+html.dark .hdr-subtitle {
+  color: #555;
+  border-top-color: #1e1e1e;
+}
+
+/* ================================================
+   HAPUS STYLE LAMA topbar / nav / subnav
+   (override supaya tidak konflik)
+   ================================================ */
+.topbar { display: none !important; }
+.subnav { display: none !important; }
+nav:not(.hdr-nav) {
+  /* nav lama disembunyikan jika masih ada */
+}
