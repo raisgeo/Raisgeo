@@ -13,14 +13,15 @@
 
 <div class="page-wrap">
   <div class="page-eyebrow">{{ .Title }}</div>
-  <h1 class="page-title">{{ len .Pages }} artikel</h1>
+  <h1 class="page-title" style="margin-bottom:8px;">{{ .Title }}</h1>
+  <p class="cat-count">{{ len .Pages }} artikel</p>
 
   <div class="cat-list">
     {{ range .Pages.ByDate.Reverse }}
     <a href="{{ .RelPermalink }}" class="cat-item">
       <div class="cat-item-body">
         <div class="cat-item-title">{{ .Title }}</div>
-        <div class="cat-item-excerpt">{{ .Summary | plainify | truncate 100 }}</div>
+        <div class="cat-item-excerpt">{{ .Summary | plainify | truncate 120 }}</div>
       </div>
       <div class="cat-item-meta">
         <span class="cat-item-date">{{ .Date.Format "2 Jan 2006" }}</span>
@@ -28,6 +29,17 @@
       </div>
     </a>
     {{ end }}
+  </div>
+
+  <div class="cat-all-cats">
+    <div class="cat-all-label">Semua kategori</div>
+    <div class="cat-all-pills">
+      {{ range .Site.Taxonomies.categories.ByCount }}
+      <a href="{{ .Page.RelPermalink }}" class="cat-pill {{ if eq $.Title .Page.Title }}active{{ end }}">
+        {{ .Page.Title }} <span class="cat-pill-count">{{ .Count }}</span>
+      </a>
+      {{ end }}
+    </div>
   </div>
 </div>
 
