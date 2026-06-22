@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebGIS · {{ .Site.Title }}</title>
+<link rel="stylesheet" href="/css/tempo.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+{{ partial "header.html" . }}
+
+<div class="page-wrap" style="max-width:760px; margin: 60px auto; padding: 0 28px;">
+
+  <div class="page-eyebrow">Peta Interaktif</div>
+  <h1 class="page-title" style="font-family:'Playfair Display',serif; font-size:42px; margin-bottom:12px;">WebGIS Dashboard</h1>
+  <p style="font-family:'Lora',serif; font-style:italic; color:#888; font-size:16px; margin-bottom:48px;">
+    Visualisasi data spasial · Kalimantan &amp; sekitarnya
+  </p>
+
+  <div style="border:1px solid #e5e5e5; border-radius:8px; padding:48px 32px; text-align:center; background:#fafafa;">
+    <div style="font-size:48px; margin-bottom:16px;">🗺️</div>
+    <p style="font-family:'Playfair Display',serif; font-size:22px; color:#111; margin-bottom:8px;">
+      Dashboard sedang disiapkan
+    </p>
+    <p style="font-family:'Lora',serif; font-style:italic; color:#999; font-size:15px; line-height:1.7;">
+      Halaman ini akan menampilkan peta interaktif berbasis Google Earth Engine —<br>
+      tutupan lahan, deforestasi, dan analisis spasial Kalimantan.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <a class="foot-logo" href="/">The Geographer's Journal</a>
+</footer>
+
+<script src="/js/map.js"></script>
+</body>
+</html>

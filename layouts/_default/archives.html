@@ -8,16 +8,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="topbar"><div class="topbar-l">{{ now.Format "Monday, 2 January 2006" }}</div></div>
-<nav>
-  <a class="logo" href="/">The Geographer's Journal</a>
-  <button class="tog" onclick="toggleTheme()" aria-label="Toggle theme"></button>
-</nav>
-<div class="subnav">
-  <a href="/" class="subnav-item">Terbaru</a>
-  <a href="/archives/" class="subnav-item active">Arsip</a>
-  <a href="/about/" class="subnav-item">Tentang</a>
-</div>
+
+{{ partial "header.html" . }}
+
 <div class="page-wrap">
   <div class="page-eyebrow">Semua tulisan</div>
   <h1 class="page-title">Arsip</h1>
@@ -40,10 +33,12 @@
   </div>
   {{ end }}
 </div>
+
 <footer>
   <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
   <a class="foot-logo" href="/">The Geographer's Journal</a>
 </footer>
+
 <script src="/js/map.js"></script>
 </body>
 </html>
