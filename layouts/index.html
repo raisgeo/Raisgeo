@@ -40,7 +40,6 @@
         <img src="{{ .Params.image }}" alt="{{ .Title }}" onerror="this.style.display='none'">
         {{ end }}
         <div class="img-fallback">
-          <div class="img-grid"></div>
           <div class="img-num">01</div>
         </div>
       </a>
@@ -66,7 +65,6 @@
           <img src="{{ $p.Params.image }}" alt="{{ $p.Title }}" onerror="this.style.display='none'">
           {{ end }}
           <div class="img-fallback">
-            <div class="img-grid"></div>
             <div class="img-num" style="font-size:36px">{{ printf "%02d" (add $i 2) }}</div>
           </div>
         </a>

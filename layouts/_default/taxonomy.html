@@ -30,7 +30,6 @@
       <img src="{{ .Params.image }}" alt="{{ .Title }}" onerror="this.style.display='none'">
       {{ end }}
       <div class="img-fallback">
-        <div class="img-grid"></div>
         <div class="img-num">01</div>
       </div>
     </a>
@@ -55,8 +54,8 @@
         <img src="{{ $p.Params.image }}" alt="{{ $p.Title }}" onerror="this.style.display='none'">
         {{ end }}
         <div class="img-fallback">
-          <div class="img-grid"></div>
           <div class="img-num" style="font-size:40px;">{{ printf "%02d" (add $i 2) }}</div>
+          <!-- cover image ready: tambahkan image: "/images/covers/nama.jpg" di front matter artikel -->
         </div>
       </div>
       <div class="tax-card-body">
