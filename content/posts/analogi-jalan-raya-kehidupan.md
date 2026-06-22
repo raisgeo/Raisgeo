@@ -6,10 +6,6 @@ categories: ["Opinions"]
 image: "/images/covers/analogi-jalan-raya.jpg"
 ---
 
-<!-- wp:image {"id":696,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2026/06/whatsapp-image-2026-06-01-at-15.42.56.jpeg?w=768" alt="" class="wp-image-696" /></figure>
-<!-- /wp:image -->
-
 <!-- wp:paragraph -->
 <p>Setiap <em>weekend</em>, saya menghabiskan waktu hampir empat jam di atas jok motor, membelah jarak sekitar 145 kilometer yang membentang antara Pulang Pisau dan Banjarbaru. Perjalanan rutin ini lambat laun berubah menjadi ruang kontemplasi dan laboratorium sosiologi bagi saya. Di antara deru angin dan raungan mesin, saya menyadari satu hal: jalan raya menjadi miniatur saya dalam menganalogikan bagaimana manusia bermobilitas sosial, memanjat kelas, mengejar apa yang kita sebut sebagai “kesuksesan”.</p>
 <!-- /wp:paragraph -->
