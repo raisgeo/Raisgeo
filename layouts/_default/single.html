@@ -12,18 +12,21 @@
 {{ partial "header.html" . }}
 
 <article class="post-wrap">
-  {{ if .Params.image }}
-  <div class="post-cover">
-    <img src="{{ .Params.image }}" alt="{{ .Title }}">
-  </div>
-  {{ end }}
   <div class="post-header">
     {{ if eq .Type "posts" }}
     <div class="page-eyebrow">{{ .Date.Format "2 January 2006" }} · {{ .ReadingTime }} menit baca</div>
     {{ end }}
     <h1 class="post-title">{{ .Title }}</h1>
   </div>
+
+  {{ if .Params.image }}
+  <div class="post-cover">
+    <img src="{{ .Params.image }}" alt="{{ .Title }}">
+  </div>
+  {{ end }}
+
   <div class="post-body">{{ .Content }}</div>
+
   <div class="post-nav">
     {{ with .PrevInSection }}
     <a href="{{ .RelPermalink }}" class="post-nav-link">
