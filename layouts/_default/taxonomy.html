@@ -48,22 +48,22 @@
 
   {{ if gt (len $pages) 1 }}
   <div class="tax-grid">
-    {{ range after 1 $pages }}
-    <a href="{{ .RelPermalink }}" class="tax-card">
+    {{ range $i, $p := after 1 $pages }}
+    <a href="{{ $p.RelPermalink }}" class="tax-card">
       <div class="tax-card-img">
-        {{ if .Params.image }}
-        <img src="{{ .Params.image }}" alt="{{ .Title }}" onerror="this.style.display='none'">
+        {{ if $p.Params.image }}
+        <img src="{{ $p.Params.image }}" alt="{{ $p.Title }}" onerror="this.style.display='none'">
         {{ end }}
         <div class="img-fallback">
           <div class="img-grid"></div>
-          <div class="img-num" style="font-size:40px;">{{ .Date.Format "06" }}</div>
+          <div class="img-num" style="font-size:40px;">{{ printf "%02d" (add $i 2) }}</div>
         </div>
       </div>
       <div class="tax-card-body">
-        <div class="mini-badge">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
-        <div class="tax-card-title">{{ .Title }}</div>
-        <div class="tax-card-excerpt">{{ .Summary | plainify | truncate 80 }}</div>
-        <div class="tax-card-meta">{{ .Date.Format "2 Jan 2006" }} · {{ .ReadingTime }} menit</div>
+        <div class="mini-badge">{{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
+        <div class="tax-card-title">{{ $p.Title }}</div>
+        <div class="tax-card-excerpt">{{ $p.Summary | plainify | truncate 80 }}</div>
+        <div class="tax-card-meta">{{ $p.Date.Format "2 Jan 2006" }} · {{ $p.ReadingTime }} menit</div>
       </div>
     </a>
     {{ end }}
