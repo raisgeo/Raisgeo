@@ -1,7 +1,8 @@
 ---
-title: "Book Review : Jack Ma (Biografi)"
+title: "Jack Ma & Alibaba"
 date: 2020-11-23T13:58:00+07:00
 draft: false
+categories: ["Book Review"]
 ---
 
 <!-- wp:image {"id":216,"sizeSlug":"large","linkDestination":"none"} -->

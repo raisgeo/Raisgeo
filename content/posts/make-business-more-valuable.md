@@ -2,6 +2,7 @@
 title: "Make Your Business More Valuable"
 date: 2020-07-30T09:56:41+07:00
 draft: false
+categories: ["Opinions"]
 ---
 
 <!-- wp:image {"align":"center","id":154,"sizeSlug":"large"} -->

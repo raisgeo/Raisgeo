@@ -1,7 +1,8 @@
 ---
-title: "Membangun sentimen positif tentang Indonesia"
+title: "Sentimen Positif tentang Indonesia"
 date: 2021-05-17T21:14:09+07:00
 draft: false
+categories: ["Opinions"]
 ---
 
 <!-- wp:image {"align":"center","id":435,"sizeSlug":"large","linkDestination":"none"} -->

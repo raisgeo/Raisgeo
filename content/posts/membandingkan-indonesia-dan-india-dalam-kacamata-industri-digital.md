@@ -2,7 +2,9 @@
 title: "Indonesia versus India"
 date: 2021-03-31T00:52:00+07:00
 draft: false
+categories: ["Opinions"]
 ---
+
 
 <!-- wp:image {"id":310,"sizeSlug":"large","linkDestination":"none"} -->
 <figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2021/03/naveed-ahmed-9dt4wutvwds-unsplash.jpg?w=1024" alt="" class="wp-image-310" /><figcaption>Photo by <a href="https://unsplash.com/@naveedahmed?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Naveed Ahmed</a> on <a href="/s/photos/india?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure>

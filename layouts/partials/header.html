@@ -1,20 +1,17 @@
 <header class="site-header">
 
-  <!-- Topbar merah: tanggal auto-update via JS -->
   <div class="hdr-topbar">
     <span id="hdr-date"></span>
   </div>
 
-  <!-- Baris utama: logo + nav pills + dark toggle -->
   <div class="hdr-main">
     <a href="/" class="hdr-logo">
       The Geographer's <span class="logo-accent">Journal</span>
     </a>
     <nav class="hdr-nav" aria-label="Navigasi utama">
 
-      <!-- Blog dengan dropdown -->
       <div class="hdr-pill-wrap" id="wrap-blog">
-        <a href="/" class="hdr-pill" id="pill-blog">Blog</a>
+        <a href="/" class="hdr-pill" id="pill-blog">Blog ▾</a>
         <div class="hdr-dropdown" id="dropdown-blog">
           <a href="/" class="hdr-drop-item">
             <span class="hdr-drop-label">All Posts</span>
@@ -47,13 +44,13 @@
     <button class="tog" id="tog" onclick="toggleTheme()" aria-label="Toggle theme"></button>
   </div>
 
-  <!-- Subtitle dinamis -->
   <div class="hdr-subtitle" id="hdr-subtitle"></div>
 
 </header>
 
 <script>
 (function () {
+  // Tanggal
   var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var MONTHS = ['January','February','March','April','May','June',
                 'July','August','September','October','November','December'];
@@ -61,6 +58,7 @@
   document.getElementById('hdr-date').textContent =
     DAYS[now.getDay()] + ', ' + now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
 
+  // Subtitle + active pill
   var path = window.location.pathname;
   var subtitle = '';
   var activeId = 'pill-blog';
@@ -95,16 +93,18 @@
   var pill = document.getElementById(activeId);
   if (pill) pill.classList.add('active');
 
-  // Dropdown hover
-  var wrap = document.getElementById('wrap-blog');
-  var dropdown = document.getElementById('dropdown-blog');
-  if (wrap && dropdown) {
-    wrap.addEventListener('mouseenter', function() {
-      dropdown.classList.add('open');
-    });
-    wrap.addEventListener('mouseleave', function() {
-      dropdown.classList.remove('open');
-    });
-  }
+  // Dropdown hover — tunggu DOM ready
+  window.addEventListener('DOMContentLoaded', function() {
+    var wrap = document.getElementById('wrap-blog');
+    var dropdown = document.getElementById('dropdown-blog');
+    if (wrap && dropdown) {
+      wrap.addEventListener('mouseenter', function() {
+        dropdown.style.display = 'block';
+      });
+      wrap.addEventListener('mouseleave', function() {
+        dropdown.style.display = 'none';
+      });
+    }
+  });
 })();
 </script>

@@ -5,7 +5,6 @@ draft: false
 categories: ["Reflections"]
 ---
 
-
 <!-- wp:image {"id":672,"sizeSlug":"large"} -->
 <figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2026/02/8e0082be-c3cd-43fb-a0eb-eb7a270fda37.jpg?w=768" alt="" class="wp-image-672" /></figure>
 <!-- /wp:image -->
