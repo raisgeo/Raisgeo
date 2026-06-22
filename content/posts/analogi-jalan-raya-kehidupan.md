@@ -3,7 +3,7 @@ title: "Analogi Jalan Raya Kehidupan"
 date: 2026-06-01T15:34:14+07:00
 draft: false
 categories: ["Opinions"]
-Images: "/Images/covers/analogi-jalan-raya"
+Images: "/Images/covers/analogi-jalan-raya.jpg"
 ---
 
 <!-- wp:image {"id":696,"sizeSlug":"large","linkDestination":"none"} -->
