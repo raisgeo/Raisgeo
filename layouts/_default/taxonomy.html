@@ -11,28 +11,68 @@
 
 {{ partial "header.html" . }}
 
-<div class="page-wrap">
-  <div class="page-eyebrow">{{ .Title }}</div>
-  <h1 class="page-title" style="margin-bottom:8px;">{{ .Title }}</h1>
-  <p class="cat-count">{{ len .Pages }} artikel</p>
+<div class="tax-wrap">
 
-  <div class="cat-list">
-    {{ range .Pages.ByDate.Reverse }}
-    <a href="{{ .RelPermalink }}" class="cat-item">
-      <div class="cat-item-body">
-        <div class="cat-item-title">{{ .Title }}</div>
-        <div class="cat-item-excerpt">{{ .Summary | plainify | truncate 120 }}</div>
+  <!-- Header halaman -->
+  <div class="tax-header">
+    <div class="page-eyebrow">{{ .Title }}</div>
+    <h1 class="tax-title">{{ .Title }}</h1>
+    <p class="tax-count">{{ len .Pages }} artikel</p>
+  </div>
+
+  <!-- Grid artikel -->
+  {{ $pages := .Pages.ByDate.Reverse }}
+
+  {{ with index $pages 0 }}
+  <div class="tax-featured">
+    <a href="{{ .RelPermalink }}" class="tax-featured-img">
+      {{ if .Params.image }}
+      <img src="{{ .Params.image }}" alt="{{ .Title }}" onerror="this.style.display='none'">
+      {{ end }}
+      <div class="img-fallback">
+        <div class="img-grid"></div>
+        <div class="img-num">01</div>
       </div>
-      <div class="cat-item-meta">
-        <span class="cat-item-date">{{ .Date.Format "2 Jan 2006" }}</span>
-        <span class="cat-item-time">{{ .ReadingTime }} menit</span>
+    </a>
+    <div class="tax-featured-body">
+      <div class="badge">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
+      <a href="{{ .RelPermalink }}"><div class="tax-featured-title">{{ .Title }}</div></a>
+      <div class="tax-featured-excerpt">{{ .Summary | plainify | truncate 160 }}</div>
+      <div class="tax-featured-meta">
+        <span>{{ .Date.Format "2 Jan 2006" }}</span>
+        <span>{{ .ReadingTime }} menit baca</span>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+
+  {{ if gt (len $pages) 1 }}
+  <div class="tax-grid">
+    {{ range after 1 $pages }}
+    <a href="{{ .RelPermalink }}" class="tax-card">
+      <div class="tax-card-img">
+        {{ if .Params.image }}
+        <img src="{{ .Params.image }}" alt="{{ .Title }}" onerror="this.style.display='none'">
+        {{ end }}
+        <div class="img-fallback">
+          <div class="img-grid"></div>
+          <div class="img-num" style="font-size:40px;">{{ .Date.Format "06" }}</div>
+        </div>
+      </div>
+      <div class="tax-card-body">
+        <div class="mini-badge">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
+        <div class="tax-card-title">{{ .Title }}</div>
+        <div class="tax-card-excerpt">{{ .Summary | plainify | truncate 80 }}</div>
+        <div class="tax-card-meta">{{ .Date.Format "2 Jan 2006" }} · {{ .ReadingTime }} menit</div>
       </div>
     </a>
     {{ end }}
   </div>
+  {{ end }}
 
-  <div class="cat-all-cats">
-    <div class="cat-all-label">Semua kategori</div>
+  <!-- Pills kategori lain -->
+  <div class="tax-cats">
+    <div class="cat-all-label">Kategori lainnya</div>
     <div class="cat-all-pills">
       {{ range .Site.Taxonomies.categories.ByCount }}
       <a href="{{ .Page.RelPermalink }}" class="cat-pill {{ if eq $.Title .Page.Title }}active{{ end }}">
@@ -41,6 +81,7 @@
       {{ end }}
     </div>
   </div>
+
 </div>
 
 <footer>
