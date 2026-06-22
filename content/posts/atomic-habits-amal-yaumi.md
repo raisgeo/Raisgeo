@@ -5,11 +5,6 @@ draft: false
 categories: ["Reflections"]
 ---
 
-
-<!-- wp:image {"id":484,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2021/06/mg_6654.jpg?w=1024" alt="" class="wp-image-484" /></figure>
-<!-- /wp:image -->
-
 <!-- wp:paragraph -->
 <p>let me get straight to the point</p>
 <!-- /wp:paragraph -->
