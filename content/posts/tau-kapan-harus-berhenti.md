@@ -2,6 +2,7 @@
 title: "Tau Kapan Harus Berhenti"
 date: 2020-12-12T22:42:35+07:00
 draft: false
+categories: ["Reflections"]
 ---
 
 <!-- wp:image {"id":235,"sizeSlug":"large","linkDestination":"none"} -->

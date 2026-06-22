@@ -2,6 +2,7 @@
 title: "Truth in the Post-Truth Era"
 date: 2020-01-26T07:14:50+07:00
 draft: false
+categories: ["Opinions"]
 ---
 
 <!-- wp:gallery {"ids":[116],"linkTo":"none"} -->

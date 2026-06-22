@@ -1,7 +1,8 @@
 ---
-title: "Mengapa bukan mereka ?"
+title: "Apa yang Membuatmu Berbeda"
 date: 2020-11-10T00:06:34+07:00
 draft: false
+categories: ["Reflections"]
 ---
 
 <!-- wp:image {"align":"center","id":384,"width":491,"height":491,"sizeSlug":"large","linkDestination":"none"} -->

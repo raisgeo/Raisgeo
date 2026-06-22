@@ -1,8 +1,10 @@
 ---
-title: "Realita Kita"
+title: "Muda Idealis, Tua Realistis"
 date: 2021-06-27T16:42:21+07:00
 draft: false
+categories: ["Reflections"]
 ---
+
 
 <!-- wp:image {"id":484,"sizeSlug":"large","linkDestination":"none"} -->
 <figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2021/06/mg_6654.jpg?w=1024" alt="" class="wp-image-484" /></figure>

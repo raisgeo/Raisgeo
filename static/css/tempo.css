@@ -247,3 +247,229 @@ html.dark .hdr-subtitle {
 nav:not(.hdr-nav) {
   /* nav lama disembunyikan jika masih ada */
 }
+/* ================================================
+   DROPDOWN NAVBAR + HALAMAN KATEGORI
+   Tempel di bagian PALING BAWAH file tempo.css
+   (setelah CSS header yang sudah ada sebelumnya)
+   ================================================ */
+
+/* --- Wrapper pill Blog (untuk posisi dropdown) --- */
+.hdr-pill-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* --- Dropdown menu --- */
+.hdr-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: 200px;
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  z-index: 300;
+  overflow: hidden;
+}
+.hdr-dropdown.open {
+  display: block;
+}
+
+/* --- Item dalam dropdown --- */
+.hdr-drop-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px;
+  text-decoration: none;
+  transition: background 0.12s;
+}
+.hdr-drop-item:hover {
+  background: #faf5f5;
+  text-decoration: none;
+}
+.hdr-drop-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #111;
+}
+.hdr-drop-desc {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 11px;
+  color: #999;
+  margin-top: 1px;
+}
+.hdr-drop-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 2px 0;
+}
+
+/* Dark mode dropdown */
+html.dark .hdr-dropdown {
+  background: #1a1a1a;
+  border-color: #333;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+html.dark .hdr-drop-item:hover {
+  background: #222;
+}
+html.dark .hdr-drop-label {
+  color: #f0ece4;
+}
+html.dark .hdr-drop-desc {
+  color: #666;
+}
+html.dark .hdr-drop-divider {
+  background: #2a2a2a;
+}
+
+/* ================================================
+   HALAMAN LIST KATEGORI
+   ================================================ */
+
+.cat-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #999;
+  margin-top: -8px;
+  margin-bottom: 32px;
+}
+
+.cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 48px;
+}
+
+.cat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid #f0f0f0;
+  text-decoration: none;
+  transition: background 0.1s;
+}
+.cat-item:first-child {
+  border-top: 1px solid #f0f0f0;
+}
+.cat-item:hover .cat-item-title {
+  color: #CC0000;
+}
+
+.cat-item-body {
+  flex: 1;
+}
+.cat-item-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 4px;
+  transition: color 0.15s;
+}
+.cat-item-excerpt {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #888;
+  line-height: 1.5;
+}
+
+.cat-item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.cat-item-date {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #999;
+}
+.cat-item-time {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #bbb;
+}
+
+/* --- Semua kategori di bawah halaman --- */
+.cat-all-cats {
+  padding-top: 32px;
+  border-top: 2px solid #111;
+  margin-bottom: 48px;
+}
+.cat-all-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin-bottom: 12px;
+}
+.cat-all-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.cat-pill {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  padding: 5px 14px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  color: #555;
+  text-decoration: none;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.cat-pill:hover {
+  border-color: #CC0000;
+  color: #CC0000;
+}
+.cat-pill.active {
+  background: #CC0000;
+  border-color: #CC0000;
+  color: #fff;
+}
+.cat-pill-count {
+  font-size: 10px;
+  opacity: 0.7;
+}
+
+/* Dark mode kategori */
+html.dark .cat-item {
+  border-bottom-color: #222;
+}
+html.dark .cat-item:first-child {
+  border-top-color: #222;
+}
+html.dark .cat-item-title {
+  color: #f0ece4;
+}
+html.dark .cat-all-cats {
+  border-top-color: #f0ece4;
+}
+html.dark .cat-pill {
+  color: #aaa;
+  border-color: #3a3a3a;
+}
+html.dark .cat-pill:hover {
+  color: #FF3333;
+  border-color: #FF3333;
+}
+html.dark .cat-pill.active {
+  background: #FF3333;
+  border-color: #FF3333;
+  color: #fff;
+}

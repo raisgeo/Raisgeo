@@ -1,7 +1,8 @@
 ---
-title: "'PEMOEDA' MELEMBAGAKAN PERJUANGAN"
+title: "Pemoeda: Melembagakan Perjuangan"
 date: 2020-04-02T18:16:31+07:00
 draft: false
+categories: ["Reflections"]
 ---
 
 <!-- wp:image {"id":103,"sizeSlug":"large"} -->

@@ -2,6 +2,7 @@
 title: "Message for the future"
 date: 2022-01-09T09:26:57+07:00
 draft: false
+categories: ["Reflections"]
 ---
 
 <!-- wp:paragraph -->

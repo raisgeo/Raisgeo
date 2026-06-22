@@ -2,6 +2,7 @@
 title: "The Way We See The Problem is The Problem Itself"
 date: 2020-05-12T09:21:21+07:00
 draft: false
+categories: ["Opinions"]
 ---
 
 <!-- wp:image {"id":145,"sizeSlug":"large"} -->

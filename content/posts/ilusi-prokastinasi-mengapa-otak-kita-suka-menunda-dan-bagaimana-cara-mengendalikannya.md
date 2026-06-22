@@ -1,8 +1,10 @@
 ---
-title: "Ilusi Prokastinasi : Mengapa Otak Kita Suka Menunda dan Bagaimana Cara Mengendalikannya"
+title: "Ilusi Prokrastinasi"
 date: 2026-06-01T13:29:26+07:00
 draft: false
+categories: ["Opinions"]
 ---
+
 
 <!-- wp:paragraph -->
 <p><em>Catatan: Artikel ini merupakan hasil eksperimen saya dengan melatih AI untuk memahami gaya bahasa dari arsip tulisan saya sebelumnya. Draf teks dibantu oleh AI, namun kendali substansi, pesan, dan penyuntingan akhir tetap berada sepenuhnya di bawah kurasi saya.</em></p>

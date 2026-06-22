@@ -11,7 +11,35 @@
       The Geographer's <span class="logo-accent">Journal</span>
     </a>
     <nav class="hdr-nav" aria-label="Navigasi utama">
-      <a href="/"          class="hdr-pill" id="pill-blog">Blog</a>
+
+      <!-- Blog dengan dropdown -->
+      <div class="hdr-pill-wrap" id="wrap-blog">
+        <a href="/" class="hdr-pill" id="pill-blog">Blog</a>
+        <div class="hdr-dropdown" id="dropdown-blog">
+          <a href="/" class="hdr-drop-item">
+            <span class="hdr-drop-label">All Posts</span>
+            <span class="hdr-drop-desc">Semua tulisan</span>
+          </a>
+          <div class="hdr-drop-divider"></div>
+          <a href="/categories/opinions/" class="hdr-drop-item">
+            <span class="hdr-drop-label">Opinions</span>
+            <span class="hdr-drop-desc">Analisis &amp; gagasan</span>
+          </a>
+          <a href="/categories/reflections/" class="hdr-drop-item">
+            <span class="hdr-drop-label">Reflections</span>
+            <span class="hdr-drop-desc">Perjalanan &amp; pengalaman</span>
+          </a>
+          <a href="/categories/book-review/" class="hdr-drop-item">
+            <span class="hdr-drop-label">Book Review</span>
+            <span class="hdr-drop-desc">Ulasan buku</span>
+          </a>
+          <a href="/categories/notes/" class="hdr-drop-item">
+            <span class="hdr-drop-label">Notes</span>
+            <span class="hdr-drop-desc">Notulensi &amp; catatan</span>
+          </a>
+        </div>
+      </div>
+
       <a href="/webgis/"   class="hdr-pill" id="pill-webgis">WebGIS</a>
       <a href="/archives/" class="hdr-pill" id="pill-arsip">Arsip</a>
       <a href="/about/"    class="hdr-pill" id="pill-about">About</a>
@@ -46,8 +74,17 @@
   } else if (path.startsWith('/about') || path.startsWith('/tentang')) {
     subtitle = "The Geographer\u2019s Journal \u007C About";
     activeId = 'pill-about';
-  } else if (path.length > 1) {
-    subtitle = "The Geographer\u2019s Journal \u007C Notes From Every Journey";
+  } else if (path.startsWith('/categories/opinions')) {
+    subtitle = "The Geographer\u2019s Journal \u007C Opinions";
+    activeId = 'pill-blog';
+  } else if (path.startsWith('/categories/reflections')) {
+    subtitle = "The Geographer\u2019s Journal \u007C Reflections";
+    activeId = 'pill-blog';
+  } else if (path.startsWith('/categories/book-review')) {
+    subtitle = "The Geographer\u2019s Journal \u007C Book Review";
+    activeId = 'pill-blog';
+  } else if (path.startsWith('/categories/notes')) {
+    subtitle = "The Geographer\u2019s Journal \u007C Notes";
     activeId = 'pill-blog';
   } else {
     subtitle = "The Geographer\u2019s Journal \u007C Notes From Every Journey";
@@ -57,5 +94,17 @@
   document.getElementById('hdr-subtitle').textContent = subtitle;
   var pill = document.getElementById(activeId);
   if (pill) pill.classList.add('active');
+
+  // Dropdown hover
+  var wrap = document.getElementById('wrap-blog');
+  var dropdown = document.getElementById('dropdown-blog');
+  if (wrap && dropdown) {
+    wrap.addEventListener('mouseenter', function() {
+      dropdown.classList.add('open');
+    });
+    wrap.addEventListener('mouseleave', function() {
+      dropdown.classList.remove('open');
+    });
+  }
 })();
 </script>
