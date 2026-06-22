@@ -18,7 +18,9 @@
   </div>
   {{ end }}
   <div class="post-header">
+    {{ if eq .Type "posts" }}
     <div class="page-eyebrow">{{ .Date.Format "2 January 2006" }} · {{ .ReadingTime }} menit baca</div>
+    {{ end }}
     <h1 class="post-title">{{ .Title }}</h1>
   </div>
   <div class="post-body">{{ .Content }}</div>
