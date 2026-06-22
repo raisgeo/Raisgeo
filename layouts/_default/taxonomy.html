@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ .Title }} · {{ .Site.Title }}</title>
+<link rel="stylesheet" href="/css/tempo.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+{{ partial "header.html" . }}
+
+<div class="page-wrap">
+  <div class="page-eyebrow">{{ .Title }}</div>
+  <h1 class="page-title">{{ len .Pages }} artikel</h1>
+
+  <div class="cat-list">
+    {{ range .Pages.ByDate.Reverse }}
+    <a href="{{ .RelPermalink }}" class="cat-item">
+      <div class="cat-item-body">
+        <div class="cat-item-title">{{ .Title }}</div>
+        <div class="cat-item-excerpt">{{ .Summary | plainify | truncate 100 }}</div>
+      </div>
+      <div class="cat-item-meta">
+        <span class="cat-item-date">{{ .Date.Format "2 Jan 2006" }}</span>
+        <span class="cat-item-time">{{ .ReadingTime }} menit</span>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+</div>
+
+<footer>
+  <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <a class="foot-logo" href="/">The Geographer's Journal</a>
+</footer>
+
+<script src="/js/map.js"></script>
+</body>
+</html>
