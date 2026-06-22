@@ -8,20 +8,166 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="topbar"><div class="topbar-l">Monday, 22 June 2026</div></div>
-<nav>
-  <a class="logo" href="/">The Geographer's Journal</a>
-  <button class="tog" onclick="toggleTheme()" aria-label="Toggle theme"></button>
-</nav>
-<div class="subnav">
-  <a href="/" class="subnav-item">Terbaru</a>
-  <a href="/archives/" class="subnav-item">Arsip</a>
-  <a href="/about/" class="subnav-item">Tentang</a>
-</div>
+
+<header class="site-header">
+
+  <div class="hdr-topbar">
+    <span id="hdr-date"></span>
+  </div>
+
+  <div class="hdr-main">
+    <a href="/" class="hdr-logo">
+      The Geographer's <span class="logo-accent">Journal</span>
+    </a>
+    <nav class="hdr-nav" aria-label="Navigasi utama">
+
+      <div class="hdr-pill-wrap" id="blog-wrap">
+        <a href="/" class="hdr-pill" id="pill-blog">Blog ▾</a>
+        <div class="hdr-dropdown" id="blog-dropdown">
+          <a href="/" class="hdr-drop-item">
+            <span class="hdr-drop-icon">✦</span>All Posts
+          </a>
+          <div class="hdr-drop-divider"></div>
+          <a href="/categories/opinions/" class="hdr-drop-item">
+            <span class="hdr-drop-icon">○</span>Opinions
+          </a>
+          <a href="/categories/reflections/" class="hdr-drop-item">
+            <span class="hdr-drop-icon">○</span>Reflections
+          </a>
+          <a href="/categories/book-review/" class="hdr-drop-item">
+            <span class="hdr-drop-icon">○</span>Book Review
+          </a>
+          <a href="/categories/notes/" class="hdr-drop-item">
+            <span class="hdr-drop-icon">○</span>Notes
+          </a>
+        </div>
+      </div>
+
+      <a href="/webgis/"   class="hdr-pill" id="pill-webgis">WebGIS</a>
+      <a href="/archives/" class="hdr-pill" id="pill-arsip">Arsip</a>
+      <a href="/about/"    class="hdr-pill" id="pill-about">About</a>
+    </nav>
+    <button class="tog" id="tog" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+  </div>
+
+  <div class="hdr-subtitle" id="hdr-subtitle"></div>
+
+</header>
+
+<style>
+.hdr-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  background: #ffffff;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+  z-index: 9999;
+  overflow: hidden;
+  animation: dropIn .18s ease;
+}
+@keyframes dropIn {
+  from { opacity:0; transform: translateX(-50%) translateY(-6px); }
+  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+}
+.hdr-pill-wrap { position: relative; display: inline-block; }
+.hdr-drop-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 20px;
+  text-decoration: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #222;
+  transition: background .12s, color .12s, padding-left .12s;
+  border-left: 3px solid transparent;
+}
+.hdr-drop-item:hover {
+  background: #fff5f5;
+  color: #CC0000;
+  border-left-color: #CC0000;
+  padding-left: 22px;
+  text-decoration: none;
+}
+.hdr-drop-icon { font-size: 8px; color: #ccc; flex-shrink: 0; }
+.hdr-drop-item:hover .hdr-drop-icon { color: #CC0000; }
+.hdr-drop-divider { height: 1px; background: #f0f0f0; margin: 4px 0; }
+
+html.dark .hdr-dropdown { background: #1a1a1a; border-color: #2a2a2a; box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+html.dark .hdr-drop-item { color: #ccc; }
+html.dark .hdr-drop-item:hover { background: #1f1f1f; color: #FF3333; border-left-color: #FF3333; }
+html.dark .hdr-drop-divider { background: #2a2a2a; }
+html.dark .hdr-drop-icon { color: #444; }
+</style>
+
+<script>
+(function () {
+  
+  var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  var now = new Date();
+  document.getElementById('hdr-date').textContent =
+    DAYS[now.getDay()] + ', ' + now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
+
+  
+  var path = window.location.pathname;
+  var subtitle = '';
+  var activeId = 'pill-blog';
+
+  if (path.startsWith('/webgis')) {
+    subtitle = "The Geographer\u2019s Journal | WebGIS Dashboard";
+    activeId = 'pill-webgis';
+  } else if (path.startsWith('/archives')) {
+    subtitle = "The Geographer\u2019s Journal | Arsip";
+    activeId = 'pill-arsip';
+  } else if (path.startsWith('/about')) {
+    subtitle = "The Geographer\u2019s Journal | About";
+    activeId = 'pill-about';
+  } else if (path.startsWith('/categories/opinions')) {
+    subtitle = "The Geographer\u2019s Journal | Opinions";
+  } else if (path.startsWith('/categories/reflections')) {
+    subtitle = "The Geographer\u2019s Journal | Reflections";
+  } else if (path.startsWith('/categories/book-review')) {
+    subtitle = "The Geographer\u2019s Journal | Book Review";
+  } else if (path.startsWith('/categories/notes')) {
+    subtitle = "The Geographer\u2019s Journal | Notes";
+  } else {
+    subtitle = "The Geographer\u2019s Journal | Notes From Every Journey";
+  }
+
+  document.getElementById('hdr-subtitle').textContent = subtitle;
+  var pill = document.getElementById(activeId);
+  if (pill) pill.classList.add('active');
+
+  
+  var wrap = document.getElementById('blog-wrap');
+  var dropdown = document.getElementById('blog-dropdown');
+
+  if (wrap && dropdown) {
+    wrap.addEventListener('mouseenter', function () {
+      dropdown.style.display = 'block';
+    });
+    wrap.addEventListener('mouseleave', function () {
+      dropdown.style.display = 'none';
+    });
+  }
+})();
+</script>
+
+
 <article class="post-wrap">
   
   <div class="post-header">
+    
     <div class="page-eyebrow">12 December 2020 · 5 menit baca</div>
+    
     <h1 class="post-title">Tau Kapan Harus Berhenti</h1>
   </div>
   <div class="post-body"><!-- wp:image {"id":235,"sizeSlug":"large","linkDestination":"none"} -->
@@ -88,21 +234,23 @@
     
     <a href="/posts/made-in-china/" class="post-nav-link">
       <span class="post-nav-label">← Sebelumnya</span>
-      <span class="post-nav-title">Book Review : Jack Ma (Biografi)</span>
+      <span class="post-nav-title">Jack Ma &amp; Alibaba</span>
     </a>
     
     
-    <a href="/posts/makhluk-sosial/" class="post-nav-link post-nav-next">
+    <a href="/posts/massive-open-online-course-mooc-2021/" class="post-nav-link post-nav-next">
       <span class="post-nav-label">Berikutnya →</span>
-      <span class="post-nav-title">Why people &#39;ghosting&#39; they friend? me :</span>
+      <span class="post-nav-title">Massive Open Online Course (MOOC) 2021</span>
     </a>
     
   </div>
 </article>
+
 <footer>
   <span class="foot-l">© 2026 Raisgeo · Notes from every journey</span>
   <a class="foot-logo" href="/">The Geographer's Journal</a>
 </footer>
+
 <script src="/js/map.js"></script>
 </body>
 </html>

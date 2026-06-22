@@ -2,13 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2026-06-22T00:00:00+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/webgis/</loc>
+    <lastmod>2026-06-22T00:00:00+07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/posts/analogi-jalan-raya-kehidupan/</loc>
     <lastmod>2026-06-01T15:34:14+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/</loc>
+    <loc>http://localhost:1313/categories/</loc>
     <lastmod>2026-06-01T15:34:14+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
+    <loc>http://localhost:1313/categories/opinions/</loc>
+    <lastmod>2026-06-01T15:34:14+07:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2026-06-01T15:34:14+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/ilusi-prokastinasi-mengapa-otak-kita-suka-menunda-dan-bagaimana-cara-mengendalikannya/</loc>
@@ -17,11 +26,8 @@
     <loc>http://localhost:1313/posts/resign/</loc>
     <lastmod>2026-02-16T12:14:00+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/finding-the-best-version-of-yourself/</loc>
-    <lastmod>2025-01-01T20:02:13+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/choose-people-who-choose-you/</loc>
-    <lastmod>2024-04-04T16:01:46+07:00</lastmod>
+    <loc>http://localhost:1313/categories/reflections/</loc>
+    <lastmod>2026-02-16T12:14:00+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/pesan-untuk-masa-depan/</loc>
     <lastmod>2022-01-09T09:26:57+07:00</lastmod>
@@ -38,23 +44,20 @@
     <loc>http://localhost:1313/posts/massive-open-online-course-mooc-2021/</loc>
     <lastmod>2021-03-06T01:16:53+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/makhluk-sosial/</loc>
-    <lastmod>2021-01-04T23:36:49+07:00</lastmod>
+    <loc>http://localhost:1313/categories/notes/</loc>
+    <lastmod>2021-03-06T01:16:53+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/tau-kapan-harus-berhenti/</loc>
     <lastmod>2020-12-12T22:42:35+07:00</lastmod>
   </url><url>
+    <loc>http://localhost:1313/categories/book-review/</loc>
+    <lastmod>2020-11-23T13:58:00+07:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/posts/made-in-china/</loc>
     <lastmod>2020-11-23T13:58:00+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/hari-pahlawan/</loc>
-    <lastmod>2020-11-10T16:19:16+07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/posts/terimakasih-tuhan/</loc>
     <lastmod>2020-11-10T00:06:34+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/open-house-kifs-2020-sejarah-kifs-bag-1/</loc>
-    <lastmod>2020-10-25T07:42:11+07:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/make-business-more-valuable/</loc>
     <lastmod>2020-07-30T09:56:41+07:00</lastmod>
@@ -68,23 +71,9 @@
     <loc>http://localhost:1313/posts/post-truth-era-siapa-yang-bisa-mengatakan-apa-yang-baik-atau-buruk/</loc>
     <lastmod>2020-01-26T07:14:50+07:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/posts/di-layar-para-fasilitator-dakwah-3/</loc>
-    <lastmod>2020-01-04T13:05:00+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/di-balik-layar-para-fasilitator-dakwah-2/</loc>
-    <lastmod>2020-01-03T14:52:53+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/di-balik-layar-para-fasilitator-dakwah-1/</loc>
-    <lastmod>2020-01-03T13:43:56+07:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/lesson-uif-2019-lomba-esai-nasional-ukki-unnes/</loc>
-    <lastmod>2019-10-01T10:17:00+07:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/about/</loc>
   </url><url>
     <loc>http://localhost:1313/archives/</loc>
-  </url><url>
-    <loc>http://localhost:1313/categories/</loc>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
   </url>

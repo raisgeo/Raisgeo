@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Book Review on The Geographer&#39;s Journal</title>
+		<link>http://localhost:1313/categories/book-review/</link>
+		<description>Recent content in Book Review on The Geographer&#39;s Journal</description>
+		<generator>Hugo</generator>
+		<language>id</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 23 Nov 2020 13:58:00 +0700</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/categories/book-review/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Jack Ma &amp; Alibaba</title>
+				<link>http://localhost:1313/posts/made-in-china/</link>
+				<pubDate>Mon, 23 Nov 2020 13:58:00 +0700</pubDate>
+				<guid>http://localhost:1313/posts/made-in-china/</guid>
+				<description>&lt;!-- wp:image {&#34;id&#34;:216,&#34;sizeSlug&#34;:&#34;large&#34;,&#34;linkDestination&#34;:&#34;none&#34;} --&gt;&#xD;&#xA;&lt;figure class=&#34;wp-block-image size-large&#34;&gt;&lt;img src=&#34;https://raisgeo.wordpress.com/wp-content/uploads/2020/11/dsc1110.jpg?w=1024&#34; alt=&#34;&#34; class=&#34;wp-image-216&#34; /&gt;&lt;/figure&gt;&#xD;&#xA;&lt;!-- /wp:image --&gt;&#xD;&#xA;&lt;!-- wp:paragraph --&gt;&#xD;&#xA;&lt;p&gt;Hari ini saya telah menukar setengah hari saya dengan menuntaskan satu buku setebal 188 halaman ini.&lt;/p&gt;&#xD;&#xA;&lt;!-- /wp:paragraph --&gt;&#xD;&#xA;&lt;!-- wp:paragraph {&#34;align&#34;:&#34;center&#34;} --&gt;&#xD;&#xA;&lt;p class=&#34;has-text-align-center&#34;&gt;***&lt;/p&gt;&#xD;&#xA;&lt;!-- /wp:paragraph --&gt;&#xD;&#xA;&lt;!-- wp:paragraph {&#34;align&#34;:&#34;justify&#34;} --&gt;&#xD;&#xA;&lt;p class=&#34;has-text-align-justify&#34;&gt;Belakangan ini saya kembali mendesign diri untuk mempelajari bisnis. Artikel, video, dan buku tentang bisnis adalah asupan sehari-hari. Alasanya sederhana, saya sedang dihampiri banyak ide dan saya harus mengeksekusi ide-ide tersebut bersama teman-teman saya. Tentu dari ide-ide tersebut ada ide yang paling baik tapi ada ide yang terbaik yang mungkin belum saya pikirkan. Oleh karena itu saya harus belajar.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>
