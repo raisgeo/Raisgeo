@@ -3,6 +3,7 @@ title: "Memilih Atasan"
 date: 2026-02-16T12:14:00+07:00
 draft: false
 categories: ["Reflections"]
+image: "/images/covers/simas.png"
 ---
 
 <!-- wp:image {"id":672,"sizeSlug":"large"} -->
