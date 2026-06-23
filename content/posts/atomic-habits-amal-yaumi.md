@@ -3,7 +3,7 @@ title: "Muda Idealis, Tua Realistis"
 date: 2021-06-27T16:42:21+07:00
 draft: false
 categories: ["Reflections"]
-image: "/images/covers/atom.png"
+image:"/images/covers/atom.png"
 ---
 
 <!-- wp:paragraph -->
