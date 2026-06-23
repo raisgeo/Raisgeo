@@ -6,10 +6,6 @@ categories: ["Reflections"]
 image: "/images/covers/simas.png"
 ---
 
-<!-- wp:image {"id":672,"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2026/02/8e0082be-c3cd-43fb-a0eb-eb7a270fda37.jpg?w=768" alt="" class="wp-image-672" /></figure>
-<!-- /wp:image -->
-
 <!-- wp:paragraph -->
 <p>Februari 2026 menandai empat tahun perjalanan karir saya di perusahaan ini. Sebuah fase dimana saya merasa seperti berada di zona nyaman, karena pekerjaan mulai terasa lebih mudah, hanya mengulang ritme tahun-tahun sebelumnya. Namun bulan lalu, saya memutuskan untuk mengajukan pengunduran diri.</p>
 <!-- /wp:paragraph -->
@@ -29,6 +25,10 @@ image: "/images/covers/simas.png"
 <!-- wp:paragraph -->
 <p><em>Di sinilah saya menyadari bahwa bukan hanya atasan yang berhak memilih bawahan, tetapi bawahan pun memiliki hak untuk memilih pimpinan yang pantas bagi mereka.</em></p>
 <!-- /wp:paragraph -->
+
+<!-- wp:image {"id":672,"sizeSlug":"large"} -->
+<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2026/02/8e0082be-c3cd-43fb-a0eb-eb7a270fda37.jpg?w=768" alt="" class="wp-image-672" /></figure>
+<!-- /wp:image -->
 
 <!-- wp:paragraph -->
 <p><strong>Kilas Balik</strong></p>
