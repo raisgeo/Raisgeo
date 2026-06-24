@@ -2,7 +2,7 @@
 title: "Apa yang Membuatmu Berbeda"
 date: 2020-11-10T00:06:34+07:00
 draft: false
-categories: ["Reflections"]
+categories: ["Book Review"]
 image: "/images/covers/amr.jpg"
 ---
 
