@@ -1,5 +1,5 @@
 ---
-title: "Jack Ma & Alibaba"
+title: "What I Learned from Jack Ma"
 date: 2020-11-23T13:58:00+07:00
 draft: false
 categories: ["Book Review"]
