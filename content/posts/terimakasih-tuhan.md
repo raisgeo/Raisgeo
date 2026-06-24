@@ -3,11 +3,8 @@ title: "Apa yang Membuatmu Berbeda"
 date: 2020-11-10T00:06:34+07:00
 draft: false
 categories: ["Reflections"]
+image: "/images/covers/amr.jpg"
 ---
-
-<!-- wp:image {"align":"center","id":384,"width":491,"height":491,"sizeSlug":"large","linkDestination":"none"} -->
-<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2021/03/untitled-design.png?w=1024" alt="" class="wp-image-384" width="491" height="491" /></figure></div>
-<!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"right"} -->
 <p class="has-text-align-right">وَقَلِيلٌ مِّنْ عِبَادِيَ الشَّكُورُ....</p>
