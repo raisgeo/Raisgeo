@@ -3,11 +3,8 @@ title: "Truth in the Post-Truth Era"
 date: 2020-01-26T07:14:50+07:00
 draft: false
 categories: ["Opinions"]
+image: "/images/covers/break.webp"
 ---
-
-<!-- wp:gallery {"ids":[116],"linkTo":"none"} -->
-<figure class="wp-block-gallery columns-1 is-cropped"><ul class="blocks-gallery-grid"><li class="blocks-gallery-item"><figure><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/04/untitled-design-1.png?w=1024" alt="" data-id="116" data-link="https://raisgeo.wordpress.com/untitled-design-1/" class="wp-image-116" /></figure></li></ul><figcaption class="blocks-gallery-caption">Ping Fu and MeiMei Fox. 2012." Bend Not Break, A Life in Two World" </figcaption></figure>
-<!-- /wp:gallery -->
 
 <!-- wp:paragraph {"align":"justify"} -->
 <p class="has-text-align-justify">Di usia 20 tahunan ini, mungkin idealnya kita sudah cukup berdamai dengan diri kita dan tidak perlu lagi mempertanyakan apa itu kebenaran. Tapi kalo masih mempersoalkan itu, apa jangan-jangan kita belum akil baligh (wkwk). Iya, dalam hukum Islam, ada istilah ‘Baligh’ yang secara bahasa (Arab) artinya ‘sampai’ maksudnya ‘sampai pada usia yang telah dewasa’. Kalo dalam bahasa Latin ada istilah <em>pubes </em>(Pubertas) yang berarti 'usia menuju kedewasaan'. Orang dikatakan baligh kalo sudah bisa memahami dan membedakan mana yang baik dan mana yang buruk. Masa pubertas ini dialami bagi laki-laki di usia sekitar 15 tahun pada umumnya, ditandai dengan perubahan pada fisik tubuhnya.</p>
