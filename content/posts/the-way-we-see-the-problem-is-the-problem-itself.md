@@ -3,11 +3,8 @@ title: "The Way We See The Problem is The Problem Itself"
 date: 2020-05-12T09:21:21+07:00
 draft: false
 categories: ["Opinions"]
+image: "/images/covers/fe.jpg"
 ---
-
-<!-- wp:image {"id":145,"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/05/img-20200526-wa0007.jpg?w=1024" alt="" class="wp-image-145" /></figure>
-<!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"justify"} -->
 <p class="has-text-align-justify">“<em>The way we see the problem is the problem itself</em>”. Cara kita memandang persoalan adalah persoalan itu sendiri.</p>
