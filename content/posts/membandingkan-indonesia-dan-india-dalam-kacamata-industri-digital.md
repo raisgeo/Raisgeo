@@ -3,6 +3,7 @@ title: "Indonesia versus India"
 date: 2021-03-31T00:52:00+07:00
 draft: false
 categories: ["Opinions"]
+image: "/images/covers/india.jpg"
 ---
 
 
