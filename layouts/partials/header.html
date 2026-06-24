@@ -17,6 +17,9 @@
             <span class="hdr-drop-icon">✦</span>All Posts
           </a>
           <div class="hdr-drop-divider"></div>
+          <a href="/categories/notes/" class="hdr-drop-item">
+            <span class="hdr-drop-icon">○</span>Notes
+          </a>
           <a href="/categories/opinions/" class="hdr-drop-item">
             <span class="hdr-drop-icon">○</span>Opinions
           </a>
@@ -25,9 +28,6 @@
           </a>
           <a href="/categories/book-review/" class="hdr-drop-item">
             <span class="hdr-drop-icon">○</span>Book Review
-          </a>
-          <a href="/categories/notes/" class="hdr-drop-item">
-            <span class="hdr-drop-icon">○</span>Notes
           </a>
         </div>
       </div>
@@ -97,7 +97,6 @@ html.dark .hdr-drop-icon { color: #444; }
 
 <script>
 (function () {
-  // Tanggal
   var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var MONTHS = ['January','February','March','April','May','June',
                 'July','August','September','October','November','December'];
@@ -105,7 +104,6 @@ html.dark .hdr-drop-icon { color: #444; }
   document.getElementById('hdr-date').textContent =
     DAYS[now.getDay()] + ', ' + now.getDate() + ' ' + MONTHS[now.getMonth()] + ' ' + now.getFullYear();
 
-  // Subtitle + active pill
   var path = window.location.pathname;
   var subtitle = '';
   var activeId = 'pill-blog';
@@ -135,7 +133,6 @@ html.dark .hdr-drop-icon { color: #444; }
   var pill = document.getElementById(activeId);
   if (pill) pill.classList.add('active');
 
-  // Dropdown — mouseenter/mouseleave pada wrap
   var wrap = document.getElementById('blog-wrap');
   var dropdown = document.getElementById('blog-dropdown');
 
