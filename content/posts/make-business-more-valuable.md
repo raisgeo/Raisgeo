@@ -3,11 +3,8 @@ title: "Make Your Business More Valuable"
 date: 2020-07-30T09:56:41+07:00
 draft: false
 categories: ["Opinions"]
+image: "/images/covers/cash.jpg"
 ---
-
-<!-- wp:image {"align":"center","id":154,"sizeSlug":"large"} -->
-<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/07/saveliy-bobov-eva2fk83k6w-unsplash.jpg?w=1024" alt="" class="wp-image-154" /><figcaption>Seoul, South Korea (unsplash.com)</figcaption></figure></div>
-<!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"justify"} -->
 <p class="has-text-align-justify">&nbsp;“Bisnis itu tentang manusia”, begitu kata Park Saeroyi dalam serial K-Drama Itaewon Class. Terus terang saya bukanlah maniak Korea atau korban<em> hallyu wave</em> atau apalah itu, dan sebetulnya saya juga sudah jarang sekali menonton film apalagi drama korea semenjak kuliah. Namun belakangan seorang teman memaksa saya untuk menonton drama tersebut, gayanya begitu persuasifnya layaknya pelaku MLM yang sedang menawarkan bisnis :v. katanya ada nilai-nilai dan ilmu bisnis dalam drama tersebut dan saya akan menyesal jika tidak menontonya. Apa iyaa ?? hmm...</p>
