@@ -3,12 +3,8 @@ title: "Massive Open Online Course (MOOC) 2021"
 date: 2021-03-06T01:16:53+07:00
 draft: false
 categories: ["Notes"]
+image: "/images/covers/mo.jpg"
 ---
-
-
-<!-- wp:image {"id":284,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2021/03/screenshot-89.png?w=1024" alt="" class="wp-image-284" /><figcaption class="wp-element-caption">Tampilan interface dari IndonesiaX</figcaption></figure>
-<!-- /wp:image -->
 
 <!-- wp:paragraph -->
 <p><em>The more you <strong>learn</strong>, the more you <strong>earn</strong>..</em></p>
