@@ -3,11 +3,8 @@ title: "Jack Ma & Alibaba"
 date: 2020-11-23T13:58:00+07:00
 draft: false
 categories: ["Book Review"]
+image: "/images/covers/jack.jpg"
 ---
-
-<!-- wp:image {"id":216,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/11/dsc1110.jpg?w=1024" alt="" class="wp-image-216" /></figure>
-<!-- /wp:image -->
 
 <!-- wp:paragraph -->
 <p>Hari ini saya telah menukar setengah hari saya dengan menuntaskan satu buku setebal 188 halaman ini.</p>
