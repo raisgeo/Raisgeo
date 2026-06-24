@@ -3,11 +3,8 @@ title: "Sentimen Positif tentang Indonesia"
 date: 2021-05-17T21:14:09+07:00
 draft: false
 categories: ["Opinions"]
+image: "/images/covers/habi.png"
 ---
-
-<!-- wp:image {"align":"center","id":435,"sizeSlug":"large","linkDestination":"none"} -->
-<div class="wp-block-image"><figure class="aligncenter size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2021/05/img_6003.jpg?w=1024" alt="" class="wp-image-435" /><figcaption><em>Wajah polos ketika Maba-Semester 2-2017</em> <br>(KKL 1 Geografi di Parangtritis Geomaritime Science Park)</figcaption></figure></div>
-<!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"justify"} -->
 <p class="has-text-align-justify">Sewaktu duduk di bangku Sekolah Dasar, saya sangat suka membaca majalah. Salah satu yang menjadi majalah favorit saya adalah majalah XY Kids. Majalah anak-anak terbitan Gramedia Grup itu tetap saya baca hingga tahun-tahun pertama di bangku SMP. </p>
