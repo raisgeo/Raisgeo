@@ -3,7 +3,7 @@ title: "Massive Open Online Course (MOOC) 2021"
 date: 2021-03-06T01:16:53+07:00
 draft: false
 categories: ["Notes"]
-image: "/images/covers/mo.jpg"
+image: "/images/covers/mo.webp"
 ---
 
 <!-- wp:paragraph -->
