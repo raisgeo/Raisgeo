@@ -3,11 +3,8 @@ title: "Pemoeda: Melembagakan Perjuangan"
 date: 2020-04-02T18:16:31+07:00
 draft: false
 categories: ["Reflections"]
+image: "/images/covers/oe.webp"
 ---
-
-<!-- wp:image {"id":103,"sizeSlug":"large"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/04/mg_6701.jpg?w=1024" alt="" class="wp-image-103" /><figcaption>Tampilan buku Prof. Subroto (2015) berjudul : "Indonesia di Tanganmu, Persembahan Pemikiran Bagi Generasi Muda Indonesia Menuju Indonesia 2045" (hlm.13)</figcaption></figure>
-<!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"justify"} -->
 <p class="has-text-align-justify">Tidak asing bagi kita mendengar adagium arab yang mengatakan “pemuda hari ini, pemimpin masa depan (<em>Syubhanul yaom, rijalul ghad</em>)”, maka tidak heran bila kita menelisik sejarah pergerakan Indonesia di awal abad ke-20, istilah “Pemoeda” menjadi simbol progresif yang menunjukkan peranan besar golongan muda dalam menggagas sebuah entitas politik bernama Indonesia.</p>
