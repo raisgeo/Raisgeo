@@ -6,11 +6,6 @@ categories: ["Opinions"]
 image: "/images/covers/india.jpg"
 ---
 
-
-<!-- wp:image {"id":310,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2021/03/naveed-ahmed-9dt4wutvwds-unsplash.jpg?w=1024" alt="" class="wp-image-310" /><figcaption>Photo by <a href="https://unsplash.com/@naveedahmed?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Naveed Ahmed</a> on <a href="/s/photos/india?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure>
-<!-- /wp:image -->
-
 <!-- wp:paragraph {"align":"justify"} -->
 <p class="has-text-align-justify">Beberapa waktu yang lalu saya membaca artikel berita di Harian Kompas (15/02/2021) mengenai terbatasnya talenta digital di Indonesia. SDM kita rupanya belum mampu mengimbangi pesatnya kemajuan teknologi saat ini. Banyak <em>Startup</em> yang berkembang namun kesulitan mencari pekerja digital. Menurut data dari artikel tersebut kebutuhan talenta digital di Indonesia adalah sebesar 600.000 orang namun yang tersedia hanyalah 100.000 orang per tahun.</p>
 <!-- /wp:paragraph -->
