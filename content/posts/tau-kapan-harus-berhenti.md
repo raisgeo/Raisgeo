@@ -3,11 +3,8 @@ title: "Tau Kapan Harus Berhenti"
 date: 2020-12-12T22:42:35+07:00
 draft: false
 categories: ["Reflections"]
+image: "/images/covers/tau.webp"
 ---
-
-<!-- wp:image {"id":235,"sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large"><img src="https://raisgeo.wordpress.com/wp-content/uploads/2020/12/dsc0703.jpg?w=1024" alt="" class="wp-image-235" /></figure>
-<!-- /wp:image -->
 
 <!-- wp:paragraph {"align":"center"} -->
 <p class="has-text-align-center"><em>Alkisah ada seorang pemuda bertubuh kekar yang melamar di perusahaan kayu, di sana ia bekerja menjadi penebang pohon. Gaji dan tunjangan yang ia terima memotivasinya untuk bekerja lebih gigih, sehingga membuatnya berhasil menebang 20 batang pohon dalam sehari. Hal tersebut membuat sang bos terkesan dan memuji kinerjanya yang bagus itu.</em></p>
