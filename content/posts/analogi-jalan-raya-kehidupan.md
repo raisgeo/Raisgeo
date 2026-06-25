@@ -1,5 +1,5 @@
 ---
-title: "Analogi Jalan Raya Kehidupan"
+title: "Analogi di Jalan Raya"
 date: 2026-06-01T15:34:14+07:00
 draft: false
 categories: ["Opinions"]
