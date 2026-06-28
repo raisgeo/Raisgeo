@@ -4,6 +4,7 @@ date: 2022-01-09T09:26:57+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/pesan.png"
+description: "Setelah 5,5 tahun di Jawa dan hampir tidak mengenali diri sendiri, membaca kembali tulisan lama di blog terasa seperti surat dari masa lalu. Sebuah refleksi tentang mengapa menulis bukan untuk pembaca, melainkan untuk mengingatkan diri sendiri."
 ---
 
 <!-- wp:paragraph -->
