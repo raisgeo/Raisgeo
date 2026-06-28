@@ -4,6 +4,7 @@ date: 2026-02-16T12:14:00+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/simas.png"
+description: "Empat tahun, status karyawan tetap, promosi jabatan, motor dinas yang hampir lunas — semua ditinggalkan. Refleksi tentang resign sebagai hak, bukan permohonan izin, dan kesadaran bahwa bawahan pun berhak memilih pimpinan yang pantas."
 ---
 
 <!-- wp:paragraph -->
