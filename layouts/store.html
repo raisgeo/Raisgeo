@@ -13,6 +13,12 @@ body {
   font-family: 'Inter', sans-serif;
   background: #fff;
   color: #111;
+  transition: background 0.2s, color 0.2s;
+}
+
+html.dark body {
+  background: #0f0f0f;
+  color: #e0e0e0;
 }
 
 .store-container {
@@ -45,7 +51,10 @@ body {
   color: #111;
   margin-bottom: 16px;
   max-width: 600px;
+  transition: color 0.2s;
 }
+
+html.dark .store-title { color: #f0f0f0; }
 
 .store-subtitle {
   font-size: 14px;
@@ -55,11 +64,7 @@ body {
   font-weight: 300;
 }
 
-.store-divider {
-  height: 1px;
-  background: #e8e8e8;
-  margin: 40px 0;
-}
+html.dark .store-subtitle { color: #888; }
 
 .filter-bar {
   display: flex;
@@ -82,27 +87,16 @@ body {
   transition: all 0.15s ease;
 }
 
-.filter-btn:hover {
-  border-color: #111;
-  color: #111;
+html.dark .filter-btn {
+  border-color: #333;
+  color: #888;
 }
 
-.filter-btn.active {
-  background: #111;
-  color: #fff;
-  border-color: #111;
-}
+.filter-btn:hover { border-color: #111; color: #111; }
+html.dark .filter-btn:hover { border-color: #eee; color: #eee; }
 
-.section-label {
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #999;
-  font-weight: 500;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e8e8e8;
-}
+.filter-btn.active { background: #111; color: #fff; border-color: #111; }
+html.dark .filter-btn.active { background: #eee; color: #111; border-color: #eee; }
 
 .product-grid {
   display: grid;
@@ -116,9 +110,9 @@ body {
   transition: border-color 0.2s ease;
 }
 
-.product-card:hover {
-  border-color: #bbb;
-}
+html.dark .product-card { border-color: #222; background: #1a1a1a; }
+.product-card:hover { border-color: #bbb; }
+html.dark .product-card:hover { border-color: #444; }
 
 .product-img {
   width: 100%;
@@ -130,6 +124,8 @@ body {
   border-bottom: 1px solid #e8e8e8;
   overflow: hidden;
 }
+
+html.dark .product-img { background: #222; border-color: #2a2a2a; }
 
 .product-img img {
   width: 100%;
@@ -144,9 +140,9 @@ body {
   text-transform: uppercase;
 }
 
-.product-body {
-  padding: 18px 20px 20px;
-}
+html.dark .product-img-placeholder { color: #444; }
+
+.product-body { padding: 18px 20px 20px; }
 
 .product-cat {
   font-size: 9px;
@@ -157,6 +153,8 @@ body {
   margin-bottom: 8px;
 }
 
+html.dark .product-cat { color: #FF4444; }
+
 .product-name {
   font-family: 'Playfair Display', serif;
   font-size: 16px;
@@ -165,6 +163,8 @@ body {
   margin-bottom: 6px;
   line-height: 1.4;
 }
+
+html.dark .product-name { color: #eee; }
 
 .product-badge {
   display: inline-block;
@@ -177,6 +177,8 @@ body {
   margin-bottom: 10px;
 }
 
+html.dark .product-badge { border-color: #333; color: #666; }
+
 .product-desc {
   font-size: 12px;
   color: #777;
@@ -186,6 +188,8 @@ body {
   font-family: 'Lora', serif;
 }
 
+html.dark .product-desc { color: #888; }
+
 .product-footer {
   display: flex;
   align-items: center;
@@ -194,12 +198,16 @@ body {
   padding-top: 14px;
 }
 
+html.dark .product-footer { border-color: #2a2a2a; }
+
 .product-price {
   font-size: 13px;
   font-weight: 500;
   color: #111;
   letter-spacing: 0.02em;
 }
+
+html.dark .product-price { color: #eee; }
 
 .product-btn {
   font-family: 'Inter', sans-serif;
@@ -217,11 +225,35 @@ body {
   transition: background 0.15s ease;
 }
 
-.product-btn:hover {
-  background: #aa0000;
-  color: #fff;
-  text-decoration: none;
+.product-btn:hover { background: #aa0000; color: #fff; text-decoration: none; }
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 24px;
+  border: 1px dashed #ddd;
 }
+
+html.dark .empty-state { border-color: #2a2a2a; }
+
+.empty-state-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-style: italic;
+  color: #bbb;
+  margin-bottom: 8px;
+}
+
+html.dark .empty-state-title { color: #444; }
+
+.empty-state-sub {
+  font-size: 12px;
+  color: #ccc;
+  font-style: italic;
+  font-family: 'Lora', serif;
+}
+
+html.dark .empty-state-sub { color: #333; }
 
 .store-disclaimer {
   font-size: 12px;
@@ -236,6 +268,8 @@ body {
   margin: 0 auto;
 }
 
+html.dark .store-disclaimer { color: #444; border-color: #222; }
+
 .hidden { display: none; }
 
 @media (max-width: 768px) {
@@ -246,23 +280,6 @@ body {
 @media (max-width: 480px) {
   .product-grid { grid-template-columns: 1fr; }
 }
-
-html.dark body { background: #111; color: #eee; }
-html.dark .store-title { color: #eee; }
-html.dark .product-card { border-color: #2a2a2a; background: #1a1a1a; }
-html.dark .product-img { background: #222; border-color: #2a2a2a; }
-html.dark .product-name { color: #eee; }
-html.dark .product-footer { border-color: #2a2a2a; }
-html.dark .product-badge { border-color: #333; color: #666; }
-html.dark .filter-btn { border-color: #333; color: #888; }
-html.dark .filter-btn:hover { border-color: #eee; color: #eee; }
-html.dark .filter-btn.active { background: #eee; color: #111; border-color: #eee; }
-html.dark .section-label { color: #555; border-color: #2a2a2a; }
-html.dark .store-divider { background: #2a2a2a; }
-html.dark .store-subtitle { color: #888; }
-html.dark .product-desc { color: #888; }
-html.dark .product-price { color: #eee; }
-html.dark .store-disclaimer { color: #555; border-color: #2a2a2a; }
 </style>
 </head>
 <body>
@@ -270,9 +287,9 @@ html.dark .store-disclaimer { color: #555; border-color: #2a2a2a; }
 <div class="store-container">
 
   <div class="store-hero">
-    <div class="store-eyebrow">The Geographer's Journal · Store</div>
+    <div class="store-eyebrow">Store</div>
     <h1 class="store-title">Things I use, trust,<br>and recommend.</h1>
-    <p class="store-subtitle">A curated selection of books, running gear, gadgets, and everyday essentials — personally tested and recommended by me and my wife.</p>
+    <p class="store-subtitle">A curated selection of products I personally use — running gear, gadgets, books, and everyday essentials. Recommended by me and my wife.</p>
   </div>
 
   <div class="filter-bar">
@@ -286,65 +303,17 @@ html.dark .store-disclaimer { color: #555; border-color: #2a2a2a; }
 
   <div class="product-grid" id="product-grid">
 
-    <div class="product-card" data-cat="books">
-      <div class="product-img">
-        <span class="product-img-placeholder">Photo coming</span>
-      </div>
-      <div class="product-body">
-        <div class="product-cat">Books</div>
-        <div class="product-name">Atomic Habits</div>
-        <span class="product-badge">I've read this</span>
-        <p class="product-desc">The book that quietly rewired how I think about consistency and small decisions.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp 120.000</span>
-          <a href="#" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="books">
-      <div class="product-img">
-        <span class="product-img-placeholder">Photo coming</span>
-      </div>
-      <div class="product-body">
-        <div class="product-cat">Books</div>
-        <div class="product-name">Jack Ma & Alibaba</div>
-        <span class="product-badge">I've read this</span>
-        <p class="product-desc">A grounded look at ambition, persistence, and building something from nothing.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp 95.000</span>
-          <a href="#" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
     <div class="product-card" data-cat="running">
       <div class="product-img">
         <span class="product-img-placeholder">Photo coming</span>
       </div>
       <div class="product-body">
         <div class="product-cat">Running & Fitness</div>
-        <div class="product-name">Kiprun Running Shoes</div>
+        <div class="product-name">Sepatu Running</div>
         <span class="product-badge">I wear this</span>
-        <p class="product-desc">Lightweight and reliable — my go-to for long runs across Kalimantan's terrain.</p>
+        <p class="product-desc">My everyday running shoe — the one I actually lace up before every run.</p>
         <div class="product-footer">
-          <span class="product-price">Rp 450.000</span>
-          <a href="#" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="running">
-      <div class="product-img">
-        <span class="product-img-placeholder">Photo coming</span>
-      </div>
-      <div class="product-body">
-        <div class="product-cat">Running & Fitness</div>
-        <div class="product-name">Running Belt</div>
-        <span class="product-badge">I wear this</span>
-        <p class="product-desc">Slim, secure, and barely noticeable mid-run. Holds my phone, keys, and gels.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp 120.000</span>
+          <span class="product-price">Rp —</span>
           <a href="#" class="product-btn">Get it →</a>
         </div>
       </div>
@@ -356,75 +325,11 @@ html.dark .store-disclaimer { color: #555; border-color: #2a2a2a; }
       </div>
       <div class="product-body">
         <div class="product-cat">Tech & Gadgets</div>
-        <div class="product-name">Garmin Forerunner</div>
+        <div class="product-name">Huawei Smart Band</div>
         <span class="product-badge">I use this</span>
-        <p class="product-desc">Accurate GPS tracking and solid battery life. Worth every penny for serious runners.</p>
+        <p class="product-desc">Tracks my runs, sleep, and heart rate. Reliable and affordable for everyday monitoring.</p>
         <div class="product-footer">
-          <span class="product-price">Rp 3.200.000</span>
-          <a href="#" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="tech">
-      <div class="product-img">
-        <span class="product-img-placeholder">Photo coming</span>
-      </div>
-      <div class="product-body">
-        <div class="product-cat">Tech & Gadgets</div>
-        <div class="product-name">Anker Powerbank</div>
-        <span class="product-badge">I use this</span>
-        <p class="product-desc">Compact, fast-charging, and never let me down in the field.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp 350.000</span>
-          <a href="#" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="health">
-      <div class="product-img">
-        <span class="product-img-placeholder">Photo coming</span>
-      </div>
-      <div class="product-body">
-        <div class="product-cat">Health & Wellness</div>
-        <div class="product-name">Vitamin D3 + K2</div>
-        <span class="product-badge">Wife-approved</span>
-        <p class="product-desc">Recommended by my wife — a pharmacist. Part of our daily supplement routine.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp 180.000</span>
-          <a href="#" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="health">
-      <div class="product-img">
-        <span class="product-img-placeholder">Photo coming</span>
-      </div>
-      <div class="product-body">
-        <div class="product-cat">Health & Wellness</div>
-        <div class="product-name">Skincare Routine Set</div>
-        <span class="product-badge">We both use this</span>
-        <p class="product-desc">Our household staple — gentle, effective, and dermatologist-backed per my wife.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp 250.000</span>
-          <a href="#" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="home">
-      <div class="product-img">
-        <span class="product-img-placeholder">Photo coming</span>
-      </div>
-      <div class="product-body">
-        <div class="product-cat">Home & Living</div>
-        <div class="product-name">Xiaomi Air Purifier</div>
-        <span class="product-badge">I use this</span>
-        <p class="product-desc">Running quietly in the background — a must-have, especially during haze season.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp 1.400.000</span>
+          <span class="product-price">Rp —</span>
           <a href="#" class="product-btn">Get it →</a>
         </div>
       </div>
@@ -438,15 +343,20 @@ html.dark .store-disclaimer { color: #555; border-color: #2a2a2a; }
 
 <script>
 function filterProducts(cat, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
-  document.querySelectorAll('.product-card').forEach(card => {
+  var cards = document.querySelectorAll('.product-card');
+  var visible = 0;
+  cards.forEach(function(card) {
     if (cat === 'all' || card.dataset.cat === cat) {
       card.style.display = 'block';
+      visible++;
     } else {
       card.style.display = 'none';
     }
   });
+  var empty = document.getElementById('empty-state');
+  if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
 }
 </script>
 
