@@ -252,13 +252,26 @@ html.dark .hdr-drop-icon { color: #444; }
   letter-spacing: 0.01em;
 }
 
-/* ── STICKY ── */
+/* ── STICKY HEADER — override tempo.css ── */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 200;
-  background: var(--bg, #f7f5f0);
-  transition: background 0.2s;
+  background: rgba(247, 245, 240, 0.75) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: none !important;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05), 0 4px 20px rgba(0,0,0,0.04);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+html.dark .site-header {
+  background: rgba(17, 16, 9, 0.80) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 20px rgba(0,0,0,0.3);
+}
+.hdr-topbar {
+  border-radius: 0 !important;
 }
 </style>
 
