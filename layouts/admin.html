@@ -8,484 +8,163 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --red: #CC0000;
-  --red-dark: #a80000;
-  --bg: #f7f5f0;
-  --surface: #ffffff;
-  --surface2: #faf9f6;
-  --border: #e2ddd6;
-  --border-strong: #ccc7be;
-  --text: #1a1814;
-  --text-secondary: #5c574f;
-  --text-muted: #9c978e;
-  --green: #2a7a3a;
-  --green-bg: #e8f5eb;
-  --amber: #b35a00;
-  --accent: #1a4f8a;
-  --accent-bg: #e8f0fb;
+  --red: #CC0000; --red-dark: #a80000;
+  --bg: #f7f5f0; --surface: #ffffff; --surface2: #faf9f6;
+  --border: #e2ddd6; --border-strong: #ccc7be;
+  --text: #1a1814; --text-secondary: #5c574f; --text-muted: #9c978e;
+  --green: #2a7a3a; --green-bg: #e8f5eb;
+  --amber: #b35a00; --accent: #1a4f8a; --accent-bg: #e8f0fb;
 }
-
 [data-dark] {
-  --bg: #111009;
-  --surface: #1c1a16;
-  --surface2: #242118;
-  --border: #2e2b24;
-  --border-strong: #3d3930;
-  --text: #f0ece4;
-  --text-secondary: #a09890;
-  --text-muted: #6a6358;
-  --red: #FF3333;
-  --red-dark: #e02020;
-  --green-bg: #0d2e13;
-  --green: #4caf65;
-  --accent-bg: #0d1f3a;
-  --accent: #6a9fd8;
+  --bg: #111009; --surface: #1c1a16; --surface2: #242118;
+  --border: #2e2b24; --border-strong: #3d3930;
+  --text: #f0ece4; --text-secondary: #a09890; --text-muted: #6a6358;
+  --red: #FF3333; --red-dark: #e02020;
+  --green-bg: #0d2e13; --green: #4caf65;
+  --accent-bg: #0d1f3a; --accent: #6a9fd8;
 }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.2s, color 0.2s; }
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  transition: background 0.2s, color 0.2s;
-}
-
-/* ── LOGIN SCREEN ── */
-#login-screen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 24px;
-}
-.login-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 40px 36px;
-  width: 100%;
-  max-width: 360px;
-  text-align: center;
-}
-.login-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 4px;
-}
+/* ── LOGIN ── */
+#login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 24px; }
+.login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 40px 36px; width: 100%; max-width: 360px; text-align: center; }
+.login-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
 .login-logo span { color: var(--red); }
-.login-sub {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-bottom: 28px;
-}
-.login-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-align: left;
-  display: block;
-  margin-bottom: 6px;
-  letter-spacing: 0.03em;
-}
-.login-input {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-size: 15px;
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  outline: none;
-  transition: border-color 0.15s;
-  text-align: center;
-  letter-spacing: 0.1em;
-  margin-bottom: 14px;
-}
+.login-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 28px; }
+.login-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); text-align: left; display: block; margin-bottom: 6px; }
+.login-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; font-size: 15px; color: var(--text); font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.15s; text-align: center; letter-spacing: 0.1em; margin-bottom: 14px; }
 .login-input:focus { border-color: var(--red); }
-.login-input.error { border-color: #cc0000; background: #fff5f5; }
-.login-btn {
-  width: 100%;
-  background: var(--red);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 11px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: background 0.15s;
-  letter-spacing: 0.01em;
-}
+.login-input.error { border-color: var(--red); background: #fff5f5; }
+.login-btn { width: 100%; background: var(--red); color: #fff; border: none; border-radius: 6px; padding: 11px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.15s; }
 .login-btn:hover { background: var(--red-dark); }
-.login-error {
-  font-size: 12px;
-  color: var(--red);
-  margin-top: 10px;
-  display: none;
-}
+.login-error { font-size: 12px; color: var(--red); margin-top: 10px; display: none; }
 
-/* ── EDITOR SCREEN ── */
-#editor-screen { display: none; }
+/* ── DASHBOARD ── */
+#dashboard-screen { display: none; }
+#article-screen { display: none; }
+#product-screen { display: none; }
 
-.topbar {
-  background: var(--red);
-  color: #fff;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 6px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.navbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text);
-  text-decoration: none;
-  letter-spacing: -0.02em;
-}
+/* ── TOPBAR & NAVBAR ── */
+.topbar { background: var(--red); color: #fff; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 24px; display: flex; align-items: center; justify-content: space-between; }
+.navbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 100; }
+.logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--text); text-decoration: none; letter-spacing: -0.02em; }
 .logo span { color: var(--red); }
 .nav-right { display: flex; align-items: center; gap: 10px; }
-.dark-toggle {
-  background: none;
-  border: 1px solid var(--border-strong);
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.15s;
-}
+.dark-toggle { background: none; border: 1px solid var(--border-strong); border-radius: 20px; padding: 5px 12px; font-size: 12px; color: var(--text-secondary); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
 .dark-toggle:hover { border-color: var(--red); color: var(--red); }
-.logout-btn {
-  background: none;
-  border: 1px solid var(--border-strong);
-  border-radius: 5px;
-  padding: 5px 12px;
-  font-size: 12px;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.15s;
-}
+.logout-btn { background: none; border: 1px solid var(--border-strong); border-radius: 5px; padding: 5px 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
 .logout-btn:hover { border-color: var(--red); color: var(--red); }
+.back-btn { background: none; border: none; font-size: 12px; color: var(--text-muted); cursor: pointer; font-family: 'Inter', sans-serif; padding: 5px 0; transition: color 0.15s; }
+.back-btn:hover { color: var(--red); }
 
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 32px 24px 80px;
-}
-.page-header {
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-}
-.page-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 4px;
-}
+/* ── CONTAINER ── */
+.container { max-width: 900px; margin: 0 auto; padding: 32px 24px 80px; }
+.page-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.page-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
 .page-subtitle { font-size: 13px; color: var(--text-muted); }
 
-.editor-grid {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 24px;
-  align-items: start;
-}
+/* ── DASHBOARD CARDS ── */
+.dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 8px; }
+.dash-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 32px 28px; cursor: pointer; transition: all 0.2s; text-align: left; }
+.dash-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(204,0,0,0.08); transform: translateY(-2px); }
+.dash-icon { font-size: 32px; margin-bottom: 16px; display: block; }
+.dash-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.dash-desc { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.dash-arrow { display: inline-block; margin-top: 20px; font-size: 12px; color: var(--red); font-weight: 500; }
 
-.card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 16px;
-}
-.card-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
-}
-
-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 6px;
-  letter-spacing: 0.02em;
-}
-input[type="text"], input[type="date"], select, textarea {
-  width: 100%;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 9px 12px;
-  font-size: 14px;
-  color: var(--text);
-  font-family: 'Inter', sans-serif;
-  outline: none;
-  transition: border-color 0.15s;
-  appearance: none;
-  -webkit-appearance: none;
-}
-input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
-  border-color: var(--red);
-}
-#title-input {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 600;
-  padding: 12px 14px;
-}
-textarea {
-  font-family: 'Lora', serif;
-  font-size: 15px;
-  line-height: 1.85;
-  min-height: 380px;
-  resize: vertical;
-}
+/* ── FORM ELEMENTS ── */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+.card-title { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+label { display: block; font-size: 12px; font-weight: 500; color: var(--text-secondary); margin-bottom: 6px; letter-spacing: 0.02em; }
+input[type="text"], input[type="date"], input[type="number"], select, textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 9px 12px; font-size: 14px; color: var(--text); font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.15s; appearance: none; -webkit-appearance: none; }
+input:focus, select:focus, textarea:focus { border-color: var(--red); }
+#title-input { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; padding: 12px 14px; }
+textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-height: 320px; resize: vertical; }
 .field { margin-bottom: 14px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
 .hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
 .char-bar { font-size: 11px; margin-top: 4px; text-align: right; }
 .char-neutral { color: var(--text-muted); }
 .char-ok { color: var(--green); }
 .char-warn { color: var(--amber); }
-.filename-tag {
-  display: inline-block;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 3px 8px;
-  font-size: 11px;
-  font-family: 'Courier New', monospace;
-  color: var(--text-secondary);
-  margin-top: 5px;
-}
+.filename-tag { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; font-size: 11px; font-family: 'Courier New', monospace; color: var(--text-secondary); margin-top: 5px; }
 
+/* ── AI BUTTONS ── */
 .ai-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-.ai-btn {
-  background: none;
-  border: 1px solid var(--border-strong);
-  border-radius: 5px;
-  padding: 6px 12px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.15s;
-}
+.ai-btn { background: none; border: 1px solid var(--border-strong); border-radius: 5px; padding: 6px 12px; font-size: 12px; color: var(--text-secondary); cursor: pointer; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
 .ai-btn:hover { border-color: var(--red); color: var(--red); }
 .ai-btn.loading { opacity: 0.5; pointer-events: none; }
 
-.select-wrap { position: relative; }
-.select-wrap::after {
-  content: '▾';
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--text-muted);
-  pointer-events: none;
-  font-size: 12px;
-}
-
+/* ── CATEGORY PILLS ── */
 .cat-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-.cat-pill {
-  font-size: 11px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  border: 1px solid var(--border-strong);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: 'Inter', sans-serif;
-}
+.cat-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border-strong); color: var(--text-secondary); cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
 .cat-pill:hover, .cat-pill.active { background: var(--red); color: #fff; border-color: var(--red); }
 
-.md-toolbar {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 8px;
-  padding: 6px 8px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px 6px 0 0;
-  border-bottom: none;
-  flex-wrap: wrap;
-}
-.md-btn {
-  background: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  transition: all 0.1s;
-}
+/* ── MARKDOWN TOOLBAR ── */
+.md-toolbar { display: flex; gap: 4px; margin-bottom: 8px; padding: 6px 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px 6px 0 0; border-bottom: none; flex-wrap: wrap; }
+.md-btn { background: none; border: 1px solid transparent; border-radius: 4px; padding: 4px 8px; font-size: 12px; color: var(--text-secondary); cursor: pointer; font-family: 'Inter', sans-serif; font-weight: 500; transition: all 0.1s; }
 .md-btn:hover { background: var(--surface); border-color: var(--border); color: var(--text); }
 .md-sep { width: 1px; background: var(--border); margin: 2px 2px; }
 .md-toolbar ~ textarea { border-radius: 0 0 6px 6px; }
 
-.btn-primary {
-  background: var(--red);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 11px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  width: 100%;
-  transition: background 0.15s;
-}
+/* ── EDITOR GRID ── */
+.editor-grid { display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: start; }
+
+/* ── BUTTONS ── */
+.btn-primary { background: var(--red); color: #fff; border: none; border-radius: 6px; padding: 11px 20px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; width: 100%; transition: background 0.15s; }
 .btn-primary:hover { background: var(--red-dark); }
-.btn-secondary {
-  background: none;
-  border: 1px solid var(--border-strong);
-  border-radius: 6px;
-  padding: 9px 16px;
-  font-size: 13px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  width: 100%;
-  margin-top: 8px;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
+.btn-secondary { background: none; border: 1px solid var(--border-strong); border-radius: 6px; padding: 9px 16px; font-size: 13px; color: var(--text-secondary); cursor: pointer; font-family: 'Inter', sans-serif; width: 100%; margin-top: 8px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .btn-secondary:hover { border-color: var(--red); color: var(--red); }
 
-.tip-box {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--red);
-  border-radius: 6px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-}
+/* ── TIP BOX ── */
+.tip-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 6px; padding: 12px 14px; margin-bottom: 12px; }
 .tip-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red); margin-bottom: 6px; }
 .tip-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
+/* ── OUTPUT ── */
 .output-section { margin-top: 24px; display: none; }
-.output-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
+.output-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .output-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
-.copy-btn {
-  background: none;
-  border: 1px solid var(--border-strong);
-  border-radius: 5px;
-  padding: 5px 12px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: all 0.15s;
-}
+.copy-btn { background: none; border: 1px solid var(--border-strong); border-radius: 5px; padding: 5px 12px; font-size: 12px; color: var(--text-secondary); cursor: pointer; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 5px; transition: all 0.15s; }
 .copy-btn:hover { border-color: var(--green); color: var(--green); }
 .copy-btn.copied { border-color: var(--green); color: var(--green); background: var(--green-bg); }
-.output-code {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 16px;
-  font-family: 'Courier New', monospace;
-  font-size: 13px;
-  line-height: 1.7;
-  color: var(--text);
-  white-space: pre-wrap;
-  word-break: break-word;
-  max-height: 420px;
-  overflow-y: auto;
-}
-.steps-box {
-  background: var(--accent-bg);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: 6px;
-  padding: 14px 16px;
-  margin-top: 12px;
-}
+.output-code { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 16px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.7; color: var(--text); white-space: pre-wrap; word-break: break-word; max-height: 420px; overflow-y: auto; }
+.steps-box { background: var(--accent-bg); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 6px; padding: 14px 16px; margin-top: 12px; }
 .steps-title { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
 .step { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.5; }
 .step-num { color: var(--red); font-weight: 600; flex-shrink: 0; }
 .step code { background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: 'Courier New', monospace; border: 1px solid var(--border); }
 
-.toast {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background: #1a1814;
-  color: #fff;
-  padding: 10px 18px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: all 0.2s;
-  z-index: 999;
-  pointer-events: none;
-}
+/* ── TOAST ── */
+.toast { position: fixed; bottom: 24px; right: 24px; background: #1a1814; color: #fff; padding: 10px 18px; border-radius: 6px; font-size: 13px; font-family: 'Inter', sans-serif; opacity: 0; transform: translateY(8px); transition: all 0.2s; z-index: 999; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateY(0); }
 
-@media (max-width: 700px) {
-  .editor-grid { grid-template-columns: 1fr; }
-}
+/* ── PRODUCT FORM SPECIFIC ── */
+.prod-cat-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.prod-cat-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border-strong); color: var(--text-secondary); cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+.prod-cat-pill:hover, .prod-cat-pill.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.preview-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 12px; }
+.preview-img-box { width: 100%; aspect-ratio: 4/3; background: var(--surface2); display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--border); }
+.preview-img-box img { width: 100%; height: 100%; object-fit: cover; display: none; }
+.preview-placeholder { font-size: 12px; color: var(--text-muted); font-style: italic; }
+.preview-body { padding: 14px 16px; }
+.preview-num { font-size: 11px; font-weight: 700; color: var(--red); margin-bottom: 2px; }
+.preview-cat { font-size: 9px; color: var(--red); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+.preview-name { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--text); margin-bottom: 4px; }
+.preview-price { font-size: 12px; font-weight: 500; color: var(--text); }
+
+@media (max-width: 700px) { .editor-grid { grid-template-columns: 1fr; } .dash-grid { grid-template-columns: 1fr; } .field-row { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 
-<!-- ── LOGIN SCREEN ── -->
+<!-- ── LOGIN ── -->
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo">The Geographer's <span>Journal</span></div>
-    <div class="login-sub">Editor · Masuk untuk melanjutkan</div>
+    <div class="login-sub">Admin · Masuk untuk melanjutkan</div>
     <label class="login-label">Password</label>
     <input type="password" class="login-input" id="pw-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
     <button class="login-btn" onclick="doLogin()">Masuk</button>
@@ -493,14 +172,12 @@ textarea {
   </div>
 </div>
 
-<!-- ── EDITOR SCREEN ── -->
-<div id="editor-screen">
-
+<!-- ── DASHBOARD ── -->
+<div id="dashboard-screen">
   <div class="topbar">
-    <span>The Geographer's Journal — Editor Artikel</span>
+    <span>The Geographer's Journal — Admin</span>
     <span id="topbar-date"></span>
   </div>
-
   <nav class="navbar">
     <a href="/" class="logo">The Geographer's <span>Journal</span></a>
     <div class="nav-right">
@@ -509,26 +186,56 @@ textarea {
       <button class="logout-btn" onclick="doLogout()">Keluar</button>
     </div>
   </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Selamat datang, Rais.</h1>
+      <p class="page-subtitle">Mau ngapain hari ini?</p>
+    </div>
+    <div class="dash-grid">
+      <div class="dash-card" onclick="showScreen('article')">
+        <span class="dash-icon">✍</span>
+        <div class="dash-title">Tulis Artikel</div>
+        <div class="dash-desc">Buat artikel baru untuk blog — refleksi, opini, book review, atau notulensi webinar.</div>
+        <div class="dash-arrow">Mulai menulis →</div>
+      </div>
+      <div class="dash-card" onclick="showScreen('product')">
+        <span class="dash-icon">🛍</span>
+        <div class="dash-title">Tambah Produk</div>
+        <div class="dash-desc">Tambahkan produk baru ke halaman Store — running gear, buku, gadget, atau rekomendasi lainnya.</div>
+        <div class="dash-arrow">Tambah produk →</div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- ── ARTICLE EDITOR ── -->
+<div id="article-screen">
+  <div class="topbar">
+    <span>The Geographer's Journal — Editor Artikel</span>
+    <span id="art-topbar-date"></span>
+  </div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+      <button class="dark-toggle" onclick="toggleDark()" id="art-dark-btn">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
   <div class="container">
     <div class="page-header">
       <h1 class="page-title">Tulis Artikel Baru</h1>
       <p class="page-subtitle">Isi form → Generate .md → Salin ke GitHub</p>
     </div>
-
     <div class="editor-grid">
-
-      <!-- MAIN -->
       <div>
         <div class="card">
           <div class="card-title">Judul & Konten</div>
-
           <div class="field">
             <label>Judul artikel</label>
             <input type="text" id="title-input" placeholder="Tulis judul di sini..." oninput="updateFilename()">
             <div id="filename-preview" class="filename-tag">nama-file.md</div>
           </div>
-
           <div class="field">
             <label>Isi artikel</label>
             <div class="md-toolbar">
@@ -550,12 +257,9 @@ textarea {
           </div>
         </div>
       </div>
-
-      <!-- SIDEBAR -->
       <div>
         <div class="card">
           <div class="card-title">Pengaturan Artikel</div>
-
           <div class="field">
             <label>Kategori</label>
             <div class="cat-pills">
@@ -566,18 +270,15 @@ textarea {
             </div>
             <input type="hidden" id="category-input" value="Opinions">
           </div>
-
           <div class="field">
             <label>Tanggal posting</label>
             <input type="date" id="date-input">
           </div>
-
           <div class="field">
             <label>Nama file cover image</label>
             <input type="text" id="image-input" placeholder="nama-gambar.jpg">
             <p class="hint">Simpan di <code>static/images/covers/</code></p>
           </div>
-
           <div class="field">
             <label>Meta description (SEO)</label>
             <input type="text" id="desc-input" placeholder="150–160 karakter..." oninput="updateCharCount()">
@@ -586,31 +287,21 @@ textarea {
               <button class="ai-btn" id="btn-desc" onclick="generateDesc()">✦ Generate otomatis</button>
             </div>
           </div>
-
           <button class="btn-primary" onclick="generateMD()">Generate file .md</button>
-          <button class="btn-secondary" onclick="resetForm()">Reset form</button>
+          <button class="btn-secondary" onclick="resetArticleForm()">Reset form</button>
         </div>
-
         <div class="tip-box">
           <div class="tip-title">💡 Cara pakai</div>
           <div class="tip-text">Isi form → klik <strong>Generate</strong> → salin hasil .md → paste ke GitHub di <code>content/posts/</code></div>
         </div>
-
-        <div class="tip-box" style="border-left-color:var(--green)">
-          <div class="tip-title" style="color:var(--green)">📷 Cover image</div>
-          <div class="tip-text">Upload foto ke <code>static/images/covers/</code> via GitHub. Ukuran ideal: <strong>1200×630px</strong></div>
-        </div>
       </div>
-
     </div>
-
-    <!-- OUTPUT -->
-    <div class="output-section" id="output-section">
+    <div class="output-section" id="art-output-section">
       <div class="output-header">
         <span class="output-label">File .md siap salin</span>
-        <button class="copy-btn" id="copy-btn" onclick="copyOutput()">📋 Salin semua</button>
+        <button class="copy-btn" id="art-copy-btn" onclick="copyOutput('art-output-code','art-copy-btn')">📋 Salin semua</button>
       </div>
-      <pre class="output-code" id="output-code"></pre>
+      <pre class="output-code" id="art-output-code"></pre>
       <div class="steps-box">
         <div class="steps-title">Cara upload ke GitHub</div>
         <div class="step"><span class="step-num">1</span><span>Buka <a href="https://github.com/raisgeo/Raisgeo/tree/main/content/posts" target="_blank" style="color:var(--accent)">github.com/raisgeo/Raisgeo → content/posts</a></span></div>
@@ -623,19 +314,142 @@ textarea {
   </div>
 </div>
 
+<!-- ── PRODUCT EDITOR ── -->
+<div id="product-screen">
+  <div class="topbar">
+    <span>The Geographer's Journal — Tambah Produk</span>
+    <span id="prod-topbar-date"></span>
+  </div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+      <button class="dark-toggle" onclick="toggleDark()" id="prod-dark-btn">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Tambah Produk Baru</h1>
+      <p class="page-subtitle">Isi form → Generate kode → Salin ke store.html di GitHub</p>
+    </div>
+    <div class="editor-grid">
+      <div>
+        <div class="card">
+          <div class="card-title">Detail Produk</div>
+          <div class="field">
+            <label>Nomor produk</label>
+            <input type="number" id="prod-num" placeholder="6" min="1">
+            <p class="hint">Nomor urut produk di Store (produk saat ini: 1–5)</p>
+          </div>
+          <div class="field">
+            <label>Nama produk</label>
+            <input type="text" id="prod-name" placeholder="Nama produk..." oninput="updatePreview()">
+          </div>
+          <div class="field">
+            <label>Kategori produk</label>
+            <div class="prod-cat-pills">
+              <span class="prod-cat-pill active" onclick="setProdCat('running','Running & Fitness',this)">Running & Fitness</span>
+              <span class="prod-cat-pill" onclick="setProdCat('tech','Tech & Gadgets',this)">Tech & Gadgets</span>
+              <span class="prod-cat-pill" onclick="setProdCat('books','Books',this)">Books</span>
+              <span class="prod-cat-pill" onclick="setProdCat('health','Health & Wellness',this)">Health & Wellness</span>
+              <span class="prod-cat-pill" onclick="setProdCat('home','Home & Living',this)">Home & Living</span>
+            </div>
+            <input type="hidden" id="prod-cat-key" value="running">
+            <input type="hidden" id="prod-cat-label" value="Running & Fitness">
+          </div>
+          <div class="field">
+            <label>Badge</label>
+            <div class="prod-cat-pills">
+              <span class="prod-cat-pill active" onclick="setProdBadge('I wear this',this)">I wear this</span>
+              <span class="prod-cat-pill" onclick="setProdBadge('I use this',this)">I use this</span>
+              <span class="prod-cat-pill" onclick="setProdBadge('I read this',this)">I read this</span>
+              <span class="prod-cat-pill" onclick="setProdBadge('Wife recommends',this)">Wife recommends</span>
+            </div>
+            <input type="hidden" id="prod-badge" value="I wear this">
+          </div>
+          <div class="field">
+            <label>Deskripsi singkat</label>
+            <textarea id="prod-desc" placeholder="Deskripsi produk singkat, 1-2 kalimat..." style="min-height:80px" oninput="updatePreview()"></textarea>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Harga & Link</div>
+          <div class="field-row">
+            <div class="field">
+              <label>Harga (Rp)</label>
+              <input type="text" id="prod-price" placeholder="678.030" oninput="updatePreview()">
+            </div>
+            <div class="field">
+              <label>Nama file foto</label>
+              <input type="text" id="prod-img" placeholder="nama-produk.jpg" oninput="updatePreview()">
+            </div>
+          </div>
+          <div class="field">
+            <label>Link affiliate (Shopee/Gramedia/dll)</label>
+            <input type="text" id="prod-link" placeholder="https://s.shopee.co.id/...">
+            <p class="hint">Simpan foto di <code>static/images/store/</code></p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Preview Kartu Produk</div>
+          <div class="preview-card">
+            <div class="preview-img-box">
+              <img id="preview-img" src="" alt="">
+              <span class="preview-placeholder" id="preview-placeholder">Upload foto dulu</span>
+            </div>
+            <div class="preview-body">
+              <div class="preview-num" id="preview-num">No. —</div>
+              <div class="preview-cat" id="preview-cat">Running & Fitness</div>
+              <div class="preview-name" id="preview-name">Nama produk</div>
+              <div class="preview-price" id="preview-price">Rp—</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="generateProductCode()">Generate kode produk</button>
+        <button class="btn-secondary" onclick="resetProductForm()" style="margin-top:8px">Reset form</button>
+        <div class="tip-box" style="margin-top:12px">
+          <div class="tip-title">💡 Cara pakai</div>
+          <div class="tip-text">Generate kode → salin → buka <code>layouts/store.html</code> di GitHub → paste sebelum baris <code>&lt;div class="empty-state"</code></div>
+        </div>
+        <div class="tip-box" style="border-left-color:var(--green)">
+          <div class="tip-title" style="color:var(--green)">📷 Foto produk</div>
+          <div class="tip-text">Upload foto ke <code>static/images/store/</code> via GitHub. Ukuran ideal: <strong>800×600px</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="output-section" id="prod-output-section">
+      <div class="output-header">
+        <span class="output-label">Kode produk siap salin</span>
+        <button class="copy-btn" id="prod-copy-btn" onclick="copyOutput('prod-output-code','prod-copy-btn')">📋 Salin kode</button>
+      </div>
+      <pre class="output-code" id="prod-output-code"></pre>
+      <div class="steps-box">
+        <div class="steps-title">Cara tambah ke Store</div>
+        <div class="step"><span class="step-num">1</span><span>Upload foto produk ke <code>static/images/store/</code> via GitHub</span></div>
+        <div class="step"><span class="step-num">2</span><span>Buka <a href="https://github.com/raisgeo/Raisgeo/blob/main/layouts/store.html" target="_blank" style="color:var(--accent)">layouts/store.html</a> → klik ✏️</span></div>
+        <div class="step"><span class="step-num">3</span><span>Cari baris <code>&lt;div class="empty-state"</code> → paste kode di atasnya</span></div>
+        <div class="step"><span class="step-num">4</span><span>Klik <strong>Commit changes</strong> → produk langsung muncul di Store</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ── PASSWORD ──────────────────────────────────────────
 const PASS = 'admin';
 
+// ── AUTH ──
 function doLogin() {
   const val = document.getElementById('pw-input').value;
   if (val === PASS) {
-    sessionStorage.setItem('raisgeo-auth', '1');
+    sessionStorage.setItem('raisgeo-auth','1');
     document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('editor-screen').style.display = 'block';
-    initEditor();
+    showScreen('dashboard');
+    initUI();
   } else {
     document.getElementById('pw-input').classList.add('error');
     document.getElementById('login-error').style.display = 'block';
@@ -643,58 +457,66 @@ function doLogin() {
     setTimeout(() => document.getElementById('pw-input').classList.remove('error'), 1000);
   }
 }
+function doLogout() { sessionStorage.removeItem('raisgeo-auth'); location.reload(); }
 
-function doLogout() {
-  sessionStorage.removeItem('raisgeo-auth');
-  location.reload();
-}
-
-// Cek session — kalau sudah login sebelumnya langsung masuk
 if (sessionStorage.getItem('raisgeo-auth') === '1') {
   document.getElementById('login-screen').style.display = 'none';
-  document.getElementById('editor-screen').style.display = 'block';
+  showScreen('dashboard');
+  initUI();
 }
 
-// ── INIT EDITOR ───────────────────────────────────────
-function initEditor() {
+// ── SCREENS ──
+function showScreen(name) {
+  ['login-screen','dashboard-screen','article-screen','product-screen'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  document.getElementById(name+'-screen').style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+// ── INIT ──
+function initUI() {
   const now = new Date();
   const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
   const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-  document.getElementById('topbar-date').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+  const dateStr = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+  ['topbar-date','art-topbar-date','prod-topbar-date'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = dateStr;
+  });
   const yyyy = now.getFullYear();
   const mm = String(now.getMonth()+1).padStart(2,'0');
   const dd = String(now.getDate()).padStart(2,'0');
-  document.getElementById('date-input').value = `${yyyy}-${mm}-${dd}`;
+  const dateInput = document.getElementById('date-input');
+  if (dateInput) dateInput.value = `${yyyy}-${mm}-${dd}`;
   if (localStorage.getItem('raisgeo-dark') === '1') {
     document.documentElement.setAttribute('data-dark','');
-    document.getElementById('dark-btn').textContent = '☀️ Light';
+    document.querySelectorAll('.dark-toggle').forEach(btn => btn.textContent = '☀️ Light');
   }
+  const prodNum = document.getElementById('prod-num');
+  if (prodNum && !prodNum.value) prodNum.value = '6';
 }
-// Jalankan juga kalau sudah login dari session
-if (sessionStorage.getItem('raisgeo-auth') === '1') initEditor();
 
-// ── DARK MODE ─────────────────────────────────────────
+// ── DARK MODE ──
 function toggleDark() {
   const isDark = document.documentElement.hasAttribute('data-dark');
   if (isDark) {
     document.documentElement.removeAttribute('data-dark');
-    document.getElementById('dark-btn').textContent = '🌙 Dark';
+    document.querySelectorAll('.dark-toggle').forEach(btn => btn.textContent = '🌙 Dark');
     localStorage.setItem('raisgeo-dark','0');
   } else {
     document.documentElement.setAttribute('data-dark','');
-    document.getElementById('dark-btn').textContent = '☀️ Light';
+    document.querySelectorAll('.dark-toggle').forEach(btn => btn.textContent = '☀️ Light');
     localStorage.setItem('raisgeo-dark','1');
   }
 }
 
-// ── SLUGIFY ───────────────────────────────────────────
+// ── SLUGIFY ──
 function slugify(t) {
   return t.toLowerCase()
     .replace(/[àáâãäå]/g,'a').replace(/[èéêë]/g,'e')
-    .replace(/[ìíîï]/g,'i').replace(/[òóôõö]/g,'o')
-    .replace(/[ùúûü]/g,'u')
-    .replace(/[^a-z0-9\s-]/g,'')
-    .replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+    .replace(/[ìíîï]/g,'i').replace(/[òóôõö]/g,'o').replace(/[ùúûü]/g,'u')
+    .replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
 }
 function updateFilename() {
   const s = slugify(document.getElementById('title-input').value) || 'nama-file';
@@ -702,33 +524,25 @@ function updateFilename() {
   document.getElementById('step-filename').textContent = `${s}.md`;
 }
 
-// ── CATEGORY ──────────────────────────────────────────
+// ── ARTICLE FORM ──
 function setCategory(val, el) {
   document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('category-input').value = val;
 }
-
-// ── CHAR COUNT ────────────────────────────────────────
 function updateCharCount() {
   const len = document.getElementById('desc-input').value.length;
   const el = document.getElementById('char-count');
   el.textContent = `${len} karakter`;
   el.className = len>=150&&len<=160 ? 'char-ok' : len>160 ? 'char-warn' : 'char-neutral';
 }
-
-// ── MARKDOWN TOOLBAR ──────────────────────────────────
 function insertMd(before, after) {
   const ta = document.getElementById('content-input');
   const s = ta.selectionStart, e = ta.selectionEnd;
   const sel = ta.value.substring(s,e);
   ta.value = ta.value.substring(0,s) + before + sel + after + ta.value.substring(e);
-  ta.focus();
-  ta.selectionStart = s + before.length;
-  ta.selectionEnd = s + before.length + sel.length;
+  ta.focus(); ta.selectionStart = s+before.length; ta.selectionEnd = s+before.length+sel.length;
 }
-
-// ── GENERATE .MD ──────────────────────────────────────
 function generateMD() {
   const title = document.getElementById('title-input').value.trim();
   if (!title) { showToast('⚠️ Judul wajib diisi'); return; }
@@ -738,29 +552,14 @@ function generateMD() {
   const img = document.getElementById('image-input').value.trim() || 'cover.jpg';
   const desc = document.getElementById('desc-input').value.trim();
   const content = document.getElementById('content-input').value.trim();
-
   const md = `---\ntitle: "${title}"\ndate: ${date}T07:00:00+07:00\ndraft: false\ncategories: ["${cat}"]\nimage: "/images/covers/${img}"\ndescription: "${desc}"\n---\n\n${content}`;
-
-  document.getElementById('output-code').textContent = md;
-  const sec = document.getElementById('output-section');
+  document.getElementById('art-output-code').textContent = md;
+  const sec = document.getElementById('art-output-section');
   sec.style.display = 'block';
-  sec.scrollIntoView({ behavior:'smooth', block:'start' });
+  sec.scrollIntoView({behavior:'smooth',block:'start'});
   showToast('✓ File .md berhasil di-generate');
 }
-
-// ── COPY ──────────────────────────────────────────────
-function copyOutput() {
-  navigator.clipboard.writeText(document.getElementById('output-code').textContent).then(() => {
-    const btn = document.getElementById('copy-btn');
-    btn.textContent = '✓ Tersalin!';
-    btn.classList.add('copied');
-    showToast('✓ Disalin ke clipboard');
-    setTimeout(() => { btn.textContent = '📋 Salin semua'; btn.classList.remove('copied'); }, 2500);
-  });
-}
-
-// ── RESET ─────────────────────────────────────────────
-function resetForm() {
+function resetArticleForm() {
   if (!confirm('Reset semua isi form?')) return;
   ['title-input','content-input','desc-input','image-input'].forEach(id => document.getElementById(id).value = '');
   const now = new Date();
@@ -769,11 +568,107 @@ function resetForm() {
   document.getElementById('filename-preview').textContent = 'nama-file.md';
   document.querySelectorAll('.cat-pill').forEach((p,i) => p.classList.toggle('active', i===0));
   document.getElementById('category-input').value = 'Opinions';
-  document.getElementById('output-section').style.display = 'none';
+  document.getElementById('art-output-section').style.display = 'none';
   showToast('Form direset');
 }
 
-// ── TOAST ─────────────────────────────────────────────
+// ── PRODUCT FORM ──
+function setProdCat(key, label, el) {
+  document.querySelectorAll('.prod-cat-pill').forEach(p => {
+    if (p.closest('#product-screen') && !p.dataset.badge) p.classList.remove('active');
+  });
+  el.classList.add('active');
+  document.getElementById('prod-cat-key').value = key;
+  document.getElementById('prod-cat-label').value = label;
+  document.getElementById('preview-cat').textContent = label;
+}
+function setProdBadge(val, el) {
+  el.parentElement.querySelectorAll('.prod-cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('prod-badge').value = val;
+}
+function updatePreview() {
+  const num = document.getElementById('prod-num').value;
+  const name = document.getElementById('prod-name').value || 'Nama produk';
+  const price = document.getElementById('prod-price').value;
+  const img = document.getElementById('prod-img').value;
+  document.getElementById('preview-num').textContent = num ? `No. ${num}` : 'No. —';
+  document.getElementById('preview-name').textContent = name;
+  document.getElementById('preview-price').textContent = price ? `Rp${price}` : 'Rp—';
+  const imgEl = document.getElementById('preview-img');
+  const placeholder = document.getElementById('preview-placeholder');
+  if (img) {
+    imgEl.src = `/images/store/${img}`;
+    imgEl.style.display = 'block';
+    placeholder.style.display = 'none';
+  } else {
+    imgEl.style.display = 'none';
+    placeholder.style.display = 'block';
+  }
+}
+function generateProductCode() {
+  const num = document.getElementById('prod-num').value.trim();
+  const name = document.getElementById('prod-name').value.trim();
+  const catKey = document.getElementById('prod-cat-key').value;
+  const catLabel = document.getElementById('prod-cat-label').value;
+  const badge = document.getElementById('prod-badge').value;
+  const desc = document.getElementById('prod-desc').value.trim();
+  const price = document.getElementById('prod-price').value.trim();
+  const img = document.getElementById('prod-img').value.trim();
+  const link = document.getElementById('prod-link').value.trim();
+  if (!name) { showToast('⚠️ Nama produk wajib diisi'); return; }
+  if (!link) { showToast('⚠️ Link affiliate wajib diisi'); return; }
+  const safeName = name.replace(/"/g,'&quot;');
+  const safeDesc = desc.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const code = `    <div class="product-card" data-cat="${catKey}" data-num="${num}" data-name="${name.toLowerCase()}">
+      <div class="product-img">
+        <img src="/images/store/${img || 'nama-foto.jpg'}" alt="${safeName}">
+      </div>
+      <div class="product-body">
+        <div class="product-num">No. ${num}</div>
+        <div class="product-cat">${catLabel}</div>
+        <div class="product-name">${safeName}</div>
+        <span class="product-badge">${badge}</span>
+        <p class="product-desc">${safeDesc}</p>
+        <div class="product-footer">
+          <span class="product-price">Rp${price}</span>
+          <a href="${link}" target="_blank" rel="noopener" class="product-btn">Get it →</a>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('prod-output-code').textContent = code;
+  const sec = document.getElementById('prod-output-section');
+  sec.style.display = 'block';
+  sec.scrollIntoView({behavior:'smooth',block:'start'});
+  showToast('✓ Kode produk berhasil di-generate');
+}
+function resetProductForm() {
+  if (!confirm('Reset form produk?')) return;
+  ['prod-num','prod-name','prod-desc','prod-price','prod-img','prod-link'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('prod-num').value = '6';
+  document.getElementById('preview-num').textContent = 'No. —';
+  document.getElementById('preview-name').textContent = 'Nama produk';
+  document.getElementById('preview-price').textContent = 'Rp—';
+  document.getElementById('preview-img').style.display = 'none';
+  document.getElementById('preview-placeholder').style.display = 'block';
+  document.getElementById('prod-output-section').style.display = 'none';
+  showToast('Form direset');
+}
+
+// ── COPY ──
+function copyOutput(codeId, btnId) {
+  const text = document.getElementById(codeId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById(btnId);
+    const orig = btn.textContent;
+    btn.textContent = '✓ Tersalin!';
+    btn.classList.add('copied');
+    showToast('✓ Disalin ke clipboard');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2500);
+  });
+}
+
+// ── TOAST ──
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -781,7 +676,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ── API KEY ───────────────────────────────────────────
+// ── API KEY ──
 function getApiKey() {
   let key = localStorage.getItem('raisgeo-api-key');
   if (!key) {
@@ -791,34 +686,26 @@ function getApiKey() {
   return key;
 }
 
-// ── AI CALL ───────────────────────────────────────────
+// ── AI ──
 async function callAI(system, user, onDone, btnId) {
   const key = getApiKey();
   if (!key) return;
   const btn = document.getElementById(btnId);
   const orig = btn.innerHTML;
-  btn.classList.add('loading');
-  btn.textContent = '⏳ Memproses...';
+  btn.classList.add('loading'); btn.textContent = '⏳ Memproses...';
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-allow-browser': 'true'
-      },
+      headers: { 'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-allow-browser':'true' },
       body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1000, system, messages:[{role:'user',content:user}] })
     });
     const data = await res.json();
-    if (data.error) { showToast('Error: ' + data.error.message); return; }
+    if (data.error) { showToast('Error: '+data.error.message); return; }
     onDone((data.content?.find(b=>b.type==='text')?.text||'').trim());
     showToast('✓ Selesai');
   } catch(e) { showToast('Gagal terhubung ke AI'); }
-  btn.classList.remove('loading');
-  btn.innerHTML = orig;
+  btn.classList.remove('loading'); btn.innerHTML = orig;
 }
-
 function generateDesc() {
   const title = document.getElementById('title-input').value.trim();
   const content = document.getElementById('content-input').value.trim().slice(0,600);
@@ -830,30 +717,27 @@ function generateDesc() {
     'btn-desc'
   );
 }
-
 function polishContent() {
   const content = document.getElementById('content-input').value.trim();
   if (!content) { showToast('Tulis isi artikel dulu'); return; }
   callAI(
-    'Kamu adalah editor blog Indonesia dengan gaya reflektif dan mengalir. Rapikan tulisan ini tanpa mengubah makna: perbaiki ejaan, tanda baca, kalimat lebih enak dibaca. Gunakan Markdown. Kembalikan langsung tulisannya saja.',
+    'Kamu adalah editor blog Indonesia dengan gaya reflektif dan mengalir. Rapikan tulisan ini tanpa mengubah makna. Gunakan Markdown. Kembalikan langsung tulisannya saja.',
     content,
     (r) => { document.getElementById('content-input').value = r; },
     'btn-polish'
   );
 }
-
 function expandContent() {
   const content = document.getElementById('content-input').value.trim();
   const title = document.getElementById('title-input').value.trim();
   if (!content) { showToast('Tulis poin-poin dulu'); return; }
   callAI(
-    'Kamu adalah penulis blog Indonesia dengan gaya reflektif, personal, dan mengalir seperti gaya Rais — seorang geograf, perencana wilayah, dan pelari aktif di Kalimantan. Kembangkan poin-poin atau draf kasar menjadi artikel blog yang utuh dan enak dibaca. Gunakan Markdown.',
+    'Kamu adalah penulis blog Indonesia dengan gaya reflektif, personal, dan mengalir seperti gaya Rais — seorang geograf, perencana wilayah, dan pelari aktif di Kalimantan. Kembangkan poin-poin atau draf kasar menjadi artikel blog yang utuh. Gunakan Markdown.',
     `Judul: ${title}\n\nDraf:\n${content}`,
     (r) => { document.getElementById('content-input').value = r; },
     'btn-expand'
   );
 }
 </script>
-
 </body>
 </html>
