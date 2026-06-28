@@ -55,8 +55,6 @@
     </nav>
   </div>
 
-  <div class="hdr-subtitle" id="hdr-subtitle"></div>
-
 </header>
 
 <style>
@@ -243,15 +241,6 @@ html.dark .hdr-drop-item:hover { background: #1f1f1f; color: #FF3333; border-lef
 html.dark .hdr-drop-divider { background: #2a2a2a; }
 html.dark .hdr-drop-icon { color: #444; }
 
-/* ── SUBTITLE ── */
-.hdr-subtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: var(--text2, #888);
-  padding: 0 28px 10px;
-  letter-spacing: 0.01em;
-}
-
 /* ── STICKY HEADER — override tempo.css (berlaku semua halaman) ── */
 .site-header {
   position: sticky !important;
@@ -314,7 +303,6 @@ html.dark .site-header {
     subtitle = "The Geographer\u2019s Journal | Notes From Every Journey";
   }
 
-  document.getElementById('hdr-subtitle').textContent = subtitle;
   var pill = document.getElementById(activeId);
   if (pill) pill.classList.add('active');
 
