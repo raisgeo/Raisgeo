@@ -1,6 +1,6 @@
 ---
 title: "Ilusi Prokrastinasi"
-date: 2026-06-01T13:29:26+07:00
+date: 2026-01-01T13:29:26+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/pro.png"
