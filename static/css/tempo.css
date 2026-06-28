@@ -185,3 +185,15 @@ html.dark .tax-card{background:var(--card)}
 html.dark .cat-pill{color:var(--text2);border-color:var(--border)}
 html.dark .cat-pill:hover{color:#FF3333;border-color:#FF3333}
 html.dark .cat-pill.active{background:#FF3333;border-color:#FF3333;color:#fff}
+
+.admin-link {
+  color: var(--text-muted, #9c978e);
+  text-decoration: none;
+  margin-left: 8px;
+  font-size: 14px;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+.admin-link:hover {
+  opacity: 1;
+}
