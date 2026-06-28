@@ -16,10 +16,7 @@ body {
   transition: background 0.2s, color 0.2s;
 }
 
-html.dark body {
-  background: #0f0f0f;
-  color: #e0e0e0;
-}
+html.dark body { background: #0f0f0f; color: #e0e0e0; }
 
 .store-container {
   max-width: 1100px;
@@ -51,7 +48,6 @@ html.dark body {
   color: #111;
   margin-bottom: 16px;
   max-width: 600px;
-  transition: color 0.2s;
 }
 
 html.dark .store-title { color: #f0f0f0; }
@@ -87,14 +83,9 @@ html.dark .store-subtitle { color: #888; }
   transition: all 0.15s ease;
 }
 
-html.dark .filter-btn {
-  border-color: #333;
-  color: #888;
-}
-
+html.dark .filter-btn { border-color: #333; color: #888; }
 .filter-btn:hover { border-color: #111; color: #111; }
 html.dark .filter-btn:hover { border-color: #eee; color: #eee; }
-
 .filter-btn.active { background: #111; color: #fff; border-color: #111; }
 html.dark .filter-btn.active { background: #eee; color: #111; border-color: #eee; }
 
@@ -228,6 +219,7 @@ html.dark .product-price { color: #eee; }
 .product-btn:hover { background: #aa0000; color: #fff; text-decoration: none; }
 
 .empty-state {
+  display: none;
   grid-column: 1 / -1;
   text-align: center;
   padding: 80px 24px;
@@ -236,24 +228,24 @@ html.dark .product-price { color: #eee; }
 
 html.dark .empty-state { border-color: #2a2a2a; }
 
-.empty-state-title {
+.empty-title {
   font-family: 'Playfair Display', serif;
-  font-size: 20px;
+  font-size: 18px;
   font-style: italic;
   color: #bbb;
   margin-bottom: 8px;
 }
 
-html.dark .empty-state-title { color: #444; }
+html.dark .empty-title { color: #444; }
 
-.empty-state-sub {
+.empty-sub {
   font-size: 12px;
   color: #ccc;
   font-style: italic;
   font-family: 'Lora', serif;
 }
 
-html.dark .empty-state-sub { color: #333; }
+html.dark .empty-sub { color: #333; }
 
 .store-disclaimer {
   font-size: 12px;
@@ -269,8 +261,6 @@ html.dark .empty-state-sub { color: #333; }
 }
 
 html.dark .store-disclaimer { color: #444; border-color: #222; }
-
-.hidden { display: none; }
 
 @media (max-width: 768px) {
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -309,12 +299,60 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
       </div>
       <div class="product-body">
         <div class="product-cat">Running & Fitness</div>
-        <div class="product-name">Sepatu Running</div>
+        <div class="product-name">Ortuseight Hyperdrive 3.0</div>
         <span class="product-badge">I wear this</span>
-        <p class="product-desc">My everyday running shoe — the one I actually lace up before every run.</p>
+        <p class="product-desc">My everyday running shoe — lightweight, responsive, and built for the long run.</p>
         <div class="product-footer">
-          <span class="product-price">Rp —</span>
-          <a href="#" class="product-btn">Get it →</a>
+          <span class="product-price">Rp678.030</span>
+          <a href="https://s.shopee.co.id/18MW8mE1M" target="_blank" rel="noopener" class="product-btn">Get it →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="running">
+      <div class="product-img">
+        <span class="product-img-placeholder">Photo coming</span>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Running & Fitness</div>
+        <div class="product-name">KAMB Running Shorts 2-in-1</div>
+        <span class="product-badge">I wear this</span>
+        <p class="product-desc">Compression legging with outer shorts — stays in place and keeps things comfortable on long runs.</p>
+        <div class="product-footer">
+          <span class="product-price">Rp134.830</span>
+          <a href="https://s.shopee.co.id/80Ae3Eod1v" target="_blank" rel="noopener" class="product-btn">Get it →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="running">
+      <div class="product-img">
+        <span class="product-img-placeholder">Photo coming</span>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Running & Fitness</div>
+        <div class="product-name">KAMB Running Shorts</div>
+        <span class="product-badge">I wear this</span>
+        <p class="product-desc">Lightweight and breathable — my go-to for shorter runs and warm days in Kalimantan.</p>
+        <div class="product-footer">
+          <span class="product-price">Rp129.000</span>
+          <a href="https://s.shopee.co.id/7prDr8X1FG" target="_blank" rel="noopener" class="product-btn">Get it →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="running">
+      <div class="product-img">
+        <span class="product-img-placeholder">Photo coming</span>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Running & Fitness</div>
+        <div class="product-name">Antrojack Sport Socks</div>
+        <span class="product-badge">I wear this</span>
+        <p class="product-desc">Soft, grippy, and comfortable for every run. The kind of socks you don't notice — which is exactly the point.</p>
+        <div class="product-footer">
+          <span class="product-price">Rp13.499</span>
+          <a href="https://s.shopee.co.id/5L9ssRikmP" target="_blank" rel="noopener" class="product-btn">Get it →</a>
         </div>
       </div>
     </div>
@@ -325,14 +363,19 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
       </div>
       <div class="product-body">
         <div class="product-cat">Tech & Gadgets</div>
-        <div class="product-name">Huawei Smart Band</div>
+        <div class="product-name">Huawei Band 11</div>
         <span class="product-badge">I use this</span>
-        <p class="product-desc">Tracks my runs, sleep, and heart rate. Reliable and affordable for everyday monitoring.</p>
+        <p class="product-desc">Tracks runs, sleep, and heart rate with a clean AMOLED display. Reliable, affordable, and genuinely useful every day.</p>
         <div class="product-footer">
-          <span class="product-price">Rp —</span>
-          <a href="#" class="product-btn">Get it →</a>
+          <span class="product-price">Rp599.000</span>
+          <a href="https://s.shopee.co.id/2LWHIdKtMv" target="_blank" rel="noopener" class="product-btn">Get it →</a>
         </div>
       </div>
+    </div>
+
+    <div class="empty-state" id="empty-state">
+      <div class="empty-title">Nothing here yet.</div>
+      <p class="empty-sub">More products in this category are coming soon.</p>
     </div>
 
   </div>
