@@ -44,6 +44,7 @@
       </div>
 
       <a href="/webgis/"   class="hdr-pill" id="pill-webgis">WebGIS</a>
+      <a href="/store/"    class="hdr-pill" id="pill-store">Store</a>
       <a href="/archives/" class="hdr-pill" id="pill-arsip">Arsip</a>
       <a href="/about/"    class="hdr-pill" id="pill-about">About</a>
     </nav>
@@ -122,6 +123,9 @@ html.dark .hdr-drop-icon { color: #444; }
   if (path.startsWith('/webgis')) {
     subtitle = "The Geographer\u2019s Journal | WebGIS Dashboard";
     activeId = 'pill-webgis';
+  } else if (path.startsWith('/store')) {
+    subtitle = "The Geographer\u2019s Journal | Store";
+    activeId = 'pill-store';
   } else if (path.startsWith('/archives')) {
     subtitle = "The Geographer\u2019s Journal | Arsip";
     activeId = 'pill-arsip';
