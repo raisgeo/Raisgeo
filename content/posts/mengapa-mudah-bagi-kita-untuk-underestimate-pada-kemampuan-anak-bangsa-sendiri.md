@@ -4,6 +4,7 @@ date: 2021-05-17T21:14:09+07:00
 draft: false
 categories: ["Opinions"]
 image: "/images/covers/habi.png"
+description: "Sebuah percakapan yang membuat geram — ketika teman sendiri tak percaya ada profesor Indonesia yang memimpin laboratorium microwave remote sensing paling lengkap di dunia. Mengapa kita mudah meremehkan anak bangsa, dan bagaimana media membentuk sentimen kita?"
 ---
 
 <!-- wp:paragraph {"align":"justify"} -->
