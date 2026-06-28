@@ -50,10 +50,9 @@ function drawTiles(s,W,H){
   if(s.scale<3)       z=4;
   else if(s.scale<7)  z=5;
   else if(s.scale<18) z=6;
-  else if(s.scale<50) z=8;
-  else if(s.scale<120)z=10;
-  else if(s.scale<300)z=12;
-  else                z=13;
+  else if(s.scale<50) z=7;
+  else if(s.scale<150)z=9;
+  else                z=10;
 
   const n=Math.pow(2,z);
   const cx=lon2tile(s.cx,z);
@@ -114,12 +113,9 @@ function drawCompass(x,y,r){
 // Scale ~380  → zoom 12 (kota Banjarbaru)
 // Scale ~650  → zoom 13 (detail kota)
 const phases=[
-  {cx:118, cy:-2,      scale:2.8,  dur:2000},
-  {cx:117, cy:-3,      scale:6.5,  dur:2500},
-  {cx:115, cy:-2,      scale:18,   dur:2500},
-  {cx:BJ.lon,cy:BJ.lat,scale:60,   dur:2200},
-  {cx:BJ.lon,cy:BJ.lat,scale:200,  dur:2000},
-  {cx:BJ.lon,cy:BJ.lat,scale:650,  dur:99999}
+  {cx:117, cy:-3,      scale:4.0,  dur:2500},
+  {cx:115, cy:-2,      scale:18,   dur:2800},
+  {cx:BJ.lon,cy:BJ.lat,scale:120,  dur:99999}
 ];
 
 let t0=null;
@@ -138,7 +134,7 @@ function getState(now){
     }
     acc+=c.dur;
   }
-  return{cx:BJ.lon,cy:BJ.lat,scale:650,ph:5,pt:1};
+  return{cx:BJ.lon,cy:BJ.lat,scale:120,ph:3,pt:1};
 }
 
 // ── DRAW LOOP ──
@@ -167,7 +163,7 @@ function draw(now){
 
   // Titik Banjarbaru
   const[bx,by]=project(BJ.lon,BJ.lat,s,W,H);
-  const pa=s.ph>=3?Math.min(1,s.pt*2):0;
+  const pa=s.ph>=2?Math.min(1,s.pt*2):0;
   if(pa>0){
     const pulse=0.5+0.5*Math.sin(now*.003);
     ctx.save();
