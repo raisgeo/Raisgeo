@@ -56,11 +56,54 @@
     </a>
     {{ end }}
   </div>
+
+  <!-- Komentar Giscus -->
+  <div class="giscus-wrap" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e8e8e8;">
+    <script src="https://giscus.app/client.js"
+      data-repo="raisgeo/Raisgeo"
+      data-repo-id="R_kgDOTAyHnA"
+      data-category="Announcements"
+      data-category-id="DIC_kwDOTAyHnM4DACkn"
+      data-mapping="url"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="bottom"
+      data-theme="light"
+      data-lang="id"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </div>
+
 </article>
 <footer>
   <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
   <a class="foot-logo" href="/">The Geographer's Journal</a>
 </footer>
 <script src="/js/map.js"></script>
+<script>
+/* Giscus dark/light mode sync */
+(function() {
+  function setGiscusTheme(theme) {
+    var iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: theme } } },
+      'https://giscus.app'
+    );
+  }
+
+  var observer = new MutationObserver(function() {
+    var isDark = document.documentElement.classList.contains('dark');
+    setGiscusTheme(isDark ? 'dark' : 'light');
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+})();
+</script>
 </body>
 </html>
