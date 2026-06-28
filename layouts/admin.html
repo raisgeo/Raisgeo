@@ -412,10 +412,19 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
 
 <script>
 // ── CONFIG ──
-const GH_TOKEN = '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';
 const GH_OWNER = 'raisgeo';
 const GH_REPO  = 'Raisgeo';
 const PASS     = 'admin';
+
+function getGHToken() {
+  let token = localStorage.getItem('raisgeo-gh-token');
+  if (!token) {
+    token = prompt('Masukkan GitHub Personal Access Token:\n\n(Hanya diminta sekali, disimpan di browser kamu saja)');
+    if (token) localStorage.setItem('raisgeo-gh-token', token.trim());
+  }
+  return token;
+}
+function GH_TOKEN() { return getGHToken(); }
 
 // ── AUTH ──
 function doLogin() {
@@ -471,7 +480,7 @@ function toggleDark() {
 // ── GITHUB API ──
 async function ghGet(path) {
   const r = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
-    headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json' }
+    headers: { 'Authorization': `token ${GH_TOKEN()}`, 'Accept': 'application/vnd.github.v3+json' }
   });
   return r.json();
 }
@@ -480,7 +489,7 @@ async function ghPut(path, content, message, sha) {
   if (sha) body.sha = sha;
   const r = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
     method: 'PUT',
-    headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    headers: { 'Authorization': `token ${GH_TOKEN()}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
   return r.json();
@@ -492,7 +501,7 @@ async function ghUploadImg(path, base64, message) {
   if (sha) body.sha = sha;
   const r = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
     method: 'PUT',
-    headers: { 'Authorization': `token ${GH_TOKEN}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    headers: { 'Authorization': `token ${GH_TOKEN()}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
   return r.json();
