@@ -4,6 +4,7 @@ date: 2026-06-01T15:34:14+07:00
 draft: false
 categories: ["Opinions"]
 image: "/images/covers/analogi-jalan-raya.jpg"
+description: "Perjalanan 145 km antara Pulang Pisau dan Banjarbaru menjadi laboratorium sosiologi. Dari pejalan kaki hingga pesawat terbang, jalan raya adalah cermin mobilitas sosial kita — tentang pendidikan, kerja keras, privilege, dan keberuntungan."
 ---
 
 <!-- wp:paragraph -->
