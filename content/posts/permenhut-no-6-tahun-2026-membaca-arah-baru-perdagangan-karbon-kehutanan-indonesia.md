@@ -9,13 +9,13 @@ description: "Notulensi Seri Diskusi Perdagangan Karbon APHI & Fairatmos, 22 Jun
 
 Senin siang, 22 Juni 2026, saya mengikuti webinar yang diselenggarakan oleh Asosiasi Pengusaha Hutan Indonesia (APHI) bekerja sama dengan Fairatmos. Ini adalah sesi pertama dari seri diskusi perdagangan karbon yang secara khusus membahas Peraturan Menteri Kehutanan Nomor 6 Tahun 2026 — regulasi terbaru yang mengatur tata cara perdagangan karbon di sektor kehutanan Indonesia.
 
-Sesi ini menghadirkan narasumber dari Fairatmos, di antaranya Aruna Pradipta, Rizky Ambardi, dan Natalia Rialucky, dengan moderasi dari APHI yang diwakili oleh Purwadi Soeprihanto. Peserta hadir lebih dari 300 orang — gambaran betapa besarnya antusiasme pelaku usaha kehutanan terhadap isu ini.
+Sesi ini dibuka oleh Purwadi Soeprihanto dari APHI, dengan empat narasumber yang masing-masing membawakan segmen berbeda: Aruna Pradipta (Fairatmos) memaparkan konteks regulasi dan potensi karbon kehutanan, Rizky Ambardi (Fairatmos) mendemonstrasikan platform AtmosCheck, Pak Ilham dari unsur pemerintahan menyampaikan perspektif kebijakan, dan Natalia Rialucky (Fairatmos) menutup dengan ringkasan Permenhut No. 6/2026. Peserta hadir lebih dari 300 orang — gambaran betapa besarnya antusiasme pelaku usaha kehutanan terhadap isu ini.
 
 ***
 
 ### Mengapa Regulasi Ini Lahir?
 
-Sebelum masuk ke substansi, penting untuk memahami konteks yang melatarbelakanginya. Pak Ilham dari APHI membuka diskusi dengan pernyataan yang cukup tegas: kemampuan APBN Indonesia hanya mencakup sekitar tiga persen dari total biaya yang dibutuhkan untuk mencapai target penurunan emisi nasional. Artinya, perdagangan karbon bukan lagi sekadar opsi — melainkan keharusan struktural untuk menutup kesenjangan pembiayaan iklim tersebut.
+Sebelum masuk ke substansi, penting untuk memahami konteks yang melatarbelakanginya. Pak Ilham — perwakilan dari unsur pemerintahan yang hadir sebagai narasumber — menyampaikan pernyataan yang cukup tegas: kemampuan APBN Indonesia hanya mencakup sekitar tiga persen dari total biaya yang dibutuhkan untuk mencapai target penurunan emisi nasional. Artinya, perdagangan karbon bukan lagi sekadar opsi — melainkan keharusan struktural untuk menutup kesenjangan pembiayaan iklim tersebut.
 
 Di sisi lain, Presiden menargetkan penjagaan hutan seluas lima puluh juta hektar dari ancaman deforestasi dan kebakaran hingga tahun 2029. Namun saat ini baru sekitar tiga puluh juta hektar yang sudah berizin. Ada *gap* dua puluh juta hektar yang masih perlu diatasi — dan perdagangan karbon adalah salah satu instrumen untuk mengisinya.
 
@@ -25,7 +25,7 @@ Permenhut No. 6/2026 sendiri disahkan pada 13 April 2026, terdiri dari 65 pasal 
 
 ### Potensi yang Tidak Kecil
 
-Indonesia memiliki potensi kredit karbon hingga satu gigaton per tahun, dengan estimasi nilai ekonomi sekitar 12 miliar USD. Angka yang besar, mengingat pasar karbon sukarela global sendiri diproyeksikan tumbuh hampir empat puluh kali lipat dalam satu dekade ke depan, dengan sektor kehutanan berkontribusi lebih dari 30 persen dari total pasar tersebut.
+Indonesia memiliki potensi kredit karbon hingga satu gigaton per tahun, dengan estimasi nilai ekonomi sekitar 12 miliar USD. Dalam pemaparannya, Aruna Pradipta menjelaskan bahwa pasar karbon sukarela global diproyeksikan tumbuh hampir empat puluh kali lipat dalam satu dekade ke depan, dengan sektor kehutanan berkontribusi lebih dari 30 persen dari total pasar tersebut.
 
 Ini bukan angka yang dibuat-buat. Potensi tersebut nyata dan dapat diukur — yang menjadi pertanyaan sekarang adalah seberapa banyak pemegang izin yang sudah siap secara teknis dan administratif untuk masuk ke dalam sistem.
 
@@ -61,7 +61,7 @@ Untuk HPH yang menerapkan silvikultur TPTI dan ingin masuk ke perdagangan karbon
 
 ### Alur Proses: Dari Registrasi hingga Transaksi
 
-Regulasi ini menetapkan dua jalur penerbitan unit karbon:
+Natalia Rialucky menutup sesi dengan memaparkan ringkasan teknis Permenhut No. 6/2026, termasuk alur proses penerbitan unit karbon. Regulasi ini menetapkan dua jalur:
 
 - **SPE-GRK** (*Sertifikat Pengurangan Emisi Gas Rumah Kaca*) — jalur domestik, diterbitkan oleh Kementerian Lingkungan Hidup
 - **Non-SPE-GRK** — jalur internasional, mengacu pada badan sertifikasi internasional seperti Verra
@@ -85,7 +85,7 @@ Dari 10% PNBP tersebut, sekitar 80% dialokasikan kembali ke Pemerintah Daerah. I
 
 ### AtmosCheck: Penilaian Awal Kelayakan Proyek
 
-Fairatmos memperkenalkan platform digital bernama **AtmosCheck** — sebuah alat asesmen awal yang dapat digunakan pemegang PBPH untuk mengestimasi potensi kredit karbon dari areal mereka sebelum masuk ke tahap pengembangan proyek yang lebih serius.
+Rizky Ambardi dari Fairatmos mendemonstrasikan platform digital bernama **AtmosCheck** — sebuah alat asesmen awal yang dapat digunakan pemegang PBPH untuk mengestimasi potensi kredit karbon dari areal mereka sebelum masuk ke tahap pengembangan proyek yang lebih serius.
 
 Dalam demonstrasi yang disampaikan, sebuah contoh areal seluas 42.763 hektar (luas proyek efektif 42.015 ha) menunjukkan estimasi produksi kredit karbon antara 131.510 hingga 186.777 tCO₂e per tahun, dengan estimasi pendapatan antara USD 1,7 hingga 2,4 juta per tahun. AtmosCheck mengacu pada kerangka metodologi REDD+ tahun 2023 dan mendukung dua jalur: Verra VM0010 (*IFM: Logged to Protected Forest*) dan VM0017 (*Afforestation, Reforestation, and Revegetation*).
 
