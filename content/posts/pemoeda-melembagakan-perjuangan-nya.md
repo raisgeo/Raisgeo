@@ -4,6 +4,7 @@ date: 2020-04-02T18:16:31+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/oe.webp"
+description: "Ki Hajar Dewantara mendirikan biro pers di usia 24 tahun. dr. Cipto Mangunkusumo mendirikan Budi Utomo di usia 19. Refleksi tentang bagaimana para pemuda pergerakan Indonesia melembagakan perjuangan mereka — dan relevansinya bagi pemuda hari ini."
 ---
 
 <!-- wp:paragraph {"align":"justify"} -->
