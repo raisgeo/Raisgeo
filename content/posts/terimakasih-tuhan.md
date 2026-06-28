@@ -4,6 +4,7 @@ date: 2020-11-10T00:06:34+07:00
 draft: false
 categories: ["Book Review"]
 image: "/images/covers/amr.jpg"
+description: "Kisah sufi Basyar al Hafy yang berdiri terpaku di ambang pintu hingga pagi — merenungkan satu pertanyaan: apa yang membuat Allah mengkhususkannya untuk memeluk Islam? Refleksi tentang nikmat iman sebagai anugerah terbesar yang paling sering kita lupakan."
 ---
 
 <!-- wp:paragraph {"align":"right"} -->
