@@ -4,6 +4,7 @@ date: 2021-03-31T00:52:00+07:00
 draft: false
 categories: ["Opinions"]
 image: "/images/covers/india.jpg"
+description: "Jakarta dan Mumbai bersaing di puncak ekosistem startup dunia, hanya selisih 1 poin. Mengapa India bisa memproduksi begitu banyak talenta digital global? Sebuah analisis tentang digital divide, Bangalore sebagai Silicon Valley Asia, dan pelajaran bagi Indonesia."
 ---
 
 <!-- wp:paragraph {"align":"justify"} -->
