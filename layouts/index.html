@@ -7,6 +7,24 @@
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/favicon.ico">
 <title>{{ .Site.Title }}</title>
+
+<!-- Open Graph Homepage -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+<meta property="og:title" content="{{ .Site.Title }}" />
+<meta property="og:description" content="{{ .Site.Params.description }}" />
+<meta property="og:url" content="{{ .Site.BaseURL }}" />
+<meta property="og:image" content="{{ .Site.BaseURL }}images/covers/analogi-jalan-raya.jpg" />
+
+<!-- Twitter Card Homepage -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ .Site.Title }}" />
+<meta name="twitter:description" content="{{ .Site.Params.description }}" />
+<meta name="twitter:image" content="{{ .Site.BaseURL }}images/covers/analogi-jalan-raya.jpg" />
+
+<!-- Meta Description -->
+<meta name="description" content="{{ .Site.Params.description }}" />
+
 <link rel="stylesheet" href="/css/tempo.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
