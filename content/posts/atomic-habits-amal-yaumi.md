@@ -4,6 +4,7 @@ date: 2021-06-27T16:42:21+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/atom.jpg"
+description: "Kita tidak perlu tahu tujuan sukses kita untuk mulai bergerak. Prinsip Atomic Habits James Clear tentang pertumbuhan 1% setiap hari — dan mengapa kebiasaan baik jauh lebih penting dari obsesi pada tujuan."
 ---
 
 <!-- wp:paragraph -->
