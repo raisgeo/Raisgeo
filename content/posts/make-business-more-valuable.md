@@ -4,6 +4,7 @@ date: 2020-07-30T09:56:41+07:00
 draft: false
 categories: ["Opinions"]
 image: "/images/covers/cash.jpg"
+description: "Catatan tentang membuat bisnis lebih bernilai — sebuah refleksi dari perspektif seorang analis yang sedang belajar memahami dunia bisnis dan strategi menciptakan nilai jangka panjang."
 ---
 
 <!-- wp:paragraph {"align":"justify"} -->
