@@ -8,21 +8,14 @@
 <link rel="apple-touch-icon" href="/favicon.ico">
 <title>{{ .Site.Title }}</title>
 
-<!-- Canonical URL -->
 <link rel="canonical" href="https://raisgeo.site/" />
-
-<!-- SEO -->
 <meta name="description" content="{{ .Site.Params.description }}" />
-
-<!-- Open Graph Homepage -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="{{ .Site.Title }}" />
 <meta property="og:title" content="{{ .Site.Title }}" />
 <meta property="og:description" content="{{ .Site.Params.description }}" />
 <meta property="og:url" content="https://raisgeo.site/" />
 <meta property="og:image" content="https://raisgeo.site/images/covers/analogi-jalan-raya.jpg" />
-
-<!-- Twitter Card Homepage -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ .Site.Title }}" />
 <meta name="twitter:description" content="{{ .Site.Params.description }}" />
@@ -30,9 +23,204 @@
 
 <link rel="stylesheet" href="/css/tempo.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ── HOMEPAGE ARTICLE GRID ── */
+.home-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 28px 80px;
+}
+
+.home-sec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--ac, #CC0000);
+}
+.home-sec-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text, #1a1814);
+}
+.home-sec-all {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ac, #CC0000);
+  text-decoration: none;
+  letter-spacing: 0.03em;
+}
+.home-sec-all:hover { text-decoration: underline; }
+
+/* ── 3 COLUMN GRID ── */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* ── ARTICLE CARD ── */
+.home-card {
+  background: var(--surface, #ffffff);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border, #e8e4dc);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.home-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+}
+html.dark .home-card {
+  background: var(--surface, #1c1a16);
+}
+
+.home-card-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--bg2, #f0ece4);
+  position: relative;
+}
+.home-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+.home-card:hover .home-card-img img {
+  transform: scale(1.04);
+}
+.home-card-img-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: rgba(0,0,0,0.06);
+}
+
+.home-card-body {
+  padding: 20px 22px 22px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.home-card-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ac, #CC0000);
+  margin-bottom: 10px;
+}
+
+.home-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text, #1a1814);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 10px;
+  transition: color 0.15s;
+}
+.home-card-title:hover { color: var(--ac, #CC0000); }
+
+.home-card-excerpt {
+  font-family: 'Lora', serif;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text2, #6b6560);
+  flex: 1;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.home-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text3, #9c978e);
+  padding-top: 14px;
+  border-top: 1px solid var(--border, #e8e4dc);
+}
+.home-card-date { letter-spacing: 0.02em; }
+.home-card-time { display: flex; align-items: center; gap: 5px; }
+.home-card-time::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239c978e' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* ── FEATURED (artikel pertama lebih besar) ── */
+.home-card.featured {
+  grid-column: span 2;
+  flex-direction: row;
+}
+.home-card.featured .home-card-img {
+  width: 55%;
+  aspect-ratio: unset;
+  flex-shrink: 0;
+  border-radius: 0;
+}
+.home-card.featured .home-card-body {
+  padding: 28px 28px 28px;
+  justify-content: space-between;
+}
+.home-card.featured .home-card-title {
+  font-size: 22px;
+  line-height: 1.35;
+  margin-bottom: 14px;
+}
+.home-card.featured .home-card-excerpt {
+  font-size: 14px;
+  -webkit-line-clamp: 4;
+  margin-bottom: 20px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .home-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-card.featured { grid-column: span 2; flex-direction: column; }
+  .home-card.featured .home-card-img { width: 100%; aspect-ratio: 16/9; }
+}
+@media (max-width: 600px) {
+  .home-grid { grid-template-columns: 1fr; }
+  .home-card.featured { grid-column: span 1; }
+  .home-wrap { padding: 32px 16px 60px; }
+}
+</style>
 </head>
 <body>
 {{ partial "header.html" . }}
+
 <section class="hero">
   <canvas id="heroCanvas"></canvas>
   <div class="hero-content">
@@ -45,69 +233,38 @@
     </div>
   </div>
 </section>
-<div class="main">
-  <div class="articles">
-    <div class="sec-head">
-      <div class="sec-label">Tulisan Terbaru</div>
-      <a href="/archives/" class="sec-all">Lihat semua →</a>
-    </div>
-    {{ $pages := where .Site.RegularPages "Type" "posts" }}
-    {{ with index $pages 0 }}
-    <div class="featured-card">
-      <a href="{{ .RelPermalink }}" class="featured-img">
-        {{ if .Params.image }}
-        <img src="{{ .Params.image }}" alt="{{ .Title }}" onerror="this.style.display='none'">
-        {{ end }}
-        <div class="img-fallback">
-          <div class="img-num">01</div>
-        </div>
-      </a>
-      <div class="featured-body">
-        <div>
-          <div class="badge">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
-          <a href="{{ .RelPermalink }}"><div class="card-title">{{ .Title }}</div></a>
-          <div class="card-excerpt">{{ .Summary | plainify | truncate 140 }}</div>
-        </div>
-        <div class="card-meta-row">
-          <span class="card-date">{{ .Date.Format "2 Jan 2006" }}</span>
-          <span class="card-time"><span class="clock"></span>&nbsp;{{ .ReadingTime }} menit</span>
-        </div>
-      </div>
-    </div>
-    {{ end }}
-    <div class="mini-grid">
-      {{ range $i, $p := after 1 (first 5 $pages) }}
-      <div class="mini-card">
-        <a href="{{ $p.RelPermalink }}" class="mini-img">
-          {{ if $p.Params.image }}
-          <img src="{{ $p.Params.image }}" alt="{{ $p.Title }}" onerror="this.style.display='none'">
-          {{ end }}
-          <div class="img-fallback">
-            <div class="img-num" style="font-size:36px">{{ printf "%02d" (add $i 2) }}</div>
-          </div>
-        </a>
-        <div class="mini-body">
-          <div class="mini-badge">{{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
-          <a href="{{ $p.RelPermalink }}"><div class="mini-title">{{ $p.Title }}</div></a>
-          <div class="mini-meta">{{ $p.Date.Format "2 Jan 2006" }} · {{ $p.ReadingTime }} menit</div>
-        </div>
-      </div>
-      {{ end }}
-    </div>
+
+<div class="home-wrap">
+  <div class="home-sec-head">
+    <div class="home-sec-label">Tulisan Terbaru</div>
+    <a href="/archives/" class="home-sec-all">Lihat semua →</a>
   </div>
-  <div class="sidebar">
-    <div class="sidebar-head">Artikel Terbaru</div>
-    {{ range $i, $p := first 8 $pages }}
-    <a href="{{ $p.RelPermalink }}" class="sidebar-item">
-      <div class="sidebar-num">{{ printf "%02d" (add $i 1) }}</div>
-      <div>
-        <div class="sidebar-title">{{ $p.Title }}</div>
-        <div class="sidebar-meta">{{ $p.Date.Format "2 Jan 2006" }} · {{ $p.ReadingTime }} menit</div>
+
+  {{ $pages := where .Site.RegularPages "Type" "posts" }}
+
+  <div class="home-grid">
+    {{ range $i, $p := first 7 $pages }}
+    <div class="home-card{{ if eq $i 0 }} featured{{ end }}">
+      <a href="{{ $p.RelPermalink }}" class="home-card-img">
+        {{ if $p.Params.image }}
+        <img src="{{ $p.Params.image }}" alt="{{ $p.Title }}" onerror="this.style.display='none'">
+        {{ end }}
+        <div class="home-card-img-fallback">{{ printf "%02d" (add $i 1) }}</div>
+      </a>
+      <div class="home-card-body">
+        <span class="home-card-badge">— {{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</span>
+        <a href="{{ $p.RelPermalink }}" class="home-card-title">{{ $p.Title }}</a>
+        <div class="home-card-excerpt">{{ $p.Summary | plainify | truncate 160 }}</div>
+        <div class="home-card-meta">
+          <span class="home-card-date">{{ $p.Date.Format "2 Jan 2006" }}</span>
+          <span class="home-card-time">{{ $p.ReadingTime }} menit</span>
+        </div>
       </div>
-    </a>
+    </div>
     {{ end }}
   </div>
 </div>
+
 <footer>
   <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
   <div style="display:flex;align-items:center;gap:10px;">
@@ -115,6 +272,7 @@
     <a href="/admin" class="admin-link" title="">✍</a>
   </div>
 </footer>
+
 <script src="/js/map.js"></script>
 </body>
 </html>
