@@ -4,6 +4,7 @@ date: 2020-05-12T09:21:21+07:00
 draft: false
 categories: ["Opinions"]
 image: "/images/covers/fe.jpg"
+description: "Dua anak mewarisi dua toko dengan wasiat yang sama, hasilnya berbeda jauh. Dari kisah klasik tentang sudut pandang hingga produktivitas Newton dan Shakespeare saat karantina wabah — bagaimana cara kita memandang masalah menentukan hasil yang kita tuai."
 ---
 
 <!-- wp:paragraph {"align":"justify"} -->
