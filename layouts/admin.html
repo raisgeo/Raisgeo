@@ -1,6 +1,859 @@
----
-title: "Editor"
-layout: "admin"
-url: "/admin"
-robotsNoIndex: true
----
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Editor — The Geographer's Journal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #CC0000;
+  --red-dark: #a80000;
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --surface2: #faf9f6;
+  --border: #e2ddd6;
+  --border-strong: #ccc7be;
+  --text: #1a1814;
+  --text-secondary: #5c574f;
+  --text-muted: #9c978e;
+  --green: #2a7a3a;
+  --green-bg: #e8f5eb;
+  --amber: #b35a00;
+  --accent: #1a4f8a;
+  --accent-bg: #e8f0fb;
+}
+
+[data-dark] {
+  --bg: #111009;
+  --surface: #1c1a16;
+  --surface2: #242118;
+  --border: #2e2b24;
+  --border-strong: #3d3930;
+  --text: #f0ece4;
+  --text-secondary: #a09890;
+  --text-muted: #6a6358;
+  --red: #FF3333;
+  --red-dark: #e02020;
+  --green-bg: #0d2e13;
+  --green: #4caf65;
+  --accent-bg: #0d1f3a;
+  --accent: #6a9fd8;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ── LOGIN SCREEN ── */
+#login-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+.login-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.login-logo span { color: var(--red); }
+.login-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+.login-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-align: left;
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 0.03em;
+}
+.login-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.15s;
+  text-align: center;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+}
+.login-input:focus { border-color: var(--red); }
+.login-input.error { border-color: #cc0000; background: #fff5f5; }
+.login-btn {
+  width: 100%;
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 11px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background 0.15s;
+  letter-spacing: 0.01em;
+}
+.login-btn:hover { background: var(--red-dark); }
+.login-error {
+  font-size: 12px;
+  color: var(--red);
+  margin-top: 10px;
+  display: none;
+}
+
+/* ── EDITOR SCREEN ── */
+#editor-screen { display: none; }
+
+.topbar {
+  background: var(--red);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.logo span { color: var(--red); }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.dark-toggle {
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.dark-toggle:hover { border-color: var(--red); color: var(--red); }
+.logout-btn {
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.15s;
+}
+.logout-btn:hover { border-color: var(--red); color: var(--red); }
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+.page-header {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.page-subtitle { font-size: 13px; color: var(--text-muted); }
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+  align-items: start;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.card-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+input[type="text"], input[type="date"], select, textarea {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+  border-color: var(--red);
+}
+#title-input {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  padding: 12px 14px;
+}
+textarea {
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  line-height: 1.85;
+  min-height: 380px;
+  resize: vertical;
+}
+.field { margin-bottom: 14px; }
+.hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.5; }
+.char-bar { font-size: 11px; margin-top: 4px; text-align: right; }
+.char-neutral { color: var(--text-muted); }
+.char-ok { color: var(--green); }
+.char-warn { color: var(--amber); }
+.filename-tag {
+  display: inline-block;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-family: 'Courier New', monospace;
+  color: var(--text-secondary);
+  margin-top: 5px;
+}
+
+.ai-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.ai-btn {
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+.ai-btn:hover { border-color: var(--red); color: var(--red); }
+.ai-btn.loading { opacity: 0.5; pointer-events: none; }
+
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: '▾';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+  font-size: 12px;
+}
+
+.cat-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.cat-pill {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.cat-pill:hover, .cat-pill.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+.md-toolbar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+  padding: 6px 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px 6px 0 0;
+  border-bottom: none;
+  flex-wrap: wrap;
+}
+.md-btn {
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: all 0.1s;
+}
+.md-btn:hover { background: var(--surface); border-color: var(--border); color: var(--text); }
+.md-sep { width: 1px; background: var(--border); margin: 2px 2px; }
+.md-toolbar ~ textarea { border-radius: 0 0 6px 6px; }
+
+.btn-primary {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  transition: background 0.15s;
+}
+.btn-primary:hover { background: var(--red-dark); }
+.btn-secondary {
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  margin-top: 8px;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.btn-secondary:hover { border-color: var(--red); color: var(--red); }
+
+.tip-box {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--red);
+  border-radius: 6px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+.tip-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red); margin-bottom: 6px; }
+.tip-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+
+.output-section { margin-top: 24px; display: none; }
+.output-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.output-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
+.copy-btn {
+  background: none;
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.15s;
+}
+.copy-btn:hover { border-color: var(--green); color: var(--green); }
+.copy-btn.copied { border-color: var(--green); color: var(--green); background: var(--green-bg); }
+.output-code {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 420px;
+  overflow-y: auto;
+}
+.steps-box {
+  background: var(--accent-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+.steps-title { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+.step { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.5; }
+.step-num { color: var(--red); font-weight: 600; flex-shrink: 0; }
+.step code { background: var(--surface); padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: 'Courier New', monospace; border: 1px solid var(--border); }
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #1a1814;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.2s;
+  z-index: 999;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 700px) {
+  .editor-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── LOGIN SCREEN ── -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">The Geographer's <span>Journal</span></div>
+    <div class="login-sub">Editor · Masuk untuk melanjutkan</div>
+    <label class="login-label">Password</label>
+    <input type="password" class="login-input" id="pw-input" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Masuk</button>
+    <div class="login-error" id="login-error">Password salah. Coba lagi.</div>
+  </div>
+</div>
+
+<!-- ── EDITOR SCREEN ── -->
+<div id="editor-screen">
+
+  <div class="topbar">
+    <span>The Geographer's Journal — Editor Artikel</span>
+    <span id="topbar-date"></span>
+  </div>
+
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <a href="/" style="font-size:12px;color:var(--text-muted);text-decoration:none;">← Kembali ke blog</a>
+      <button class="dark-toggle" onclick="toggleDark()" id="dark-btn">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Tulis Artikel Baru</h1>
+      <p class="page-subtitle">Isi form → Generate .md → Salin ke GitHub</p>
+    </div>
+
+    <div class="editor-grid">
+
+      <!-- MAIN -->
+      <div>
+        <div class="card">
+          <div class="card-title">Judul & Konten</div>
+
+          <div class="field">
+            <label>Judul artikel</label>
+            <input type="text" id="title-input" placeholder="Tulis judul di sini..." oninput="updateFilename()">
+            <div id="filename-preview" class="filename-tag">nama-file.md</div>
+          </div>
+
+          <div class="field">
+            <label>Isi artikel</label>
+            <div class="md-toolbar">
+              <button class="md-btn" onclick="insertMd('**','**')">B</button>
+              <button class="md-btn" onclick="insertMd('*','*')" style="font-style:italic">I</button>
+              <div class="md-sep"></div>
+              <button class="md-btn" onclick="insertMd('\n## ','')">H2</button>
+              <button class="md-btn" onclick="insertMd('\n### ','')">H3</button>
+              <div class="md-sep"></div>
+              <button class="md-btn" onclick="insertMd('\n- ','')">• List</button>
+              <button class="md-btn" onclick="insertMd('\n> ','')">❝ Quote</button>
+              <button class="md-btn" onclick="insertMd('\n---\n','')">— Garis</button>
+            </div>
+            <div class="ai-row">
+              <button class="ai-btn" id="btn-polish" onclick="polishContent()">✦ Rapikan tulisan</button>
+              <button class="ai-btn" id="btn-expand" onclick="expandContent()">✦ Kembangkan poin-poin</button>
+            </div>
+            <textarea id="content-input" placeholder="Tulis isi artikel di sini...&#10;&#10;Atau tulis poin-poin kasar lalu klik 'Kembangkan' di atas."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div>
+        <div class="card">
+          <div class="card-title">Pengaturan Artikel</div>
+
+          <div class="field">
+            <label>Kategori</label>
+            <div class="cat-pills">
+              <span class="cat-pill active" onclick="setCategory('Opinions',this)">Opinions</span>
+              <span class="cat-pill" onclick="setCategory('Reflections',this)">Reflections</span>
+              <span class="cat-pill" onclick="setCategory('Notes',this)">Notes</span>
+              <span class="cat-pill" onclick="setCategory('Book Review',this)">Book Review</span>
+            </div>
+            <input type="hidden" id="category-input" value="Opinions">
+          </div>
+
+          <div class="field">
+            <label>Tanggal posting</label>
+            <input type="date" id="date-input">
+          </div>
+
+          <div class="field">
+            <label>Nama file cover image</label>
+            <input type="text" id="image-input" placeholder="nama-gambar.jpg">
+            <p class="hint">Simpan di <code>static/images/covers/</code></p>
+          </div>
+
+          <div class="field">
+            <label>Meta description (SEO)</label>
+            <input type="text" id="desc-input" placeholder="150–160 karakter..." oninput="updateCharCount()">
+            <div class="char-bar"><span id="char-count" class="char-neutral">0 karakter</span></div>
+            <div class="ai-row" style="margin-top:8px">
+              <button class="ai-btn" id="btn-desc" onclick="generateDesc()">✦ Generate otomatis</button>
+            </div>
+          </div>
+
+          <button class="btn-primary" onclick="generateMD()">Generate file .md</button>
+          <button class="btn-secondary" onclick="resetForm()">Reset form</button>
+        </div>
+
+        <div class="tip-box">
+          <div class="tip-title">💡 Cara pakai</div>
+          <div class="tip-text">Isi form → klik <strong>Generate</strong> → salin hasil .md → paste ke GitHub di <code>content/posts/</code></div>
+        </div>
+
+        <div class="tip-box" style="border-left-color:var(--green)">
+          <div class="tip-title" style="color:var(--green)">📷 Cover image</div>
+          <div class="tip-text">Upload foto ke <code>static/images/covers/</code> via GitHub. Ukuran ideal: <strong>1200×630px</strong></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- OUTPUT -->
+    <div class="output-section" id="output-section">
+      <div class="output-header">
+        <span class="output-label">File .md siap salin</span>
+        <button class="copy-btn" id="copy-btn" onclick="copyOutput()">📋 Salin semua</button>
+      </div>
+      <pre class="output-code" id="output-code"></pre>
+      <div class="steps-box">
+        <div class="steps-title">Cara upload ke GitHub</div>
+        <div class="step"><span class="step-num">1</span><span>Buka <a href="https://github.com/raisgeo/Raisgeo/tree/main/content/posts" target="_blank" style="color:var(--accent)">github.com/raisgeo/Raisgeo → content/posts</a></span></div>
+        <div class="step"><span class="step-num">2</span><span>Klik <strong>Add file → Create new file</strong></span></div>
+        <div class="step"><span class="step-num">3</span><span>Nama file: <code id="step-filename">nama-file.md</code></span></div>
+        <div class="step"><span class="step-num">4</span><span>Paste isi di atas ke editor GitHub</span></div>
+        <div class="step"><span class="step-num">5</span><span>Klik <strong>Commit changes</strong> → blog langsung update</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── PASSWORD ──────────────────────────────────────────
+const PASS = 'admin';
+
+function doLogin() {
+  const val = document.getElementById('pw-input').value;
+  if (val === PASS) {
+    sessionStorage.setItem('raisgeo-auth', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('editor-screen').style.display = 'block';
+    initEditor();
+  } else {
+    document.getElementById('pw-input').classList.add('error');
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('pw-input').value = '';
+    setTimeout(() => document.getElementById('pw-input').classList.remove('error'), 1000);
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('raisgeo-auth');
+  location.reload();
+}
+
+// Cek session — kalau sudah login sebelumnya langsung masuk
+if (sessionStorage.getItem('raisgeo-auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('editor-screen').style.display = 'block';
+}
+
+// ── INIT EDITOR ───────────────────────────────────────
+function initEditor() {
+  const now = new Date();
+  const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const months = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+  document.getElementById('topbar-date').textContent = `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+  const yyyy = now.getFullYear();
+  const mm = String(now.getMonth()+1).padStart(2,'0');
+  const dd = String(now.getDate()).padStart(2,'0');
+  document.getElementById('date-input').value = `${yyyy}-${mm}-${dd}`;
+  if (localStorage.getItem('raisgeo-dark') === '1') {
+    document.documentElement.setAttribute('data-dark','');
+    document.getElementById('dark-btn').textContent = '☀️ Light';
+  }
+}
+// Jalankan juga kalau sudah login dari session
+if (sessionStorage.getItem('raisgeo-auth') === '1') initEditor();
+
+// ── DARK MODE ─────────────────────────────────────────
+function toggleDark() {
+  const isDark = document.documentElement.hasAttribute('data-dark');
+  if (isDark) {
+    document.documentElement.removeAttribute('data-dark');
+    document.getElementById('dark-btn').textContent = '🌙 Dark';
+    localStorage.setItem('raisgeo-dark','0');
+  } else {
+    document.documentElement.setAttribute('data-dark','');
+    document.getElementById('dark-btn').textContent = '☀️ Light';
+    localStorage.setItem('raisgeo-dark','1');
+  }
+}
+
+// ── SLUGIFY ───────────────────────────────────────────
+function slugify(t) {
+  return t.toLowerCase()
+    .replace(/[àáâãäå]/g,'a').replace(/[èéêë]/g,'e')
+    .replace(/[ìíîï]/g,'i').replace(/[òóôõö]/g,'o')
+    .replace(/[ùúûü]/g,'u')
+    .replace(/[^a-z0-9\s-]/g,'')
+    .replace(/\s+/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'');
+}
+function updateFilename() {
+  const s = slugify(document.getElementById('title-input').value) || 'nama-file';
+  document.getElementById('filename-preview').textContent = `content/posts/${s}.md`;
+  document.getElementById('step-filename').textContent = `${s}.md`;
+}
+
+// ── CATEGORY ──────────────────────────────────────────
+function setCategory(val, el) {
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('category-input').value = val;
+}
+
+// ── CHAR COUNT ────────────────────────────────────────
+function updateCharCount() {
+  const len = document.getElementById('desc-input').value.length;
+  const el = document.getElementById('char-count');
+  el.textContent = `${len} karakter`;
+  el.className = len>=150&&len<=160 ? 'char-ok' : len>160 ? 'char-warn' : 'char-neutral';
+}
+
+// ── MARKDOWN TOOLBAR ──────────────────────────────────
+function insertMd(before, after) {
+  const ta = document.getElementById('content-input');
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const sel = ta.value.substring(s,e);
+  ta.value = ta.value.substring(0,s) + before + sel + after + ta.value.substring(e);
+  ta.focus();
+  ta.selectionStart = s + before.length;
+  ta.selectionEnd = s + before.length + sel.length;
+}
+
+// ── GENERATE .MD ──────────────────────────────────────
+function generateMD() {
+  const title = document.getElementById('title-input').value.trim();
+  if (!title) { showToast('⚠️ Judul wajib diisi'); return; }
+  const now = new Date();
+  const date = document.getElementById('date-input').value || `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const cat = document.getElementById('category-input').value;
+  const img = document.getElementById('image-input').value.trim() || 'cover.jpg';
+  const desc = document.getElementById('desc-input').value.trim();
+  const content = document.getElementById('content-input').value.trim();
+
+  const md = `---\ntitle: "${title}"\ndate: ${date}T07:00:00+07:00\ndraft: false\ncategories: ["${cat}"]\nimage: "/images/covers/${img}"\ndescription: "${desc}"\n---\n\n${content}`;
+
+  document.getElementById('output-code').textContent = md;
+  const sec = document.getElementById('output-section');
+  sec.style.display = 'block';
+  sec.scrollIntoView({ behavior:'smooth', block:'start' });
+  showToast('✓ File .md berhasil di-generate');
+}
+
+// ── COPY ──────────────────────────────────────────────
+function copyOutput() {
+  navigator.clipboard.writeText(document.getElementById('output-code').textContent).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✓ Tersalin!';
+    btn.classList.add('copied');
+    showToast('✓ Disalin ke clipboard');
+    setTimeout(() => { btn.textContent = '📋 Salin semua'; btn.classList.remove('copied'); }, 2500);
+  });
+}
+
+// ── RESET ─────────────────────────────────────────────
+function resetForm() {
+  if (!confirm('Reset semua isi form?')) return;
+  ['title-input','content-input','desc-input','image-input'].forEach(id => document.getElementById(id).value = '');
+  const now = new Date();
+  document.getElementById('date-input').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  document.getElementById('char-count').textContent = '0 karakter';
+  document.getElementById('filename-preview').textContent = 'nama-file.md';
+  document.querySelectorAll('.cat-pill').forEach((p,i) => p.classList.toggle('active', i===0));
+  document.getElementById('category-input').value = 'Opinions';
+  document.getElementById('output-section').style.display = 'none';
+  showToast('Form direset');
+}
+
+// ── TOAST ─────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ── API KEY ───────────────────────────────────────────
+function getApiKey() {
+  let key = localStorage.getItem('raisgeo-api-key');
+  if (!key) {
+    key = prompt('Masukkan Anthropic API Key:\n(console.anthropic.com → API Keys)');
+    if (key) localStorage.setItem('raisgeo-api-key', key.trim());
+  }
+  return key;
+}
+
+// ── AI CALL ───────────────────────────────────────────
+async function callAI(system, user, onDone, btnId) {
+  const key = getApiKey();
+  if (!key) return;
+  const btn = document.getElementById(btnId);
+  const orig = btn.innerHTML;
+  btn.classList.add('loading');
+  btn.textContent = '⏳ Memproses...';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': key,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({ model:'claude-sonnet-4-6', max_tokens:1000, system, messages:[{role:'user',content:user}] })
+    });
+    const data = await res.json();
+    if (data.error) { showToast('Error: ' + data.error.message); return; }
+    onDone((data.content?.find(b=>b.type==='text')?.text||'').trim());
+    showToast('✓ Selesai');
+  } catch(e) { showToast('Gagal terhubung ke AI'); }
+  btn.classList.remove('loading');
+  btn.innerHTML = orig;
+}
+
+function generateDesc() {
+  const title = document.getElementById('title-input').value.trim();
+  const content = document.getElementById('content-input').value.trim().slice(0,600);
+  if (!title && !content) { showToast('Isi judul atau konten dulu'); return; }
+  callAI(
+    'Kamu adalah asisten penulis blog Indonesia. Tulis meta description SEO yang natural, 150-160 karakter, tidak clickbait. Langsung tulis deskripsinya saja.',
+    `Judul: ${title}\nPetikan isi:\n${content}`,
+    (r) => { document.getElementById('desc-input').value = r.replace(/"/g,"'").slice(0,160); updateCharCount(); },
+    'btn-desc'
+  );
+}
+
+function polishContent() {
+  const content = document.getElementById('content-input').value.trim();
+  if (!content) { showToast('Tulis isi artikel dulu'); return; }
+  callAI(
+    'Kamu adalah editor blog Indonesia dengan gaya reflektif dan mengalir. Rapikan tulisan ini tanpa mengubah makna: perbaiki ejaan, tanda baca, kalimat lebih enak dibaca. Gunakan Markdown. Kembalikan langsung tulisannya saja.',
+    content,
+    (r) => { document.getElementById('content-input').value = r; },
+    'btn-polish'
+  );
+}
+
+function expandContent() {
+  const content = document.getElementById('content-input').value.trim();
+  const title = document.getElementById('title-input').value.trim();
+  if (!content) { showToast('Tulis poin-poin dulu'); return; }
+  callAI(
+    'Kamu adalah penulis blog Indonesia dengan gaya reflektif, personal, dan mengalir seperti gaya Rais — seorang geograf, perencana wilayah, dan pelari aktif di Kalimantan. Kembangkan poin-poin atau draf kasar menjadi artikel blog yang utuh dan enak dibaca. Gunakan Markdown.',
+    `Judul: ${title}\n\nDraf:\n${content}`,
+    (r) => { document.getElementById('content-input').value = r; },
+    'btn-expand'
+  );
+}
+</script>
+
+</body>
+</html>
