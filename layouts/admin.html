@@ -240,10 +240,7 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
               <button class="md-btn" onclick="insertMd('\n> ','')">❝ Quote</button>
               <button class="md-btn" onclick="insertMd('\n---\n','')">— Garis</button>
             </div>
-            <div class="ai-row">
-              <button class="ai-btn" id="btn-polish" onclick="polishContent()">✦ Rapikan tulisan</button>
-              <button class="ai-btn" id="btn-expand" onclick="expandContent()">✦ Kembangkan poin-poin</button>
-            </div>
+
             <textarea id="content-input" placeholder="Tulis isi artikel di sini..."></textarea>
           </div>
         </div>
@@ -279,9 +276,7 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
             <label>Meta description (SEO)</label>
             <input type="text" id="desc-input" placeholder="150–160 karakter..." oninput="updateCharCount()">
             <div class="char-bar"><span id="char-count" class="char-neutral">0 karakter</span></div>
-            <div class="ai-row" style="margin-top:8px">
-              <button class="ai-btn" id="btn-desc" onclick="generateDesc()">✦ Generate otomatis</button>
-            </div>
+
           </div>
           <button class="btn-publish" id="btn-publish-art" onclick="publishArticle()">🚀 Publish ke Blog</button>
           <button class="btn-secondary" onclick="resetArticleForm()">Reset form</button>
@@ -748,50 +743,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-// ── AI (Gemini) ──
-function getApiKey() {
-  let key = localStorage.getItem('raisgeo-gemini-key');
-  if (!key) {
-    key = prompt('Masukkan Google Gemini API Key:\n\nCara dapat:\n1. Buka aistudio.google.com\n2. Klik Get API key → Create API key\n3. Salin dan paste di sini\n\nGratis tanpa kartu kredit!');
-    if (key) localStorage.setItem('raisgeo-gemini-key', key.trim());
-  }
-  return key;
-}
-async function callAI(system, user, onDone, btnId) {
-  const key = getApiKey(); if (!key) return;
-  const btn = document.getElementById(btnId); const orig = btn.innerHTML;
-  btn.classList.add('loading'); btn.textContent = '⏳ Memproses...';
-  try {
-    const prompt = `${system}\n\n${user}`;
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${key}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-    });
-    const data = await res.json();
-    if (data.error) { showToast('Error: ' + data.error.message); return; }
-    const result = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    onDone(result.trim()); showToast('✓ Selesai');
-  } catch(e) { showToast('Gagal terhubung ke AI'); }
-  btn.classList.remove('loading'); btn.innerHTML = orig;
-}
-function generateDesc() {
-  const title = document.getElementById('title-input').value.trim();
-  const content = document.getElementById('content-input').value.trim().slice(0,600);
-  if (!title && !content) { showToast('Isi judul atau konten dulu'); return; }
-  callAI('Kamu adalah asisten penulis blog Indonesia. Tulis meta description SEO yang natural, 150-160 karakter, tidak clickbait. Langsung tulis deskripsinya saja.', `Judul: ${title}\nPetikan isi:\n${content}`, (r) => { document.getElementById('desc-input').value = r.replace(/"/g,"'").slice(0,160); updateCharCount(); }, 'btn-desc');
-}
-function polishContent() {
-  const content = document.getElementById('content-input').value.trim();
-  if (!content) { showToast('Tulis isi artikel dulu'); return; }
-  callAI('Kamu adalah editor blog Indonesia dengan gaya reflektif dan mengalir. Rapikan tulisan ini tanpa mengubah makna. Gunakan Markdown. Kembalikan langsung tulisannya saja.', content, (r) => { document.getElementById('content-input').value = r; }, 'btn-polish');
-}
-function expandContent() {
-  const content = document.getElementById('content-input').value.trim();
-  const title = document.getElementById('title-input').value.trim();
-  if (!content) { showToast('Tulis poin-poin dulu'); return; }
-  callAI('Kamu adalah penulis blog Indonesia dengan gaya reflektif, personal, dan mengalir seperti gaya Rais — seorang geograf, perencana wilayah, dan pelari aktif di Kalimantan. Kembangkan poin-poin atau draf kasar menjadi artikel blog yang utuh. Gunakan Markdown.', `Judul: ${title}\n\nDraf:\n${content}`, (r) => { document.getElementById('content-input').value = r; }, 'btn-expand');
-}
+// AI dinonaktifkan sementara
 </script>
 </body>
 </html>
