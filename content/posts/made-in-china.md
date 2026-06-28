@@ -4,6 +4,7 @@ date: 2020-11-23T13:58:00+07:00
 draft: false
 categories: ["Book Review"]
 image: "/images/covers/jack.jpg"
+description: "Dari biografi Jack Ma & Alibaba: kisah tentang bersikap tenang saat badai, pentingnya komunikasi sebagai modal karir, dan peran orang tua dalam mengenali bakat anak sejak dini. Refleksi ringan tentang pendidikan dan keberanian mencoba."
 ---
 
 <!-- wp:paragraph -->
