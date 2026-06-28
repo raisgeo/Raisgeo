@@ -8,39 +8,163 @@
 <title>Arsip · {{ .Site.Title }}</title>
 <link rel="stylesheet" href="/css/tempo.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+.search-wrap {
+  margin-bottom: 40px;
+}
+.search-box {
+  width: 100%;
+  padding: 12px 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  outline: none;
+  background: #fff;
+  color: #111;
+  transition: border-color 0.15s;
+}
+.search-box:focus { border-color: #CC0000; }
+.search-box::placeholder { color: #aaa; }
+.search-results { margin-top: 8px; }
+.search-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  text-decoration: none;
+  color: inherit;
+}
+.search-item:hover .search-item-title { color: #CC0000; }
+.search-item-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  color: #111;
+  transition: color 0.15s;
+}
+.search-item-meta {
+  font-size: 12px;
+  color: #aaa;
+  white-space: nowrap;
+  margin-left: 16px;
+}
+.search-empty {
+  font-size: 13px;
+  color: #aaa;
+  font-style: italic;
+  padding: 16px 0;
+  font-family: 'Lora', serif;
+}
+.search-count {
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+html.dark .search-box {
+  background: #1a1a1a;
+  border-color: #333;
+  color: #eee;
+}
+html.dark .search-box:focus { border-color: #FF3333; }
+html.dark .search-item { border-color: #222; }
+html.dark .search-item-title { color: #eee; }
+html.dark .search-item:hover .search-item-title { color: #FF3333; }
+</style>
 </head>
 <body>
-
 {{ partial "header.html" . }}
-
 <div class="page-wrap">
   <div class="page-eyebrow">Semua tulisan</div>
   <h1 class="page-title">Arsip</h1>
-  {{ range (where .Site.RegularPages "Type" "posts").GroupByDate "2006" }}
-  <div class="arch-year">
-    <div class="arch-year-label">{{ .Key }}</div>
-    {{ range (.Pages.GroupByDate "January 2006") }}
-    <div class="arch-month">
-      <div class="arch-month-label">{{ .Key }}</div>
-      <div class="arch-posts">
-        {{ range .Pages }}
-        <a href="{{ .RelPermalink }}" class="arch-item">
-          <span class="arch-title">{{ .Title }}</span>
-          <span class="arch-meta">{{ .Date.Format "2 Jan" }} · {{ .ReadingTime }} menit</span>
-        </a>
-        {{ end }}
+
+  <div class="search-wrap">
+    <input
+      type="text"
+      id="searchInput"
+      class="search-box"
+      placeholder="Cari artikel..."
+      autocomplete="off"
+    />
+    <div id="searchCount" class="search-count"></div>
+    <div id="searchResults" class="search-results"></div>
+  </div>
+
+  <div id="archiveList">
+    {{ range (where .Site.RegularPages "Type" "posts").GroupByDate "2006" }}
+    <div class="arch-year">
+      <div class="arch-year-label">{{ .Key }}</div>
+      {{ range (.Pages.GroupByDate "January 2006") }}
+      <div class="arch-month">
+        <div class="arch-month-label">{{ .Key }}</div>
+        <div class="arch-posts">
+          {{ range .Pages }}
+          <a href="{{ .RelPermalink }}" class="arch-item">
+            <span class="arch-title">{{ .Title }}</span>
+            <span class="arch-meta">{{ .Date.Format "2 Jan" }} · {{ .ReadingTime }} menit</span>
+          </a>
+          {{ end }}
+        </div>
       </div>
+      {{ end }}
     </div>
     {{ end }}
   </div>
-  {{ end }}
 </div>
-
 <footer>
   <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
   <a class="foot-logo" href="/">The Geographer's Journal</a>
 </footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
 <script src="/js/map.js"></script>
+<script>
+(function() {
+  var input = document.getElementById('searchInput');
+  var results = document.getElementById('searchResults');
+  var count = document.getElementById('searchCount');
+  var archive = document.getElementById('archiveList');
+  var fuse = null;
+  var data = [];
+
+  fetch('/index.json')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      data = d;
+      fuse = new Fuse(data, {
+        keys: ['title', 'description', 'categories'],
+        threshold: 0.4,
+        minMatchCharLength: 2
+      });
+    });
+
+  input.addEventListener('input', function() {
+    var q = this.value.trim();
+    if (!q) {
+      results.innerHTML = '';
+      count.innerHTML = '';
+      archive.style.display = 'block';
+      return;
+    }
+    archive.style.display = 'none';
+    if (!fuse) return;
+    var res = fuse.search(q);
+    count.innerHTML = res.length + ' artikel ditemukan';
+    if (res.length === 0) {
+      results.innerHTML = '<div class="search-empty">Tidak ada artikel yang cocok dengan "' + q + '"</div>';
+      return;
+    }
+    results.innerHTML = res.map(function(r) {
+      var item = r.item;
+      var cat = item.categories ? item.categories[0] : '';
+      return '<a href="' + item.url + '" class="search-item">' +
+        '<span class="search-item-title">' + item.title + '</span>' +
+        '<span class="search-item-meta">' + item.date + (cat ? ' · ' + cat : '') + '</span>' +
+        '</a>';
+    }).join('');
+  });
+})();
+</script>
 </body>
 </html>
