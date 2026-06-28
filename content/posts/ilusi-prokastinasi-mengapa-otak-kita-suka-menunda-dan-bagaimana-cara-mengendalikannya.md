@@ -4,6 +4,7 @@ date: 2026-06-01T13:29:26+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/pro.png"
+description: "Prokrastinasi bukan soal kemalasan, melainkan respons biologis otak terhadap dopamin. Memahami Shiny Object Syndrome, ilusi waktu sempurna, dan tiga strategi praktis untuk meretas kebiasaan menunda — dari Micro-steps hingga Eat the Frog."
 ---
 
 
