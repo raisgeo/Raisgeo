@@ -99,7 +99,6 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
 
 .editor-grid { display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: start; }
 
-/* PUBLISH BUTTON */
 .btn-publish { background: var(--green); color: #fff; border: none; border-radius: 6px; padding: 11px 20px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; width: 100%; transition: background 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .btn-publish:hover { background: #1e5c2a; }
 .btn-publish:disabled { opacity: 0.6; pointer-events: none; }
@@ -110,7 +109,6 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
 .tip-title { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red); margin-bottom: 6px; }
 .tip-text { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
-/* DRAG DROP ZONE */
 .drop-zone { border: 2px dashed var(--border-strong); border-radius: 8px; padding: 28px 16px; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; background: var(--surface2); }
 .drop-zone.dragover { border-color: var(--red); background: #fff5f5; }
 .drop-zone-text { font-size: 13px; color: var(--text-muted); }
@@ -122,7 +120,6 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
 .upload-status.success { background: var(--green-bg); color: var(--green); display: block; }
 .upload-status.error { background: #fff0f0; color: var(--red); display: block; }
 
-/* STATUS MODAL */
 .pub-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 999; display: none; align-items: center; justify-content: center; }
 .pub-overlay.show { display: flex; }
 .pub-modal { background: var(--surface); border-radius: 12px; padding: 36px 32px; max-width: 380px; width: 90%; text-align: center; }
@@ -240,7 +237,6 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
               <button class="md-btn" onclick="insertMd('\n> ','')">❝ Quote</button>
               <button class="md-btn" onclick="insertMd('\n---\n','')">— Garis</button>
             </div>
-
             <textarea id="content-input" placeholder="Tulis isi artikel di sini..."></textarea>
           </div>
         </div>
@@ -276,7 +272,6 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
             <label>Meta description (SEO)</label>
             <input type="text" id="desc-input" placeholder="150–160 karakter..." oninput="updateCharCount()">
             <div class="char-bar"><span id="char-count" class="char-neutral">0 karakter</span></div>
-
           </div>
           <button class="btn-publish" id="btn-publish-art" onclick="publishArticle()">🚀 Publish ke Blog</button>
           <button class="btn-secondary" onclick="resetArticleForm()">Reset form</button>
@@ -312,8 +307,8 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
           <div class="card-title">Detail Produk</div>
           <div class="field">
             <label>Nomor produk</label>
-            <input type="number" id="prod-num" value="6" min="1" oninput="updatePreview()">
-            <p class="hint">Produk saat ini: 1–5</p>
+            <input type="number" id="prod-num" value="..." min="1" oninput="updatePreview()">
+            <p class="hint" id="prod-num-hint">Menghitung produk...</p>
           </div>
           <div class="field">
             <label>Nama produk</label>
@@ -453,6 +448,8 @@ function showScreen(name) {
   });
   document.getElementById(name+'-screen').style.display = 'block';
   window.scrollTo(0,0);
+  // Hitung produk otomatis saat buka halaman product
+  if (name === 'product') initProductScreen();
 }
 
 // ── INIT ──
@@ -505,6 +502,37 @@ async function ghUploadImg(path, base64, message) {
     body: JSON.stringify(body)
   });
   return r.json();
+}
+
+// ── HITUNG PRODUK OTOMATIS ──
+async function fetchProductCount() {
+  try {
+    const storeFile = await ghGet('layouts/store.html');
+    if (!storeFile.content) return 1;
+    const storeContent = decodeURIComponent(escape(atob(storeFile.content.replace(/\n/g,''))));
+    const matches = storeContent.match(/class="product-card"/g);
+    return matches ? matches.length + 1 : 1;
+  } catch(e) {
+    return 1;
+  }
+}
+
+async function initProductScreen() {
+  const numInput = document.getElementById('prod-num');
+  const hint = document.getElementById('prod-num-hint');
+  numInput.value = '';
+  numInput.placeholder = 'Menghitung...';
+  hint.textContent = 'Membaca data Store...';
+  try {
+    const nextNum = await fetchProductCount();
+    numInput.value = nextNum;
+    numInput.placeholder = '';
+    hint.textContent = `Produk saat ini: 1–${nextNum - 1} · No. ${nextNum} otomatis`;
+    updatePreview();
+  } catch(e) {
+    numInput.placeholder = 'Isi manual';
+    hint.textContent = 'Gagal membaca Store, isi manual.';
+  }
 }
 
 // ── IMAGE HANDLING ──
@@ -739,10 +767,8 @@ function resetArticleForm() {
   setUploadStatus('art-upload-status','','');
   artImgBase64 = null; artImgName = null;
 }
-function resetProductForm() {
-  ['prod-num','prod-name','prod-desc','prod-price','prod-link'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('prod-num').value = '6';
-  document.getElementById('preview-num').textContent = 'No. —';
+async function resetProductForm() {
+  ['prod-name','prod-desc','prod-price','prod-link'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('preview-name').textContent = 'Nama produk';
   document.getElementById('preview-price').textContent = 'Rp—';
   document.getElementById('preview-img').style.display = 'none';
@@ -750,6 +776,8 @@ function resetProductForm() {
   document.getElementById('prod-img-preview').style.display = 'none';
   setUploadStatus('prod-upload-status','','');
   prodImgBase64 = null; prodImgName = null;
+  // Hitung ulang nomor produk setelah reset
+  await initProductScreen();
 }
 function showToast(msg) {
   const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
