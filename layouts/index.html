@@ -76,10 +76,11 @@
   background: var(--surface, #fff);
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid var(--border, #e8e4dc);
+  border: 1px solid rgba(0,0,0,0.06);
   margin-bottom: 24px;
   transition: transform 0.25s, box-shadow 0.25s, background 0.25s, border-color 0.25s;
   position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 10px 32px rgba(0,0,0,0.07);
 }
 .home-featured:hover {
   transform: translateY(-5px);
@@ -199,11 +200,12 @@ html.dark .home-featured:hover {
   background: var(--surface, #fff);
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid var(--border, #e8e4dc);
+  border: 1px solid rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   transition: transform 0.25s, box-shadow 0.25s, background 0.25s, border-color 0.25s;
   position: relative;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 8px 24px rgba(0,0,0,0.06);
 }
 .home-card:hover {
   transform: translateY(-5px);
@@ -358,10 +360,11 @@ html.dark .home-card:hover {
 
 .sidebar-list {
   background: var(--surface, #fff);
-  border: 1px solid var(--border, #e8e4dc);
-  border-radius: 14px;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 16px;
   overflow: hidden;
   margin-top: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 8px 24px rgba(0,0,0,0.06);
 }
 html.dark .sidebar-list {
   background: var(--surface, #1c1a16);
