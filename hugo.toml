@@ -11,3 +11,6 @@ pagination.pagerSize = 10
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+
+[outputs]
+  home = ["HTML", "JSON"]
