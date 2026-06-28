@@ -444,6 +444,77 @@ html.dark .sidebar-list {
     padding: 32px 16px 60px;
   }
 }
+
+/* ════════════════════════════════
+   HERO OVERRIDE — lebih minimalis
+════════════════════════════════ */
+
+/* Tag "RAISGEO" — dari kotak solid ke pill tipis */
+.hero-tag {
+  display: inline-block;
+  background: transparent !important;
+  border: 1px solid rgba(255,255,255,0.35) !important;
+  border-radius: 100px !important;
+  font-size: 9px !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 600 !important;
+  color: rgba(255,255,255,0.75) !important;
+  padding: 4px 14px !important;
+  text-transform: uppercase !important;
+  margin-bottom: 14px !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Judul — italic lebih subtle */
+.hero-title em {
+  font-style: italic !important;
+  color: rgba(255,255,255,0.75) !important;
+}
+
+/* Tombol CTA — sudut melengkung, lebih clean */
+.cta-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  border: 1px solid rgba(255,255,255,0.45) !important;
+  border-radius: 100px !important;
+  padding: 10px 24px !important;
+  transition: all .25s !important;
+  backdrop-filter: blur(8px) !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+.cta-btn:hover {
+  background: rgba(255,255,255,0.18) !important;
+  border-color: rgba(255,255,255,0.7) !important;
+  color: #fff !important;
+}
+.cta-btn:hover .cta-arrow {
+  transform: translateX(4px) !important;
+}
+
+/* Koordinat — lebih halus */
+.hero-meta > span:first-child {
+  font-size: 10px !important;
+  letter-spacing: 0.1em !important;
+  color: rgba(255,255,255,0.45) !important;
+  font-weight: 400 !important;
+}
+
+/* Gradient overlay hero — lebih gelap di bawah agar teks lebih terbaca */
+.hero-content {
+  background: linear-gradient(
+    transparent 0%,
+    rgba(0,0,0,0.3) 30%,
+    rgba(0,0,0,0.72) 100%
+  ) !important;
+}
+
 </style>
 </head>
 <body>
