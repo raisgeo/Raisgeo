@@ -412,7 +412,7 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
 
 <script>
 // ── CONFIG ──
-const GH_TOKEN = 'ghp_CJLXYwiBWMxxgSeZqKKBLb06uB1JGP1F7C6t';
+const GH_TOKEN = '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';
 const GH_OWNER = 'raisgeo';
 const GH_REPO  = 'Raisgeo';
 const PASS     = 'admin';
@@ -637,6 +637,10 @@ async function publishProduct() {
 
     document.getElementById('pub-modal-content').querySelector('.pub-sub').textContent = 'Memperbarui halaman Store...';
     const storeFile = await ghGet(storePath);
+    if (!storeFile.content) {
+      showModal('Gagal', 'Tidak bisa membaca store.html. Pastikan token GitHub valid.', '❌');
+      btn.disabled = false; return;
+    }
     const storeContent = decodeURIComponent(escape(atob(storeFile.content.replace(/\n/g,''))));
 
     const newCard = `
