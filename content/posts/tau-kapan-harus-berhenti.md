@@ -4,6 +4,7 @@ date: 2020-12-12T22:42:35+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/tau.webp"
+description: "Kisah penebang pohon yang lupa mengasah kapaknya — dan bagaimana saya mengenali burnout setelah tak henti-hentinya mengemban amanah sejak semester 1 kuliah. Tentang berhenti sejenak bukan untuk menyerah, tapi untuk mengambil ancang-ancang lebih jauh."
 ---
 
 <!-- wp:paragraph {"align":"center"} -->
