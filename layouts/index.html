@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="c_HHk2q197rU67Ekk_f0Wl_eMD7NycAP3lj8WK19MlM" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/favicon.ico">
 <title>{{ .Site.Title }}</title>
@@ -10,9 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-
 {{ partial "header.html" . }}
-
 <section class="hero">
   <canvas id="heroCanvas"></canvas>
   <div class="hero-content">
@@ -25,16 +24,13 @@
     </div>
   </div>
 </section>
-
 <div class="main">
   <div class="articles">
     <div class="sec-head">
       <div class="sec-label">Tulisan Terbaru</div>
       <a href="/archives/" class="sec-all">Lihat semua →</a>
     </div>
-
     {{ $pages := where .Site.RegularPages "Type" "posts" }}
-
     {{ with index $pages 0 }}
     <div class="featured-card">
       <a href="{{ .RelPermalink }}" class="featured-img">
@@ -58,7 +54,6 @@
       </div>
     </div>
     {{ end }}
-
     <div class="mini-grid">
       {{ range $i, $p := after 1 (first 5 $pages) }}
       <div class="mini-card">
@@ -79,7 +74,6 @@
       {{ end }}
     </div>
   </div>
-
   <div class="sidebar">
     <div class="sidebar-head">Artikel Terbaru</div>
     {{ range $i, $p := first 8 $pages }}
@@ -93,12 +87,10 @@
     {{ end }}
   </div>
 </div>
-
 <footer>
   <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
   <a class="foot-logo" href="/">The Geographer's Journal</a>
 </footer>
-
 <script src="/js/map.js"></script>
 </body>
 </html>
