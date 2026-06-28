@@ -4,6 +4,7 @@ date: 2020-01-26T07:14:50+07:00
 draft: false
 categories: ["Opinions"]
 image: "/images/covers/break.webp"
+description: "Di era post-truth, kebenaran menjadi relatif. Dari hadis Arbain Nawawi tentang syukunun nafs hingga kisah klasik China tentang kuda yang kabur — sebuah perenungan tentang parameter kebenaran dan nuansa abu-abu dalam setiap keputusan hidup."
 ---
 
 <!-- wp:paragraph {"align":"justify"} -->
