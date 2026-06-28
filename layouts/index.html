@@ -25,19 +25,26 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 
 <style>
-/* ── HOMEPAGE ARTICLE GRID ── */
-.home-wrap {
+/* ════════════════════════════════
+   HOMEPAGE LAYOUT
+════════════════════════════════ */
+.home-outer {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 48px 28px 80px;
+  padding: 52px 28px 80px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 48px;
+  align-items: start;
 }
 
+/* ── SECTION HEADER ── */
 .home-sec-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 32px;
-  padding-bottom: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
   border-bottom: 2px solid var(--ac, #CC0000);
 }
 .home-sec-label {
@@ -54,32 +61,128 @@
   font-weight: 500;
   color: var(--ac, #CC0000);
   text-decoration: none;
-  letter-spacing: 0.03em;
 }
 .home-sec-all:hover { text-decoration: underline; }
 
-/* ── 3 COLUMN GRID ── */
-.home-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
+/* ════════════════════════════════
+   ARTICLE GRID (kiri)
+════════════════════════════════ */
 
-/* ── ARTICLE CARD ── */
-.home-card {
-  background: var(--surface, #ffffff);
+/* Artikel pertama: featured besar */
+.home-featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--surface, #fff);
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border, #e8e4dc);
+  margin-bottom: 24px;
   transition: transform 0.2s, box-shadow 0.2s;
+}
+.home-featured:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.09);
+}
+.home-featured-img {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg2, #f0ece4);
+  min-height: 240px;
+}
+.home-featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+.home-featured:hover .home-featured-img img {
+  transform: scale(1.04);
+}
+.home-featured-body {
+  padding: 28px 28px 24px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+.home-featured-badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ac, #CC0000);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.home-featured-badge::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--ac, #CC0000);
+}
+.home-featured-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--text, #1a1814);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 12px;
+  transition: color 0.15s;
+}
+.home-featured-title:hover { color: var(--ac, #CC0000); }
+.home-featured-excerpt {
+  font-family: 'Lora', serif;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text2, #6b6560);
+  flex: 1;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.home-featured-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text3, #9c978e);
+  padding-top: 14px;
+  border-top: 1px solid var(--border, #e8e4dc);
+}
+
+/* Grid 2 kolom untuk artikel berikutnya */
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.home-card {
+  background: var(--surface, #fff);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border, #e8e4dc);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 .home-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(0,0,0,0.08);
 }
-html.dark .home-card {
+html.dark .home-card,
+html.dark .home-featured {
   background: var(--surface, #1c1a16);
 }
 
@@ -101,62 +204,56 @@ html.dark .home-card {
 .home-card:hover .home-card-img img {
   transform: scale(1.04);
 }
-.home-card-img-fallback {
+.home-card-img-num {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Playfair Display', serif;
-  font-size: 48px;
+  font-size: 42px;
   font-weight: 900;
   color: rgba(0,0,0,0.06);
 }
 
 .home-card-body {
-  padding: 20px 22px 22px;
+  padding: 16px 18px 18px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
-
 .home-card-badge {
-  display: inline-block;
   font-family: 'Inter', sans-serif;
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ac, #CC0000);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
-
+.home-card-badge::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 2px;
+  background: var(--ac, #CC0000);
+}
 .home-card-title {
   font-family: 'Playfair Display', serif;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   line-height: 1.4;
   color: var(--text, #1a1814);
   text-decoration: none;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   transition: color 0.15s;
+  flex: 1;
 }
 .home-card-title:hover { color: var(--ac, #CC0000); }
-
-.home-card-excerpt {
-  font-family: 'Lora', serif;
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--text2, #6b6560);
-  flex: 1;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 .home-card-meta {
   display: flex;
   align-items: center;
@@ -164,57 +261,127 @@ html.dark .home-card {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
   color: var(--text3, #9c978e);
-  padding-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid var(--border, #e8e4dc);
+  margin-top: auto;
 }
-.home-card-date { letter-spacing: 0.02em; }
-.home-card-time { display: flex; align-items: center; gap: 5px; }
+.home-card-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 .home-card-time::before {
   content: '';
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239c978e' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpolyline points='12 6 12 12 16 14'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
+  opacity: 0.7;
 }
 
-/* ── FEATURED (artikel pertama lebih besar) ── */
-.home-card.featured {
-  grid-column: span 2;
-  flex-direction: row;
+/* ════════════════════════════════
+   SIDEBAR (kanan)
+════════════════════════════════ */
+.home-sidebar {
+  position: sticky;
+  top: 100px;
 }
-.home-card.featured .home-card-img {
-  width: 55%;
-  aspect-ratio: unset;
+
+.sidebar-head {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text, #1a1814);
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ac, #CC0000);
+  margin-bottom: 0;
+}
+
+.sidebar-list {
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, #e8e4dc);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+html.dark .sidebar-list {
+  background: var(--surface, #1c1a16);
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--border, #e8e4dc);
+  transition: background 0.15s;
+}
+.sidebar-item:last-child { border-bottom: none; }
+.sidebar-item:hover { background: rgba(204,0,0,0.04); }
+
+.sidebar-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: rgba(204,0,0,0.15);
+  line-height: 1;
   flex-shrink: 0;
-  border-radius: 0;
+  min-width: 24px;
+  padding-top: 2px;
 }
-.home-card.featured .home-card-body {
-  padding: 28px 28px 28px;
-  justify-content: space-between;
-}
-.home-card.featured .home-card-title {
-  font-size: 22px;
-  line-height: 1.35;
-  margin-bottom: 14px;
-}
-.home-card.featured .home-card-excerpt {
-  font-size: 14px;
-  -webkit-line-clamp: 4;
-  margin-bottom: 20px;
+.sidebar-item:hover .sidebar-num {
+  color: rgba(204,0,0,0.35);
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .home-grid { grid-template-columns: repeat(2, 1fr); }
-  .home-card.featured { grid-column: span 2; flex-direction: column; }
-  .home-card.featured .home-card-img { width: 100%; aspect-ratio: 16/9; }
+.sidebar-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text, #1a1814);
+  margin-bottom: 4px;
+  transition: color 0.15s;
 }
-@media (max-width: 600px) {
-  .home-grid { grid-template-columns: 1fr; }
-  .home-card.featured { grid-column: span 1; }
-  .home-wrap { padding: 32px 16px 60px; }
+.sidebar-item:hover .sidebar-title { color: var(--ac, #CC0000); }
+
+.sidebar-meta {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: var(--text3, #9c978e);
+  letter-spacing: 0.02em;
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media (max-width: 1024px) {
+  .home-outer {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .home-sidebar {
+    position: static;
+  }
+}
+@media (max-width: 700px) {
+  .home-featured {
+    grid-template-columns: 1fr;
+  }
+  .home-featured-img {
+    min-height: 200px;
+    aspect-ratio: 16/9;
+  }
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+  .home-outer {
+    padding: 32px 16px 60px;
+  }
 }
 </style>
 </head>
@@ -234,35 +401,78 @@ html.dark .home-card {
   </div>
 </section>
 
-<div class="home-wrap">
-  <div class="home-sec-head">
-    <div class="home-sec-label">Tulisan Terbaru</div>
-    <a href="/archives/" class="home-sec-all">Lihat semua →</a>
-  </div>
+<div class="home-outer">
 
-  {{ $pages := where .Site.RegularPages "Type" "posts" }}
+  <!-- KIRI: ARTIKEL -->
+  <div class="home-articles">
+    <div class="home-sec-head">
+      <div class="home-sec-label">Tulisan Terbaru</div>
+      <a href="/archives/" class="home-sec-all">Lihat semua →</a>
+    </div>
 
-  <div class="home-grid">
-    {{ range $i, $p := first 7 $pages }}
-    <div class="home-card{{ if eq $i 0 }} featured{{ end }}">
-      <a href="{{ $p.RelPermalink }}" class="home-card-img">
-        {{ if $p.Params.image }}
-        <img src="{{ $p.Params.image }}" alt="{{ $p.Title }}" onerror="this.style.display='none'">
+    {{ $pages := where .Site.RegularPages "Type" "posts" }}
+
+    <!-- Artikel pertama: featured besar -->
+    {{ with index $pages 0 }}
+    <a href="{{ .RelPermalink }}" class="home-featured" style="text-decoration:none;">
+      <div class="home-featured-img">
+        {{ if .Params.image }}
+        <img src="{{ .Params.image }}" alt="{{ .Title }}" onerror="this.style.display='none'">
         {{ end }}
-        <div class="home-card-img-fallback">{{ printf "%02d" (add $i 1) }}</div>
-      </a>
-      <div class="home-card-body">
-        <span class="home-card-badge">— {{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</span>
-        <a href="{{ $p.RelPermalink }}" class="home-card-title">{{ $p.Title }}</a>
-        <div class="home-card-excerpt">{{ $p.Summary | plainify | truncate 160 }}</div>
-        <div class="home-card-meta">
-          <span class="home-card-date">{{ $p.Date.Format "2 Jan 2006" }}</span>
-          <span class="home-card-time">{{ $p.ReadingTime }} menit</span>
+      </div>
+      <div class="home-featured-body">
+        <div>
+          <div class="home-featured-badge">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
+          <span class="home-featured-title">{{ .Title }}</span>
+          <div class="home-featured-excerpt">{{ .Summary | plainify | truncate 180 }}</div>
+        </div>
+        <div class="home-featured-meta">
+          <span>{{ .Date.Format "2 Jan 2006" }}</span>
+          <span class="home-card-time">{{ .ReadingTime }} menit</span>
         </div>
       </div>
-    </div>
+    </a>
     {{ end }}
+
+    <!-- Artikel 2–7: grid 2 kolom -->
+    <div class="home-grid">
+      {{ range $i, $p := after 1 (first 7 $pages) }}
+      <div class="home-card">
+        <a href="{{ $p.RelPermalink }}" class="home-card-img">
+          {{ if $p.Params.image }}
+          <img src="{{ $p.Params.image }}" alt="{{ $p.Title }}" onerror="this.style.display='none'">
+          {{ end }}
+          <div class="home-card-img-num">{{ printf "%02d" (add $i 2) }}</div>
+        </a>
+        <div class="home-card-body">
+          <span class="home-card-badge">{{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</span>
+          <a href="{{ $p.RelPermalink }}" class="home-card-title">{{ $p.Title }}</a>
+          <div class="home-card-meta">
+            <span>{{ $p.Date.Format "2 Jan 2006" }}</span>
+            <span class="home-card-time">{{ $p.ReadingTime }} menit</span>
+          </div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
   </div>
+
+  <!-- KANAN: SIDEBAR -->
+  <aside class="home-sidebar">
+    <div class="sidebar-head">Artikel Terbaru</div>
+    <div class="sidebar-list">
+      {{ range $i, $p := first 8 $pages }}
+      <a href="{{ $p.RelPermalink }}" class="sidebar-item">
+        <div class="sidebar-num">{{ printf "%02d" (add $i 1) }}</div>
+        <div>
+          <div class="sidebar-title">{{ $p.Title }}</div>
+          <div class="sidebar-meta">{{ $p.Date.Format "2 Jan 2006" }} · {{ $p.ReadingTime }} menit</div>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </aside>
+
 </div>
 
 <footer>
