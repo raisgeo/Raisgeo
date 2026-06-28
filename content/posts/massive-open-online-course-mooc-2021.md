@@ -4,6 +4,7 @@ date: 2021-03-06T01:16:53+07:00
 draft: false
 categories: ["Notes"]
 image: "/images/covers/mo.webp"
+description: "Ulasan jujur platform MOOC dari Coursera, edX, hingga IndonesiaX — kenapa belajar programming penting di era 4.0, dan refleksi tentang bagaimana pengajar yang baik seharusnya mencerdaskan, bukan mempersulit muridnya."
 ---
 
 <!-- wp:paragraph -->
