@@ -1,74 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id" class="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
 <title>Store — The Geographer's Journal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/tempo.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400&family=Inter:wght@300;400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: #fff;
-  color: #111;
-  transition: background 0.2s, color 0.2s;
-}
-
-html.dark body { background: #0f0f0f; color: #e0e0e0; }
-
 .store-container {
   max-width: 1100px;
   margin: 0 auto;
   padding: 48px 24px 80px;
 }
-
 .store-hero {
-  border-top: 3px solid #CC0000;
+  border-top: 3px solid var(--ac);
   padding-top: 36px;
-  margin-bottom: 48px;
+  margin-bottom: 40px;
 }
-
 .store-eyebrow {
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #CC0000;
+  color: var(--ac);
   font-weight: 500;
   margin-bottom: 14px;
 }
-
 .store-title {
   font-family: 'Playfair Display', serif;
   font-size: 38px;
   font-weight: 400;
   font-style: italic;
   line-height: 1.2;
-  color: #111;
+  color: var(--text);
   margin-bottom: 16px;
   max-width: 600px;
 }
-
-html.dark .store-title { color: #f0f0f0; }
-
 .store-subtitle {
   font-size: 14px;
-  color: #666;
+  color: var(--text2);
   line-height: 1.8;
   max-width: 520px;
   font-weight: 300;
 }
 
-html.dark .store-subtitle { color: #888; }
+/* SEARCH */
+.search-bar-wrap {
+  margin-bottom: 24px;
+}
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  background: var(--bg2);
+  color: var(--text);
+  border-radius: 3px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.search-bar:focus { border-color: var(--ac); }
+.search-bar::placeholder { color: var(--text3); }
 
+/* FILTER */
 .filter-bar {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-bottom: 40px;
 }
-
 .filter-btn {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
@@ -76,122 +78,101 @@ html.dark .store-subtitle { color: #888; }
   letter-spacing: 0.04em;
   padding: 7px 18px;
   border-radius: 2px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   background: transparent;
-  color: #666;
+  color: var(--text2);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.15s;
 }
+.filter-btn:hover { border-color: var(--text); color: var(--text); }
+.filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
 
-html.dark .filter-btn { border-color: #333; color: #888; }
-.filter-btn:hover { border-color: #111; color: #111; }
-html.dark .filter-btn:hover { border-color: #eee; color: #eee; }
-.filter-btn.active { background: #111; color: #fff; border-color: #111; }
-html.dark .filter-btn.active { background: #eee; color: #111; border-color: #eee; }
-
+/* GRID */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 48px;
 }
-
 .product-card {
-  border: 1px solid #e8e8e8;
-  transition: border-color 0.2s ease;
+  border: 1px solid var(--border);
+  background: var(--card);
+  transition: border-color 0.2s;
 }
-
-html.dark .product-card { border-color: #222; background: #1a1a1a; }
-.product-card:hover { border-color: #bbb; }
-html.dark .product-card:hover { border-color: #444; }
+.product-card:hover { border-color: var(--text3); }
+.product-card[style*="none"] { display: none; }
 
 .product-img {
   width: 100%;
   aspect-ratio: 4/3;
-  background: #f7f7f7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #e8e8e8;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
-
-html.dark .product-img { background: #222; border-color: #2a2a2a; }
-
 .product-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
 .product-body { padding: 18px 20px 20px; }
 
+/* NOMOR PRODUK */
+.product-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ac);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
 .product-cat {
   font-size: 9px;
-  color: #CC0000;
+  color: var(--ac);
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
-
-html.dark .product-cat { color: #FF4444; }
-
 .product-name {
   font-family: 'Playfair Display', serif;
   font-size: 16px;
   font-weight: 400;
-  color: #111;
+  color: var(--text);
   margin-bottom: 6px;
   line-height: 1.4;
 }
-
-html.dark .product-name { color: #eee; }
-
 .product-badge {
   display: inline-block;
   font-size: 9px;
   font-weight: 400;
   padding: 3px 9px;
-  border: 1px solid #e0e0e0;
-  color: #888;
+  border: 1px solid var(--border);
+  color: var(--text3);
   letter-spacing: 0.04em;
   margin-bottom: 10px;
 }
-
-html.dark .product-badge { border-color: #333; color: #666; }
-
 .product-desc {
   font-size: 12px;
-  color: #777;
+  color: var(--text2);
   line-height: 1.7;
   margin-bottom: 18px;
   font-style: italic;
   font-family: 'Lora', serif;
 }
-
-html.dark .product-desc { color: #888; }
-
 .product-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--border);
   padding-top: 14px;
 }
-
-html.dark .product-footer { border-color: #2a2a2a; }
-
 .product-price {
   font-size: 13px;
   font-weight: 500;
-  color: #111;
+  color: var(--text);
   letter-spacing: 0.02em;
 }
-
-html.dark .product-price { color: #eee; }
-
 .product-btn {
   font-family: 'Inter', sans-serif;
   font-size: 10px;
@@ -199,68 +180,77 @@ html.dark .product-price { color: #eee; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 7px 16px;
-  background: #CC0000;
+  background: var(--ac);
   color: #fff;
   border: none;
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
-  transition: background 0.15s ease;
+  transition: background 0.15s;
 }
-
-.product-btn:hover { background: #aa0000; color: #fff; text-decoration: none; }
+.product-btn:hover { background: var(--ac2); color: #fff; text-decoration: none; }
 
 .empty-state {
   display: none;
   grid-column: 1 / -1;
   text-align: center;
   padding: 80px 24px;
-  border: 1px dashed #ddd;
+  border: 1px dashed var(--border);
 }
-
-html.dark .empty-state { border-color: #2a2a2a; }
-
 .empty-title {
   font-family: 'Playfair Display', serif;
   font-size: 18px;
   font-style: italic;
-  color: #bbb;
+  color: var(--text3);
   margin-bottom: 8px;
 }
-
 .empty-sub {
   font-size: 12px;
-  color: #ccc;
+  color: var(--text3);
   font-style: italic;
   font-family: 'Lora', serif;
 }
-
 .store-disclaimer {
   font-size: 12px;
-  color: #aaa;
+  color: var(--text3);
   text-align: center;
   font-style: italic;
   font-family: 'Lora', serif;
   line-height: 1.8;
   padding-top: 32px;
-  border-top: 1px solid #e8e8e8;
+  border-top: 1px solid var(--border);
   max-width: 540px;
   margin: 0 auto;
 }
+.search-result-info {
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 16px;
+  display: none;
+}
 
-html.dark .store-disclaimer { color: #444; border-color: #222; }
+footer {
+  padding: 20px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg);
+}
 
 @media (max-width: 768px) {
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .store-title { font-size: 28px; }
+  footer { padding: 20px 24px; }
 }
-
 @media (max-width: 480px) {
   .product-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
+
+{{ partial "header.html" . }}
 
 <div class="store-container">
 
@@ -269,6 +259,11 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
     <h1 class="store-title">Things I use, trust,<br>and recommend.</h1>
     <p class="store-subtitle">A curated selection of products I personally use — running gear, gadgets, books, and everyday essentials. Recommended by me and my wife.</p>
   </div>
+
+  <div class="search-bar-wrap">
+    <input type="text" class="search-bar" id="search-input" placeholder="Cari produk atau nomor (cth: 3, sepatu, kamb)..." oninput="searchProducts()">
+  </div>
+  <div class="search-result-info" id="search-info"></div>
 
   <div class="filter-bar">
     <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
@@ -281,11 +276,12 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
 
   <div class="product-grid" id="product-grid">
 
-    <div class="product-card" data-cat="running">
+    <div class="product-card" data-cat="running" data-num="1" data-name="ortuseight hyperdrive 3.0">
       <div class="product-img">
         <img src="/images/store/ortuseight-hyperdrive.jpg" alt="Ortuseight Hyperdrive 3.0">
       </div>
       <div class="product-body">
+        <div class="product-num">No. 1</div>
         <div class="product-cat">Running & Fitness</div>
         <div class="product-name">Ortuseight Hyperdrive 3.0</div>
         <span class="product-badge">I wear this</span>
@@ -297,11 +293,12 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
       </div>
     </div>
 
-    <div class="product-card" data-cat="running">
+    <div class="product-card" data-cat="running" data-num="2" data-name="kamb running shorts 2-in-1">
       <div class="product-img">
         <img src="/images/store/kamb-shorts-2in1.jpg" alt="KAMB Running Shorts 2-in-1">
       </div>
       <div class="product-body">
+        <div class="product-num">No. 2</div>
         <div class="product-cat">Running & Fitness</div>
         <div class="product-name">KAMB Running Shorts 2-in-1</div>
         <span class="product-badge">I wear this</span>
@@ -313,11 +310,12 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
       </div>
     </div>
 
-    <div class="product-card" data-cat="running">
+    <div class="product-card" data-cat="running" data-num="3" data-name="kamb running shorts">
       <div class="product-img">
         <img src="/images/store/kamb-shorts.jpg" alt="KAMB Running Shorts">
       </div>
       <div class="product-body">
+        <div class="product-num">No. 3</div>
         <div class="product-cat">Running & Fitness</div>
         <div class="product-name">KAMB Running Shorts</div>
         <span class="product-badge">I wear this</span>
@@ -329,11 +327,12 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
       </div>
     </div>
 
-    <div class="product-card" data-cat="running">
+    <div class="product-card" data-cat="running" data-num="4" data-name="antrojack sport socks">
       <div class="product-img">
         <img src="/images/store/antrojack-socks.jpg" alt="Antrojack Sport Socks">
       </div>
       <div class="product-body">
+        <div class="product-num">No. 4</div>
         <div class="product-cat">Running & Fitness</div>
         <div class="product-name">Antrojack Sport Socks</div>
         <span class="product-badge">I wear this</span>
@@ -345,11 +344,12 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
       </div>
     </div>
 
-    <div class="product-card" data-cat="tech">
+    <div class="product-card" data-cat="tech" data-num="5" data-name="huawei band 11">
       <div class="product-img">
         <img src="/images/store/huawei-band-11.jpg" alt="Huawei Band 11">
       </div>
       <div class="product-body">
+        <div class="product-num">No. 5</div>
         <div class="product-cat">Tech & Gadgets</div>
         <div class="product-name">Huawei Band 11</div>
         <span class="product-badge">I use this</span>
@@ -362,8 +362,8 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
     </div>
 
     <div class="empty-state" id="empty-state">
-      <div class="empty-title">Nothing here yet.</div>
-      <p class="empty-sub">More products in this category are coming soon.</p>
+      <div class="empty-title">Produk tidak ditemukan.</div>
+      <p class="empty-sub">Coba kata kunci atau nomor lain.</p>
     </div>
 
   </div>
@@ -372,19 +372,64 @@ html.dark .store-disclaimer { color: #444; border-color: #222; }
 
 </div>
 
+<footer>
+  <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a class="foot-logo" href="/">The Geographer's Journal</a>
+    <a href="/admin" class="admin-link" title="">✍</a>
+  </div>
+</footer>
+
 <script>
+var activeFilter = 'all';
+
 function filterProducts(cat, btn) {
+  activeFilter = cat;
   document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-info').style.display = 'none';
+  applyFilter();
+}
+
+function searchProducts() {
+  var q = document.getElementById('search-input').value.trim().toLowerCase();
+  var cards = document.querySelectorAll('.product-card');
+  var visible = 0;
+
+  cards.forEach(function(card) {
+    var num = card.dataset.num;
+    var name = card.dataset.name || '';
+    var cat = card.dataset.cat || '';
+    var match = false;
+    if (q === '') {
+      match = (activeFilter === 'all' || cat === activeFilter);
+    } else {
+      match = num === q || name.includes(q) || cat.includes(q);
+    }
+    card.style.display = match ? 'block' : 'none';
+    if (match) visible++;
+  });
+
+  var info = document.getElementById('search-info');
+  if (q !== '') {
+    info.style.display = 'block';
+    info.textContent = visible + ' produk ditemukan untuk "' + q + '"';
+  } else {
+    info.style.display = 'none';
+  }
+
+  var empty = document.getElementById('empty-state');
+  if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+}
+
+function applyFilter() {
   var cards = document.querySelectorAll('.product-card');
   var visible = 0;
   cards.forEach(function(card) {
-    if (cat === 'all' || card.dataset.cat === cat) {
-      card.style.display = 'block';
-      visible++;
-    } else {
-      card.style.display = 'none';
-    }
+    var show = activeFilter === 'all' || card.dataset.cat === activeFilter;
+    card.style.display = show ? 'block' : 'none';
+    if (show) visible++;
   });
   var empty = document.getElementById('empty-state');
   if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
