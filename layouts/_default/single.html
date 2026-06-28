@@ -7,6 +7,9 @@
 <link rel="apple-touch-icon" href="/favicon.ico">
 <title>{{ .Title }} · {{ .Site.Title }}</title>
 
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ .Permalink }}" />
+
 <!-- SEO -->
 {{ with .Params.description }}<meta name="description" content="{{ . }}" />{{ end }}
 
@@ -83,7 +86,6 @@
 </footer>
 <script src="/js/map.js"></script>
 <script>
-/* Giscus dark/light mode sync */
 (function() {
   function setGiscusTheme(theme) {
     var iframe = document.querySelector('iframe.giscus-frame');
@@ -93,12 +95,10 @@
       'https://giscus.app'
     );
   }
-
   var observer = new MutationObserver(function() {
     var isDark = document.documentElement.classList.contains('dark');
     setGiscusTheme(isDark ? 'dark' : 'light');
   });
-
   observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ['class']
