@@ -285,7 +285,7 @@ footer {
         <div class="product-cat">Running & Fitness</div>
         <div class="product-name">Ortuseight Hyperdrive 3.0</div>
         <span class="product-badge">I wear this</span>
-        <p class="product-desc">My ultimate speed day companion – lightweight, responsive, and built for explosive intervals and quick tempo runs.</p>
+        <p class="product-desc">My everyday running shoe — lightweight, responsive, and built for the long run.</p>
         <div class="product-footer">
           <span class="product-price">Rp678.030</span>
           <a href="https://s.shopee.co.id/18MW8mE1M" target="_blank" rel="noopener" class="product-btn">Get it →</a>
@@ -319,7 +319,7 @@ footer {
         <div class="product-cat">Running & Fitness</div>
         <div class="product-name">KAMB Running Shorts</div>
         <span class="product-badge">I wear this</span>
-        <p class="product-desc">Engineered for performance – dual-layer running shorts with a secure compression liner and dedicated phone pocket.</p>
+        <p class="product-desc">Lightweight and breathable — my go-to for shorter runs and warm days in Kalimantan.</p>
         <div class="product-footer">
           <span class="product-price">Rp129.000</span>
           <a href="https://s.shopee.co.id/7prDr8X1FG" target="_blank" rel="noopener" class="product-btn">Get it →</a>
@@ -361,57 +361,6 @@ footer {
       </div>
     </div>
 
-
-    <div class="product-card" data-cat="books" data-num="6" data-name="kartun geometri karya larry gonick">
-      <div class="product-img">
-        <img src="/images/store/geometri.jpg" alt="Kartun Geometri karya Larry Gonick">
-      </div>
-      <div class="product-body">
-        <div class="product-num">No. 6</div>
-        <div class="product-cat">Books</div>
-        <div class="product-name">Kartun Geometri karya Larry Gonick</div>
-        <span class="product-badge">I read this</span>
-        <p class="product-desc">Buku Kartun Geometri karya Larry Gonick ini menghadirkan materi geometri lengkap—mulai dari bangun datar hingga trigonometri—lewat penjelasan kartun yang interaktif, segar, dan menghibur. Cocok untuk pelajar, pendidik, hingga profesional, buku ini menjadi kombinasi sempurna antara edukasi dan hiburan untuk menemani petualangan literasi Anda.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp75.000</span>
-          <a href="https://aff.gramedia.com/s/PvXsHdPqqD" target="_blank" rel="noopener" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="books" data-num="7" data-name="the things you can see only when you slow down by haemin sunim">
-      <div class="product-img">
-        <img src="/images/store/sunim.jpg" alt="The Things You Can See Only When You Slow Down by Haemin Sunim">
-      </div>
-      <div class="product-body">
-        <div class="product-num">No. 7</div>
-        <div class="product-cat">Books</div>
-        <div class="product-name">The Things You Can See Only When You Slow Down by Haemin Sunim</div>
-        <span class="product-badge">I read this</span>
-        <p class="product-desc">Buku *best-seller* internasional karya Haemin Sunim ini mengajak kita menemukan kedamaian batin dan keseimbangan hidup di tengah dunia yang bergerak cepat. Disertai ilustrasi visual yang menenangkan, buku ini menawarkan renungan mendalam tentang hubungan, cinta, dan pentingnya berbelas kasih pada diri sendiri saat kita mulai melambat.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp100.000</span>
-          <a href="https://aff.gramedia.com/s/PDmXBNhrHR" target="_blank" rel="noopener" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="product-card" data-cat="books" data-num="8" data-name="animal farm-new by george orwell">
-      <div class="product-img">
-        <img src="/images/store/animal.jpg" alt="Animal Farm-New by George Orwell">
-      </div>
-      <div class="product-body">
-        <div class="product-num">No. 8</div>
-        <div class="product-cat">Books</div>
-        <div class="product-name">Animal Farm-New by George Orwell</div>
-        <span class="product-badge">I read this</span>
-        <p class="product-desc">Animal Farm merupakan novel alegori politik legendaris karya George Orwell yang menyindir totaliterisme lewat kisah pemberontakan para binatang di sebuah peternakan. Mahakarya pemenang penghargaan internasional ini menggambarkan dengan cerdas bagaimana sebuah perjuangan demi demokrasi perlahan berbelok menjadi tirani baru yang manipulatif.</p>
-        <div class="product-footer">
-          <span class="product-price">Rp44.100</span>
-          <a href="https://aff.gramedia.com/s/GahhSqehRm" target="_blank" rel="noopener" class="product-btn">Get it →</a>
-        </div>
-      </div>
-    </div>
     <div class="empty-state" id="empty-state">
       <div class="empty-title">Produk tidak ditemukan.</div>
       <p class="empty-sub">Coba kata kunci atau nomor lain.</p>
@@ -485,6 +434,28 @@ function applyFilter() {
   var empty = document.getElementById('empty-state');
   if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
 }
+
+// Dark mode
+function toggleTheme() {
+  var html = document.documentElement;
+  if (html.classList.contains('dark')) {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.classList.remove('light');
+    html.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+// Apply saved theme on load
+(function() {
+  var saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.classList.remove('light');
+    document.documentElement.classList.add('dark');
+  }
+})();
 </script>
 
 </body>
