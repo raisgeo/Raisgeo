@@ -1,189 +1,252 @@
-(function(){
-function toggleTheme(){
-  const h=document.documentElement;
-  h.classList.toggle('dark');
-  localStorage.setItem('rg',h.classList.contains('dark')?'dark':'light');
-}
-window.toggleTheme=toggleTheme;
-if(localStorage.getItem('rg')==='dark')document.documentElement.classList.add('dark');
+/**
+ * map.js — Raisgeo Hero Map
+ * Single-layer ESRI World Imagery, CSS-zoom ke Banjarbaru
+ * Ringan, no flash, no layer switching
+ */
 
-const canvas=document.getElementById('heroCanvas');
-if(!canvas)return;
-const ctx=canvas.getContext('2d');
-function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight||440}
-resize();window.addEventListener('resize',resize);
+(function () {
+  'use strict';
 
-const BJ={lon:114.75,lat:-3.426};
+  /* ──────────────────────────────────────────
+     CONFIG
+  ────────────────────────────────────────── */
 
-function mercator(lon,lat){
-  const x=(lon+180)/360;
-  const latR=lat*Math.PI/180;
-  const y=(1-Math.log(Math.tan(latR/2+Math.PI/4))/Math.PI)/2;
-  return[x,y];
-}
-function project(lon,lat,s,W,H){
-  const[mx,my]=mercator(lon,lat);
-  const[cx,cy]=mercator(s.cx,s.cy);
-  return[(mx-cx)*s.scale*W+W/2,(my-cy)*s.scale*W+H/2];
-}
+  // Koordinat pusat Banjarbaru (kota, bukan airport)
+  const CENTER_LAT  = -3.4457;
+  const CENTER_LNG  = 114.8308;
 
-// ── TILE CACHE ──
-const tileCache={};
-function getTile(x,y,z){
-  const key=`${z}/${x}/${y}`;
-  if(tileCache[key])return tileCache[key];
-  const img=new Image();
-  img.crossOrigin='anonymous';
-  // ESRI World Imagery — resolusi tinggi sampai kota
-  img.src=`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`;
-  img.onload=()=>{};
-  tileCache[key]=img;
-  return img;
-}
+  // Tile source — ESRI World Imagery (gratis, no key, resolusi tinggi hingga zoom 19)
+  const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
 
-function lon2tile(lon,z){return Math.floor((lon+180)/360*Math.pow(2,z));}
-function lat2tile(lat,z){return Math.floor((1-Math.log(Math.tan(lat*Math.PI/180)+1/Math.cos(lat*Math.PI/180))/Math.PI)/2*Math.pow(2,z));}
+  // Zoom awal dan zoom akhir — hanya 1 layer, tidak ada pergantian
+  // z=13 → view kota-kecamatan level (jalan besar terlihat)
+  // z=16 → detail blok kota, perumahan, jalan kecil terlihat
+  const ZOOM_START  = 13;
+  const ZOOM_END    = 16;
 
-function drawTiles(s,W,H){
-  // Zoom level sesuai skala — max zoom 13 supaya kota terlihat
-  let z;
-  if(s.scale<3)       z=4;
-  else if(s.scale<7)  z=5;
-  else if(s.scale<18) z=6;
-  else if(s.scale<50) z=7;
-  else if(s.scale<150)z=9;
-  else                z=10;
+  // Durasi animasi (ms)
+  const ANIM_DURATION = 7000;   // total durasi zoom
+  const ANIM_DELAY    = 300;    // delay sebelum mulai
 
-  const n=Math.pow(2,z);
-  const cx=lon2tile(s.cx,z);
-  const cy=lat2tile(s.cy,z);
+  /* ──────────────────────────────────────────
+     UTILS
+  ────────────────────────────────────────── */
 
-  function tile2px(tx,ty){
-    const lon=(tx/n)*360-180;
-    const latR=Math.atan(Math.sinh(Math.PI*(1-2*ty/n)));
-    return project(lon,latR*180/Math.PI,s,W,H);
+  function deg2rad(d) { return d * Math.PI / 180; }
+
+  // Konversi lat/lng ke tile x,y pada zoom z
+  function latLngToTile(lat, lng, z) {
+    const n   = Math.pow(2, z);
+    const x   = Math.floor((lng + 180) / 360 * n);
+    const rad = deg2rad(lat);
+    const y   = Math.floor((1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2 * n);
+    return { x, y };
   }
 
-  const[p0x,p0y]=tile2px(cx,cy);
-  const[p1x,p1y]=tile2px(cx+1,cy+1);
-  const tw=Math.abs(p1x-p0x)+1;
-  const th=Math.abs(p1y-p0y)+1;
+  // Konversi lat/lng ke piksel dalam tile grid pada zoom z
+  // (piksel = posisi absolut dalam dunia tile, 256px per tile)
+  function latLngToPixel(lat, lng, z) {
+    const tile  = latLngToTile(lat, lng, z);
+    const n     = Math.pow(2, z);
+    const px    = (lng + 180) / 360 * n * 256;
+    const rad   = deg2rad(lat);
+    const py    = (1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2 * n * 256;
+    return { px, py };
+  }
 
-  const padX=Math.ceil(W/tw)+3;
-  const padY=Math.ceil(H/th)+3;
+  // Easing — cubic ease in-out
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
 
-  for(let tx=cx-padX;tx<=cx+padX;tx++){
-    for(let ty=cy-padY;ty<=cy+padY;ty++){
-      const ntx=((tx%n)+n)%n;
-      const nty=Math.max(0,Math.min(n-1,ty));
-      const img=getTile(ntx,nty,z);
-      const[px,py]=tile2px(tx,ty);
-      if(img.complete&&img.naturalWidth>0){
-        ctx.drawImage(img,px,py,tw,th);
+  /* ──────────────────────────────────────────
+     TILE RENDERER
+  ────────────────────────────────────────── */
+
+  const canvas  = document.getElementById('heroCanvas');
+  if (!canvas) return;
+  const ctx     = canvas.getContext('2d');
+
+  // Cache gambar tile
+  const tileCache = new Map();
+
+  function getTileImg(z, x, y) {
+    const key = `${z}/${x}/${y}`;
+    if (tileCache.has(key)) return tileCache.get(key);
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = TILE_URL.replace('{z}', z).replace('{x}', x).replace('{y}', y);
+    tileCache.set(key, img);
+    return img;
+  }
+
+  /* ──────────────────────────────────────────
+     DRAW — render tile grid pada zoom z
+     dengan view center di (centerPx, centerPy)
+     dan skala (scale) untuk CSS-zoom efek
+  ────────────────────────────────────────── */
+
+  function drawMap(z, centerPx, centerPy) {
+    const W = canvas.width;
+    const H = canvas.height;
+
+    // Offset: pusat canvas = pusat koordinat
+    const originX = W / 2 - centerPx % 256;
+    const originY = H / 2 - centerPy % 256;
+
+    // Tile di pusat
+    const tileX0 = Math.floor(centerPx / 256);
+    const tileY0 = Math.floor(centerPy / 256);
+
+    // Berapa banyak tile yang perlu ditarik ke setiap arah
+    const tilesX = Math.ceil(W / 256) + 2;
+    const tilesY = Math.ceil(H / 256) + 2;
+
+    ctx.clearRect(0, 0, W, H);
+
+    for (let dy = -tilesY; dy <= tilesY; dy++) {
+      for (let dx = -tilesX; dx <= tilesX; dx++) {
+        const tx = tileX0 + dx;
+        const ty = tileY0 + dy;
+        const maxTile = Math.pow(2, z);
+        if (tx < 0 || ty < 0 || tx >= maxTile || ty >= maxTile) continue;
+
+        const img = getTileImg(z, tx, ty);
+        const drawX = originX + dx * 256;
+        const drawY = originY + dy * 256;
+
+        if (img.complete && img.naturalWidth > 0) {
+          ctx.drawImage(img, drawX, drawY, 256, 256);
+        } else {
+          // Placeholder abu-abu sambil tile load
+          ctx.fillStyle = '#1a1a1a';
+          ctx.fillRect(drawX, drawY, 256, 256);
+          img.onload = () => { /* animasi loop akan redraw otomatis */ };
+        }
       }
     }
   }
-}
 
-// ── COMPASS ──
-function drawCompass(x,y,r){
-  ctx.save();ctx.translate(x,y);
-  ctx.strokeStyle='rgba(255,255,255,0.28)';ctx.lineWidth=0.5;
-  ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.stroke();
-  ctx.setLineDash([1,5]);ctx.beginPath();ctx.arc(0,0,r*.65,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);
-  ctx.fillStyle='rgba(255,255,255,0.65)';
-  ctx.beginPath();ctx.moveTo(0,-r*.85);ctx.lineTo(r*.15,-r*.25);ctx.lineTo(0,-r*.12);ctx.lineTo(-r*.15,-r*.25);ctx.closePath();ctx.fill();
-  ctx.globalAlpha=.22;ctx.strokeStyle='rgba(255,255,255,0.35)';
-  ctx.beginPath();ctx.moveTo(0,r*.85);ctx.lineTo(r*.15,r*.25);ctx.lineTo(0,r*.12);ctx.lineTo(-r*.15,r*.25);ctx.closePath();ctx.stroke();
-  ctx.globalAlpha=.7;ctx.fillStyle='rgba(255,255,255,0.65)';
-  ctx.font='bold '+(r*.44)+'px serif';ctx.textAlign='center';ctx.fillText('N',0,-r-6);
-  ctx.globalAlpha=.22;ctx.font=(r*.3)+'px sans-serif';
-  ctx.fillText('S',0,r+10);ctx.fillText('E',r+8,3);ctx.fillText('W',-r-8,3);
-  ctx.globalAlpha=1;ctx.fillStyle='rgba(255,255,255,0.4)';
-  ctx.beginPath();ctx.arc(0,0,2.5,0,Math.PI*2);ctx.fill();
-  ctx.restore();
-}
+  /* ──────────────────────────────────────────
+     PRE-LOAD TILES sebelum animasi dimulai
+  ────────────────────────────────────────── */
 
-// ── PHASES ──
-// Scale ~2.8  → zoom 4  (Asia Tenggara)
-// Scale ~6.5  → zoom 5  (Indonesia)
-// Scale ~18   → zoom 6  (Kalimantan)
-// Scale ~60   → zoom 8  (Kalimantan Selatan)
-// Scale ~180  → zoom 10 (area Banjarbaru)
-// Scale ~380  → zoom 12 (kota Banjarbaru)
-// Scale ~650  → zoom 13 (detail kota)
-const phases=[
-  {cx:117, cy:-3,      scale:4.0,  dur:2500},
-  {cx:115, cy:-2,      scale:18,   dur:2800},
-  {cx:BJ.lon,cy:BJ.lat,scale:120,  dur:99999}
-];
-
-let t0=null;
-// Ease in-out cubic
-const ease=t=>t<.5?4*t*t*t:(t-1)*(2*t-2)*(2*t-2)+1;
-
-function getState(now){
-  if(!t0)t0=now;
-  const el=now-t0;
-  let acc=0;
-  for(let i=0;i<phases.length;i++){
-    const p=phases[Math.max(0,i-1)],c=phases[i];
-    if(el<acc+c.dur){
-      const e=ease(Math.min((el-acc)/c.dur,1));
-      return{cx:p.cx+(c.cx-p.cx)*e,cy:p.cy+(c.cy-p.cy)*e,scale:p.scale+(c.scale-p.scale)*e,ph:i,pt:(el-acc)/c.dur};
+  function preloadTiles(z, centerLat, centerLng, radius) {
+    const { x: cx, y: cy } = latLngToTile(centerLat, centerLng, z);
+    const promises = [];
+    for (let dy = -radius; dy <= radius; dy++) {
+      for (let dx = -radius; dx <= radius; dx++) {
+        const img = getTileImg(z, cx + dx, cy + dy);
+        if (!img.complete) {
+          promises.push(new Promise(res => {
+            img.onload  = res;
+            img.onerror = res; // jika gagal, tetap lanjut
+          }));
+        }
+      }
     }
-    acc+=c.dur;
-  }
-  return{cx:BJ.lon,cy:BJ.lat,scale:120,ph:3,pt:1};
-}
-
-// ── DRAW LOOP ──
-function draw(now){
-  const W=canvas.width,H=canvas.height;
-  if(!W||!H){requestAnimationFrame(draw);return;}
-  const s=getState(now);
-
-  // Background
-  ctx.fillStyle='#0d1f0d';
-  ctx.fillRect(0,0,W,H);
-
-  // Citra satelit
-  ctx.save();
-  drawTiles(s,W,H);
-  ctx.restore();
-
-  // Overlay tipis hanya di bawah
-  const ov=ctx.createLinearGradient(0,0,0,H);
-  ov.addColorStop(0,  'rgba(0,0,0,0.0)');
-  ov.addColorStop(0.5,'rgba(0,0,0,0.0)');
-  ov.addColorStop(0.75,'rgba(0,0,0,0.25)');
-  ov.addColorStop(1,  'rgba(0,0,0,0.60)');
-  ctx.fillStyle=ov;
-  ctx.fillRect(0,0,W,H);
-
-  // Titik Banjarbaru
-  const[bx,by]=project(BJ.lon,BJ.lat,s,W,H);
-  const pa=s.ph>=2?Math.min(1,s.pt*2):0;
-  if(pa>0){
-    const pulse=0.5+0.5*Math.sin(now*.003);
-    ctx.save();
-    ctx.globalAlpha=pa*.15*pulse;
-    ctx.strokeStyle='#FF2222';ctx.lineWidth=1.5;
-    ctx.beginPath();ctx.arc(bx,by,16,0,Math.PI*2);ctx.stroke();
-    ctx.beginPath();ctx.arc(bx,by,28,0,Math.PI*2);ctx.stroke();
-    ctx.restore();
-    ctx.save();
-    ctx.globalAlpha=pa;
-    ctx.fillStyle='#CC0000';
-    ctx.beginPath();ctx.arc(bx,by,6,0,Math.PI*2);ctx.fill();
-    ctx.fillStyle='#FFFFFF';
-    ctx.beginPath();ctx.arc(bx,by,2.5,0,Math.PI*2);ctx.fill();
-    ctx.restore();
+    return Promise.all(promises);
   }
 
-  drawCompass(W-46,H-50,22);
-  requestAnimationFrame(draw);
-}
+  /* ──────────────────────────────────────────
+     CANVAS RESIZE
+  ────────────────────────────────────────── */
 
-requestAnimationFrame(draw);
+  function resizeCanvas() {
+    const section = canvas.parentElement;
+    canvas.width  = section.offsetWidth;
+    canvas.height = section.offsetHeight;
+  }
+
+  resizeCanvas();
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+    // Redraw frame saat ini jika sudah ada
+    if (currentFrame !== null) drawFrame(currentFrame);
+  });
+
+  /* ──────────────────────────────────────────
+     ANIMASI ZOOM — pure lerp antara 2 zoom level
+     pada 1 tile layer (ESRI z=13 s/d z=16)
+
+     Cara kerja:
+     - Render tile pada ZOOM_START
+     - Gunakan CSS-like transform lewat ctx.setTransform
+       untuk zoom in secara halus ke titik pusat
+     - Tidak ada pergantian layer → tidak ada flash
+  ────────────────────────────────────────── */
+
+  let currentFrame = 0;
+  let animStart    = null;
+  let rafId        = null;
+
+  // Piksel pusat Banjarbaru pada ZOOM_START
+  const centerPixStart = latLngToPixel(CENTER_LAT, CENTER_LNG, ZOOM_START);
+
+  // Scale akhir: jika zoom naik dari Z ke Z+n,
+  // maka scale CSS = 2^n (karena setiap zoom level = 2× lebih dekat)
+  const scaleEnd = Math.pow(2, ZOOM_END - ZOOM_START);
+
+  function drawFrame(t) {
+    currentFrame = t;
+    const W = canvas.width;
+    const H = canvas.height;
+
+    const ease  = easeInOutCubic(t);
+    const scale = 1 + (scaleEnd - 1) * ease;
+
+    ctx.save();
+    ctx.clearRect(0, 0, W, H);
+
+    // Transformasi: zoom terhadap titik pusat canvas
+    // Efeknya = kamera mendekati CENTER_LAT/CENTER_LNG
+    ctx.translate(W / 2, H / 2);
+    ctx.scale(scale, scale);
+    ctx.translate(-W / 2, -H / 2);
+
+    drawMap(ZOOM_START, centerPixStart.px, centerPixStart.py);
+
+    ctx.restore();
+  }
+
+  function animate(timestamp) {
+    if (!animStart) animStart = timestamp;
+    const elapsed = timestamp - animStart;
+    const t = Math.min(elapsed / ANIM_DURATION, 1);
+
+    drawFrame(t);
+
+    if (t < 1) {
+      rafId = requestAnimationFrame(animate);
+    } else {
+      // Animasi selesai — tetap tampilkan frame akhir, berhenti loop
+      drawFrame(1);
+    }
+  }
+
+  /* ──────────────────────────────────────────
+     INIT — preload tile utama lalu mulai animasi
+  ────────────────────────────────────────── */
+
+  // Draw frame 0 segera (tampilan awal sebelum preload selesai)
+  drawFrame(0);
+
+  // Preload tile di sekitar pusat untuk zoom start dan sedikit zoom end
+  Promise.all([
+    preloadTiles(ZOOM_START, CENTER_LAT, CENTER_LNG, 3),
+    preloadTiles(ZOOM_END,   CENTER_LAT, CENTER_LNG, 2),
+  ]).then(() => {
+    // Semua tile inti sudah siap — mulai animasi
+    setTimeout(() => {
+      rafId = requestAnimationFrame(animate);
+    }, ANIM_DELAY);
+  });
+
+  // Fallback: mulai animasi setelah 1.5s meski preload belum selesai
+  setTimeout(() => {
+    if (rafId === null) {
+      rafId = requestAnimationFrame(animate);
+    }
+  }, 1500);
+
 })();
