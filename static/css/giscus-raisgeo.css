@@ -1,0 +1,227 @@
+/*
+ * Giscus Custom Theme — Raisgeo
+ * Upload ke: static/css/giscus-raisgeo.css
+ * Kemudian referensikan sebagai data-theme di script Giscus
+ *
+ * Base: transparan, menyesuaikan light/dark dari parent page
+ */
+
+:root {
+  --color-canvas-default:          transparent;
+  --color-canvas-subtle:           rgba(0,0,0,0.03);
+  --color-canvas-inset:            rgba(0,0,0,0.04);
+  --color-border-default:          rgba(0,0,0,0.08);
+  --color-border-muted:            rgba(0,0,0,0.06);
+  --color-neutral-muted:           rgba(0,0,0,0.05);
+  --color-fg-default:              #1a1814;
+  --color-fg-muted:                #6b6560;
+  --color-fg-subtle:               #9c978e;
+  --color-btn-text:                #1a1814;
+  --color-btn-bg:                  rgba(0,0,0,0.04);
+  --color-btn-border:              rgba(0,0,0,0.10);
+  --color-btn-hover-bg:            rgba(0,0,0,0.07);
+  --color-btn-hover-border:        rgba(0,0,0,0.16);
+  --color-btn-primary-text:        #ffffff;
+  --color-btn-primary-bg:          #CC0000;
+  --color-btn-primary-border:      #CC0000;
+  --color-btn-primary-hover-bg:    #a80000;
+  --color-btn-primary-hover-border:#a80000;
+  --color-accent-fg:               #CC0000;
+  --color-accent-emphasis:         #CC0000;
+  --color-danger-fg:               #CC0000;
+  --color-header-bg:               transparent;
+  --color-header-divider:          rgba(0,0,0,0.08);
+  --color-prettylights-syntax-comment: #9c978e;
+  --color-social-reaction-bg-hover: rgba(204,0,0,0.06);
+  --color-social-reaction-bg-reacted-hover: rgba(204,0,0,0.10);
+  --color-reactions-reaction-bg-reacted: rgba(204,0,0,0.08);
+  --color-reactions-reaction-fg-reacted: #CC0000;
+  --color-reactions-reaction-border-reacted: rgba(204,0,0,0.20);
+}
+
+/* ── Base ── */
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 13px;
+  background: transparent !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Timeline comment thread ── */
+.timeline-item {
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+}
+.timeline-item::before { display: none !important; }
+
+/* ── Comment header bar ── */
+.comment-header {
+  border-radius: 10px 10px 0 0 !important;
+  background: rgba(0,0,0,0.025) !important;
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+  padding: 8px 14px !important;
+}
+
+/* ── Comment body ── */
+.comment .Box {
+  border: 1px solid rgba(0,0,0,0.07) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+  background: #fff !important;
+}
+.comment .Box:hover {
+  border-color: rgba(204,0,0,0.12) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
+}
+
+/* ── Avatar ── */
+.avatar, .avatar-user {
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(0,0,0,0.08) !important;
+}
+
+/* ── Author link ── */
+.author {
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  color: #1a1814 !important;
+}
+.author:hover { color: #CC0000 !important; }
+
+/* ── Timestamp ── */
+.color-fg-muted { color: #9c978e !important; }
+
+/* ── Reaction buttons ── */
+.reaction-summary-item {
+  border-radius: 100px !important;
+  font-size: 11px !important;
+  padding: 3px 10px !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  background: transparent !important;
+  transition: all 0.15s !important;
+}
+.reaction-summary-item:hover {
+  border-color: rgba(204,0,0,0.20) !important;
+  background: rgba(204,0,0,0.04) !important;
+}
+
+/* ── Write comment box ── */
+.form-control, textarea {
+  border-radius: 8px !important;
+  border: 1px solid rgba(0,0,0,0.10) !important;
+  background: rgba(0,0,0,0.02) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  padding: 10px 12px !important;
+  transition: border-color 0.15s !important;
+  color: #1a1814 !important;
+}
+.form-control:focus, textarea:focus {
+  border-color: #CC0000 !important;
+  box-shadow: 0 0 0 3px rgba(204,0,0,0.08) !important;
+  background: #fff !important;
+}
+textarea::placeholder { color: #9c978e !important; }
+
+/* ── Tab nav (Tulis / Pratinjau) ── */
+.tabnav-tab {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 6px 6px 0 0 !important;
+  padding: 6px 14px !important;
+  color: #6b6560 !important;
+  border: none !important;
+  background: transparent !important;
+  letter-spacing: 0.01em !important;
+}
+.tabnav-tab.selected,
+.tabnav-tab[aria-selected="true"] {
+  color: #1a1814 !important;
+  border-bottom: 2px solid #CC0000 !important;
+}
+
+/* ── Login button ── */
+.btn-primary {
+  background: #CC0000 !important;
+  border-color: #CC0000 !important;
+  color: #fff !important;
+  border-radius: 100px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  padding: 8px 20px !important;
+  transition: background 0.15s !important;
+}
+.btn-primary:hover {
+  background: #a80000 !important;
+  border-color: #a80000 !important;
+}
+/* GitHub octicon di login button */
+.btn-primary svg { fill: #fff !important; }
+
+/* ── Markdown content ── */
+.markdown-body {
+  font-family: 'Lora', Georgia, serif !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+  color: #1a1814 !important;
+}
+.markdown-body a { color: #CC0000 !important; }
+.markdown-body code {
+  background: rgba(0,0,0,0.05) !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  padding: 1px 5px !important;
+}
+
+/* ── "0 reaksi" / counter heading ── */
+.sr-only { font-size: 0 !important; }
+
+/* ── Divider ── */
+.discussion-divider {
+  border-top: 1px solid rgba(0,0,0,0.06) !important;
+  margin: 16px 0 !important;
+}
+
+/* ── Load more button ── */
+.pagination-loader-container, .BtnGroup {
+  text-align: center !important;
+  margin-top: 12px !important;
+}
+.btn {
+  border-radius: 100px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 7px 18px !important;
+  border: 1px solid rgba(0,0,0,0.10) !important;
+  background: transparent !important;
+  color: #6b6560 !important;
+  font-family: 'Inter', sans-serif !important;
+  transition: all 0.15s !important;
+}
+.btn:hover {
+  border-color: #CC0000 !important;
+  color: #CC0000 !important;
+  background: rgba(204,0,0,0.04) !important;
+}
+
+/* ── Giscus powered-by footer ── */
+.giscus-footer {
+  font-size: 11px !important;
+  text-align: center !important;
+  color: #9c978e !important;
+  padding-top: 8px !important;
+  opacity: 0.7 !important;
+}
+.giscus-footer a { color: #9c978e !important; }
+.giscus-footer a:hover { color: #CC0000 !important; }
+
+/* ── Emoji reaction picker ── */
+.popover {
+  border-radius: 10px !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important;
+}
