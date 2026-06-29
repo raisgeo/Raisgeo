@@ -97,9 +97,72 @@
 .product-card {
   border: 1px solid var(--border);
   background: var(--card);
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+  overflow: hidden;
+  /* Spotlight vars */
+  --x: 0;
+  --y: 0;
+  --xp: 0.5;
+  --yp: 0.5;
+  --base: 0;
+  --spread: 180;
+  --spotlight-size: 280px;
+  --hue: calc(var(--base) + (var(--xp) * var(--spread)));
+  --border-size: 1.5px;
 }
-.product-card:hover { border-color: var(--text3); }
+
+/* Spotlight glow layer */
+.product-card::before {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    var(--spotlight-size) var(--spotlight-size)
+    at calc(var(--x) * 1px) calc(var(--y) * 1px),
+    hsl(var(--hue) 80% 70% / 0.10),
+    transparent 70%
+  );
+  z-index: 0;
+}
+
+/* Border spotlight glow */
+.product-card::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(
+    var(--spotlight-size) var(--spotlight-size)
+    at calc(var(--x) * 1px) calc(var(--y) * 1px),
+    hsl(var(--hue) 90% 75% / 0.18),
+    transparent 60%
+  );
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.product-card:hover {
+  border-color: hsl(var(--hue) 60% 65% / 0.5) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+}
+.product-card:hover::before,
+.product-card:hover::after {
+  opacity: 1;
+}
+
+/* Pastikan konten di atas layer glow */
+.product-card > * {
+  position: relative;
+  z-index: 1;
+}
 .product-card[style*="none"] { display: none; }
 
 .product-img {
@@ -406,6 +469,18 @@ footer {
     </div>
   </div>
 </footer>
+<style>
+.site-footer-new{background:#CC0000!important;border-top:none!important;padding:0!important;display:block!important}
+.sfn-inner{max-width:1200px;margin:0 auto!important;padding:40px 28px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;width:100%!important;box-sizing:border-box!important}
+.sfn-left{display:flex;flex-direction:column;gap:6px}
+.sfn-brand{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.90)}
+.sfn-copy{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.50)}
+.sfn-right{display:flex;align-items:center;gap:8px}
+.sfn-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff;text-decoration:none;transition:background .2s}
+.sfn-icon:hover{background:rgba(255,255,255,.28)}
+.sfn-admin{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);color:rgba(255,255,255,.35);text-decoration:none;font-size:14px;transition:background .2s,color .2s;margin-left:4px}
+.sfn-admin:hover{background:rgba(255,255,255,.18);color:#fff}
+</style>
 
 <style>
 .site-footer-new {
@@ -534,6 +609,40 @@ function applyFilter() {
   var empty = document.getElementById('empty-state');
   if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
 }
+
+// ── SPOTLIGHT EFFECT pada product-card ──
+(function() {
+  function initSpotlight() {
+    var cards = document.querySelectorAll('.product-card');
+    cards.forEach(function(card) {
+      card.addEventListener('pointermove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var xp = (x / rect.width).toFixed(3);
+        var yp = (y / rect.height).toFixed(3);
+        card.style.setProperty('--x', x.toFixed(1));
+        card.style.setProperty('--y', y.toFixed(1));
+        card.style.setProperty('--xp', xp);
+        card.style.setProperty('--yp', yp);
+      });
+    });
+  }
+  // Jalankan setelah DOM siap dan setelah filter/search (re-init)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSpotlight);
+  } else {
+    initSpotlight();
+  }
+  // Re-init jika card muncul setelah filter
+  var origFilter = window.applyFilter;
+  if (typeof origFilter === 'function') {
+    window.applyFilter = function() {
+      origFilter.apply(this, arguments);
+      setTimeout(initSpotlight, 50);
+    };
+  }
+})();
 
 // Dark mode
 function toggleTheme() {
