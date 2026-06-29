@@ -9,7 +9,7 @@ description: "Notulensi Seri Diskusi Perdagangan Karbon APHI & Fairatmos, 22 Jun
 
 Senin siang, 22 Juni 2026, saya mengikuti webinar yang diselenggarakan oleh Asosiasi Pengusaha Hutan Indonesia (APHI) bekerja sama dengan Fairatmos. Ini adalah sesi pertama dari seri diskusi perdagangan karbon yang secara khusus membahas Peraturan Menteri Kehutanan Nomor 6 Tahun 2026 — regulasi terbaru yang mengatur tata cara perdagangan karbon di sektor kehutanan Indonesia.
 
-Sesi ini dibuka oleh Purwadi Soeprihanto dari APHI, dengan empat narasumber yang masing-masing membawakan segmen berbeda: Aruna Pradipta (Fairatmos) memaparkan konteks regulasi dan potensi karbon kehutanan, Rizky Ambardi (Fairatmos) mendemonstrasikan platform AtmosCheck, Pak Ilham dari unsur pemerintahan menyampaikan perspektif kebijakan, dan Natalia Rialucky (Fairatmos) menutup dengan ringkasan Permenhut No. 6/2026. Peserta hadir lebih dari 300 orang — gambaran betapa besarnya antusiasme pelaku usaha kehutanan terhadap isu ini.
+Sesi ini dibuka oleh Purwadi Soeprihanto dari APHI, dengan empat narasumber yang masing-masing membawakan segmen berbeda: Aruna Pradipta (Fairatmos) memaparkan konteks regulasi dan potensi karbon kehutanan, Rizky Ambardi (Fairatmos) mendemonstrasikan platform AtmosCheck, Pak Ilham dari unsur pemerintahan menyampaikan perspektif kebijakan, dan Natalia Rialucky (Fairatmos) menutup dengan ringkasan Permenhut No. 6/2026. Peserta hadir lebih dari 300 orang.
 
 ***
 
