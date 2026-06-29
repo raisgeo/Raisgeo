@@ -35,6 +35,22 @@
   color: var(--text);
   margin-bottom: 16px;
   max-width: 600px;
+  min-height: 2.5em;
+}
+/* Typewriter cursor */
+.tw-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 0.85em;
+  background: var(--ac);
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: tw-blink 0.75s step-end infinite;
+  border-radius: 1px;
+}
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 .store-subtitle {
   font-size: 14px;
@@ -319,7 +335,7 @@ footer {
 
   <div class="store-hero">
     <div class="store-eyebrow">Store</div>
-    <h1 class="store-title">Things I use, trust,<br>and recommend.</h1>
+    <h1 class="store-title" id="store-title-tw"></h1>
     <p class="store-subtitle">A curated selection of products I personally use — running gear, gadgets, books, and everyday essentials. Recommended by me and my wife.</p>
   </div>
 
@@ -642,6 +658,51 @@ function applyFilter() {
       setTimeout(initSpotlight, 50);
     };
   }
+})();
+
+// ── TYPEWRITER EFFECT ──
+(function() {
+  // Lines to type — \n triggers a line break (new line in rendered output)
+  const lines = [
+    'Things I use, trust,',
+    'and recommend.'
+  ];
+  const el = document.getElementById('store-title-tw');
+  if (!el) return;
+
+  // Build full text with a sentinel newline between lines
+  const full = lines.join('\n');
+  let i = 0;
+  let started = false;
+
+  // Cursor element
+  const cursor = document.createElement('span');
+  cursor.className = 'tw-cursor';
+
+  function renderText(text) {
+    // Replace \n with <br> for display
+    el.innerHTML = text.replace(/\n/g, '<br>');
+    el.appendChild(cursor);
+  }
+
+  function type() {
+    if (i <= full.length) {
+      renderText(full.slice(0, i));
+      i++;
+      // Slightly faster on spaces/newlines for natural feel
+      const ch = full[i - 1];
+      const delay = (ch === ' ' || ch === '\n') ? 45 : (Math.random() * 55 + 40);
+      setTimeout(type, delay);
+    } else {
+      // Pause then remove cursor after done
+      setTimeout(() => {
+        if (cursor.parentNode) cursor.parentNode.removeChild(cursor);
+      }, 1800);
+    }
+  }
+
+  // Start after a short initial delay so page has settled
+  setTimeout(() => { i = 0; type(); }, 400);
 })();
 
 // Dark mode
