@@ -1,0 +1,188 @@
+/*
+ * Giscus Custom Theme DARK — Raisgeo
+ * Upload ke: static/css/giscus-raisgeo-dark.css
+ */
+
+:root {
+  --color-canvas-default:          transparent;
+  --color-canvas-subtle:           rgba(255,255,255,0.03);
+  --color-canvas-inset:            rgba(255,255,255,0.04);
+  --color-border-default:          rgba(255,255,255,0.09);
+  --color-border-muted:            rgba(255,255,255,0.06);
+  --color-neutral-muted:           rgba(255,255,255,0.05);
+  --color-fg-default:              #f0ece4;
+  --color-fg-muted:                #a09890;
+  --color-fg-subtle:               #6a6358;
+  --color-btn-text:                #f0ece4;
+  --color-btn-bg:                  rgba(255,255,255,0.05);
+  --color-btn-border:              rgba(255,255,255,0.10);
+  --color-btn-hover-bg:            rgba(255,255,255,0.09);
+  --color-btn-hover-border:        rgba(255,255,255,0.18);
+  --color-btn-primary-text:        #ffffff;
+  --color-btn-primary-bg:          #FF3333;
+  --color-btn-primary-border:      #FF3333;
+  --color-btn-primary-hover-bg:    #e02020;
+  --color-btn-primary-hover-border:#e02020;
+  --color-accent-fg:               #FF3333;
+  --color-accent-emphasis:         #FF3333;
+  --color-danger-fg:               #FF3333;
+  --color-header-bg:               transparent;
+  --color-header-divider:          rgba(255,255,255,0.08);
+  --color-social-reaction-bg-hover: rgba(255,51,51,0.08);
+  --color-social-reaction-bg-reacted-hover: rgba(255,51,51,0.14);
+  --color-reactions-reaction-bg-reacted: rgba(255,51,51,0.10);
+  --color-reactions-reaction-fg-reacted: #FF3333;
+  --color-reactions-reaction-border-reacted: rgba(255,51,51,0.25);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  font-size: 13px;
+  background: transparent !important;
+  color: #f0ece4;
+  margin: 0;
+  padding: 0;
+}
+
+.comment .Box {
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25) !important;
+  background: #1c1a16 !important;
+}
+.comment .Box:hover {
+  border-color: rgba(255,51,51,0.15) !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35) !important;
+}
+
+.comment-header {
+  border-radius: 10px 10px 0 0 !important;
+  background: rgba(255,255,255,0.03) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+  padding: 8px 14px !important;
+}
+
+.avatar, .avatar-user {
+  border-radius: 50% !important;
+  border: 1.5px solid rgba(255,255,255,0.10) !important;
+}
+
+.author { font-weight: 600 !important; font-size: 13px !important; color: #f0ece4 !important; }
+.author:hover { color: #FF3333 !important; }
+
+.color-fg-muted { color: #6a6358 !important; }
+
+.reaction-summary-item {
+  border-radius: 100px !important;
+  font-size: 11px !important;
+  padding: 3px 10px !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  background: transparent !important;
+  transition: all 0.15s !important;
+}
+.reaction-summary-item:hover {
+  border-color: rgba(255,51,51,0.25) !important;
+  background: rgba(255,51,51,0.06) !important;
+}
+
+.form-control, textarea {
+  border-radius: 8px !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  background: rgba(255,255,255,0.04) !important;
+  font-family: 'Inter', sans-serif !important;
+  font-size: 13px !important;
+  padding: 10px 12px !important;
+  transition: border-color 0.15s !important;
+  color: #f0ece4 !important;
+}
+.form-control:focus, textarea:focus {
+  border-color: #FF3333 !important;
+  box-shadow: 0 0 0 3px rgba(255,51,51,0.10) !important;
+  background: rgba(255,255,255,0.06) !important;
+}
+textarea::placeholder { color: #6a6358 !important; }
+
+.tabnav-tab {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  border-radius: 6px 6px 0 0 !important;
+  padding: 6px 14px !important;
+  color: #6a6358 !important;
+  border: none !important;
+  background: transparent !important;
+}
+.tabnav-tab.selected,
+.tabnav-tab[aria-selected="true"] {
+  color: #f0ece4 !important;
+  border-bottom: 2px solid #FF3333 !important;
+}
+
+.btn-primary {
+  background: #FF3333 !important;
+  border-color: #FF3333 !important;
+  color: #fff !important;
+  border-radius: 100px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
+  padding: 8px 20px !important;
+  transition: background 0.15s !important;
+}
+.btn-primary:hover { background: #e02020 !important; border-color: #e02020 !important; }
+.btn-primary svg { fill: #fff !important; }
+
+.markdown-body {
+  font-family: 'Lora', Georgia, serif !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
+  color: #f0ece4 !important;
+}
+.markdown-body a { color: #FF3333 !important; }
+.markdown-body code {
+  background: rgba(255,255,255,0.07) !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  padding: 1px 5px !important;
+  color: #f0ece4 !important;
+}
+
+.discussion-divider {
+  border-top: 1px solid rgba(255,255,255,0.06) !important;
+  margin: 16px 0 !important;
+}
+
+.btn {
+  border-radius: 100px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 7px 18px !important;
+  border: 1px solid rgba(255,255,255,0.10) !important;
+  background: transparent !important;
+  color: #a09890 !important;
+  font-family: 'Inter', sans-serif !important;
+  transition: all 0.15s !important;
+}
+.btn:hover {
+  border-color: #FF3333 !important;
+  color: #FF3333 !important;
+  background: rgba(255,51,51,0.06) !important;
+}
+
+.giscus-footer {
+  font-size: 11px !important;
+  text-align: center !important;
+  color: #6a6358 !important;
+  padding-top: 8px !important;
+  opacity: 0.7 !important;
+}
+.giscus-footer a { color: #6a6358 !important; }
+.giscus-footer a:hover { color: #FF3333 !important; }
+
+.popover {
+  border-radius: 10px !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.40) !important;
+  background: #1c1a16 !important;
+}
