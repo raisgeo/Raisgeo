@@ -29,6 +29,56 @@
 
 <link rel="stylesheet" href="/css/tempo.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ── Giscus section wrapper ── */
+.comments-section {
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border, #e8e4dc);
+}
+.comments-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.comments-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text, #1a1814);
+  white-space: nowrap;
+}
+.comments-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border, #e8e4dc);
+}
+.comments-powered {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--text3, #9c978e);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.comments-card {
+  background: var(--card, var(--bg, #fff));
+  border: 1px solid var(--border, #e8e4dc);
+  border-radius: 16px;
+  padding: 28px;
+  transition: border-color 0.2s;
+}
+.comments-card:focus-within {
+  border-color: var(--ac, #CC0000);
+}
+.giscus, .giscus-frame {
+  width: 100% !important;
+}
+</style>
 </head>
 <body>
 {{ partial "header.html" . }}
@@ -61,22 +111,30 @@
   </div>
 
   <!-- Komentar Giscus -->
-  <div class="giscus-wrap" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #e8e8e8;">
-    <script src="https://giscus.app/client.js"
-      data-repo="raisgeo/Raisgeo"
-      data-repo-id="R_kgDOTAyHnA"
-      data-category="Announcements"
-      data-category-id="DIC_kwDOTAyHnM4DACkn"
-      data-mapping="url"
-      data-strict="0"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="bottom"
-      data-theme="light"
-      data-lang="id"
-      crossorigin="anonymous"
-      async>
-    </script>
+  <div class="comments-section">
+    <div class="comments-header">
+      <span class="comments-label">Komentar</span>
+      <div class="comments-line"></div>
+      <span class="comments-powered">via GitHub</span>
+    </div>
+    <div class="comments-card">
+      <script src="https://giscus.app/client.js"
+        data-repo="raisgeo/Raisgeo"
+        data-repo-id="R_kgDOTAyHnA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOTAyHnM4DACkn"
+        data-mapping="url"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="https://raisgeo.site/css/giscus-raisgeo.css"
+        data-lang="id"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+      </script>
+    </div>
   </div>
 
 </article>
@@ -115,11 +173,7 @@
   width: 100% !important;
   box-sizing: border-box !important;
 }
-.sfn-left {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+.sfn-left { display: flex; flex-direction: column; gap: 6px; }
 .sfn-brand {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
@@ -136,46 +190,24 @@
   text-transform: uppercase;
   color: rgba(255,255,255,0.50);
 }
-.sfn-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
+.sfn-right { display: flex; align-items: center; gap: 8px; }
 .sfn-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  text-decoration: none;
-  transition: background 0.2s;
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); color: #fff;
+  text-decoration: none; transition: background 0.2s;
 }
-.sfn-icon:hover {
-  background: rgba(255,255,255,0.28);
-}
+.sfn-icon:hover { background: rgba(255,255,255,0.28); }
 .sfn-admin {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.35);
-  text-decoration: none;
-  font-size: 14px;
-  transition: background 0.2s, color 0.2s;
-  margin-left: 4px;
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.35);
+  text-decoration: none; font-size: 14px;
+  transition: background 0.2s, color 0.2s; margin-left: 4px;
 }
-.sfn-admin:hover {
-  background: rgba(255,255,255,0.18);
-  color: #fff;
-}
+.sfn-admin:hover { background: rgba(255,255,255,0.18); color: #fff; }
 </style>
-<script src="/js/map.js"></script>
+
 <script>
 (function() {
   function setGiscusTheme(theme) {
@@ -188,7 +220,10 @@
   }
   var observer = new MutationObserver(function() {
     var isDark = document.documentElement.classList.contains('dark');
-    setGiscusTheme(isDark ? 'dark' : 'light');
+    setGiscusTheme(isDark
+      ? 'https://raisgeo.site/css/giscus-raisgeo-dark.css'
+      : 'https://raisgeo.site/css/giscus-raisgeo.css'
+    );
   });
   observer.observe(document.documentElement, {
     attributes: true,
