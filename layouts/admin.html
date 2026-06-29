@@ -149,7 +149,56 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
 .toast { position: fixed; bottom: 24px; right: 24px; background: #1a1814; color: #fff; padding: 10px 18px; border-radius: 6px; font-size: 13px; font-family: 'Inter', sans-serif; opacity: 0; transform: translateY(8px); transition: all 0.2s; z-index: 9999; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateY(0); }
 
-@media (max-width: 700px) { .editor-grid { grid-template-columns: 1fr; } .dash-grid { grid-template-columns: 1fr; } .field-row { grid-template-columns: 1fr; } }
+.manage-list { display: flex; flex-direction: column; gap: 12px; }
+.manage-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; transition: border-color 0.2s; }
+.manage-item:hover { border-color: var(--border-strong); }
+.manage-item-img { width: 60px; height: 60px; border-radius: 6px; object-fit: cover; background: var(--surface2); border: 1px solid var(--border); flex-shrink: 0; }
+.manage-item-info { flex: 1; min-width: 0; }
+.manage-item-num { font-size: 10px; font-weight: 600; color: var(--red); letter-spacing: 0.06em; }
+.manage-item-name { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+.manage-item-meta { font-size: 11px; color: var(--text-muted); }
+.manage-item-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.btn-edit { background: none; border: 1px solid var(--border-strong); border-radius: 5px; padding: 6px 14px; font-size: 12px; color: var(--text-secondary); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.btn-edit:hover { border-color: var(--accent); color: var(--accent); }
+.btn-delete { background: none; border: 1px solid var(--border-strong); border-radius: 5px; padding: 6px 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; }
+.btn-delete:hover { border-color: var(--red); color: var(--red); background: #fff5f5; }
+.manage-loading { text-align: center; padding: 48px; color: var(--text-muted); font-size: 14px; }
+.manage-empty { text-align: center; padding: 48px; border: 1px dashed var(--border); border-radius: 8px; }
+.manage-empty-title { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: var(--text-muted); }
+
+/* Image position picker */
+.img-pos-picker { margin-top: 12px; }
+.img-pos-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); margin-bottom: 8px; display: block; }
+.img-pos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; width: 120px; }
+.img-pos-btn {
+  aspect-ratio: 1;
+  border-radius: 4px;
+  border: 1.5px solid var(--border);
+  background: var(--surface2);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.img-pos-btn:hover { border-color: var(--red); background: #fff5f5; }
+.img-pos-btn.active { border-color: var(--red); background: var(--red); color: #fff; }
+.img-pos-preview-wrap { margin-top: 10px; width: 100%; aspect-ratio: 4/3; border-radius: 6px; border: 1px solid var(--border); overflow: hidden; background: var(--surface2); }
+.img-pos-preview-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: object-position 0.3s; }
+
+/* Confirm delete dialog */
+.confirm-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; }
+.confirm-overlay.show { display: flex; }
+.confirm-modal { background: var(--surface); border-radius: 12px; padding: 32px 28px; max-width: 360px; width: 90%; text-align: center; }
+.confirm-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.confirm-sub { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px; }
+.confirm-btns { display: flex; gap: 10px; justify-content: center; }
+.btn-confirm-del { background: var(--red); color: #fff; border: none; border-radius: 6px; padding: 10px 24px; font-size: 14px; cursor: pointer; font-family: 'Inter', sans-serif; }
+.btn-confirm-del:hover { background: var(--red-dark); }
+.btn-confirm-cancel { background: none; border: 1px solid var(--border-strong); border-radius: 6px; padding: 10px 24px; font-size: 14px; cursor: pointer; color: var(--text-secondary); font-family: 'Inter', sans-serif; }
+.btn-confirm-cancel:hover { border-color: var(--text); color: var(--text); }
+
+@media (max-width: 700px) { .editor-grid { grid-template-columns: 1fr; } .dash-grid { grid-template-columns: 1fr; } .field-row { grid-template-columns: 1fr; } .manage-item { flex-wrap: wrap; } .manage-item-actions { width: 100%; justify-content: flex-end; } }
 </style>
 </head>
 <body>
@@ -194,6 +243,18 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
         <div class="dash-title">Tambah Produk</div>
         <div class="dash-desc">Tambahkan produk baru ke halaman Store. Langsung muncul tanpa perlu buka GitHub.</div>
         <div class="dash-arrow">Tambah produk →</div>
+      </div>
+      <div class="dash-card" onclick="showScreen('manage-articles')">
+        <span class="dash-icon">📝</span>
+        <div class="dash-title">Kelola Artikel</div>
+        <div class="dash-desc">Edit atau hapus artikel yang sudah dipublish. Perubahan langsung tersimpan ke GitHub.</div>
+        <div class="dash-arrow">Kelola artikel →</div>
+      </div>
+      <div class="dash-card" onclick="showScreen('manage-products')">
+        <span class="dash-icon">🗂</span>
+        <div class="dash-title">Kelola Produk</div>
+        <div class="dash-desc">Edit, atur posisi foto, atau hapus produk di Store. Semua perubahan langsung ter-deploy.</div>
+        <div class="dash-arrow">Kelola produk →</div>
       </div>
     </div>
   </div>
@@ -350,6 +411,30 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
           <img class="img-preview" id="prod-img-preview">
           <div class="upload-status" id="prod-upload-status"></div>
           <input type="hidden" id="prod-img-filename">
+          <!-- Image position picker -->
+          <div class="img-pos-picker" id="prod-pos-picker" style="display:none">
+            <span class="img-pos-label">Atur posisi foto (area yang ditampilkan):</span>
+            <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+              <div class="img-pos-grid" id="pos-grid">
+                <button class="img-pos-btn" data-pos="left top" title="Kiri Atas" onclick="setImgPos('left top',this)">↖</button>
+                <button class="img-pos-btn" data-pos="center top" title="Tengah Atas" onclick="setImgPos('center top',this)">↑</button>
+                <button class="img-pos-btn" data-pos="right top" title="Kanan Atas" onclick="setImgPos('right top',this)">↗</button>
+                <button class="img-pos-btn" data-pos="left center" title="Kiri Tengah" onclick="setImgPos('left center',this)">←</button>
+                <button class="img-pos-btn active" data-pos="center center" title="Tengah" onclick="setImgPos('center center',this)">●</button>
+                <button class="img-pos-btn" data-pos="right center" title="Kanan Tengah" onclick="setImgPos('right center',this)">→</button>
+                <button class="img-pos-btn" data-pos="left bottom" title="Kiri Bawah" onclick="setImgPos('left bottom',this)">↙</button>
+                <button class="img-pos-btn" data-pos="center bottom" title="Tengah Bawah" onclick="setImgPos('center bottom',this)">↓</button>
+                <button class="img-pos-btn" data-pos="right bottom" title="Kanan Bawah" onclick="setImgPos('right bottom',this)">↘</button>
+              </div>
+              <div style="flex:1;min-width:120px;">
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Preview posisi:</div>
+                <div class="img-pos-preview-wrap">
+                  <img id="pos-preview-img" src="" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="prod-img-pos" value="center center">
         </div>
         <div class="card">
           <div class="card-title">Harga & Link</div>
@@ -388,6 +473,260 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
           <div class="tip-text">1. Isi detail produk<br>2. Upload foto (drag & drop)<br>3. Klik <strong>Tambah ke Store</strong> — selesai!</div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE ARTICLES -->
+<div id="manage-articles-screen" style="display:none">
+  <div class="topbar"><span>Kelola Artikel</span><span id="manage-art-date"></span></div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+      <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Kelola Artikel</h1>
+      <p class="page-subtitle">Edit atau hapus artikel yang sudah dipublish.</p>
+    </div>
+    <div id="articles-list-wrap">
+      <div class="manage-loading">⏳ Memuat daftar artikel dari GitHub...</div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT ARTICLE -->
+<div id="edit-article-screen" style="display:none">
+  <div class="topbar"><span>Edit Artikel</span><span></span></div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('manage-articles')">← Kembali</button>
+      <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Edit Artikel</h1>
+      <p class="page-subtitle" id="edit-art-filename-label">Memuat...</p>
+    </div>
+    <input type="hidden" id="edit-art-sha">
+    <input type="hidden" id="edit-art-path">
+    <div class="editor-grid">
+      <div>
+        <div class="card">
+          <div class="card-title">Judul & Konten</div>
+          <div class="field">
+            <label>Judul artikel</label>
+            <input type="text" id="edit-title-input" placeholder="Judul artikel...">
+          </div>
+          <div class="field">
+            <label>Isi artikel</label>
+            <div class="md-toolbar">
+              <button class="md-btn" onclick="insertMdEdit('**','**')">B</button>
+              <button class="md-btn" onclick="insertMdEdit('*','*')" style="font-style:italic">I</button>
+              <div class="md-sep"></div>
+              <button class="md-btn" onclick="insertMdEdit('\n## ','')">H2</button>
+              <button class="md-btn" onclick="insertMdEdit('\n### ','')">H3</button>
+              <div class="md-sep"></div>
+              <button class="md-btn" onclick="insertMdEdit('\n- ','')">• List</button>
+              <button class="md-btn" onclick="insertMdEdit('\n> ','')">❝ Quote</button>
+              <button class="md-btn" onclick="insertMdEdit('\n---\n','')">— Garis</button>
+            </div>
+            <textarea id="edit-content-input" placeholder="Isi artikel..."></textarea>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Meta</div>
+          <div class="field">
+            <label>Kategori</label>
+            <div class="cat-pills" id="edit-art-cats">
+              <span class="cat-pill active" onclick="setEditCategory('Opinions',this)">Opinions</span>
+              <span class="cat-pill" onclick="setEditCategory('Reflections',this)">Reflections</span>
+              <span class="cat-pill" onclick="setEditCategory('Notes',this)">Notes</span>
+              <span class="cat-pill" onclick="setEditCategory('Book Review',this)">Book Review</span>
+            </div>
+            <input type="hidden" id="edit-category-input">
+          </div>
+          <div class="field">
+            <label>Tanggal posting</label>
+            <input type="date" id="edit-date-input">
+          </div>
+          <div class="field">
+            <label>Meta description</label>
+            <input type="text" id="edit-desc-input" placeholder="150–160 karakter...">
+          </div>
+          <div class="field">
+            <label>Cover image (path, contoh: /images/covers/nama.jpg)</label>
+            <input type="text" id="edit-image-input" placeholder="/images/covers/...">
+          </div>
+        </div>
+        <button class="btn-publish" id="btn-save-art" onclick="saveEditedArticle()">💾 Simpan Perubahan</button>
+        <button class="btn-secondary" style="margin-top:8px;border-color:#cc0000;color:var(--red)" onclick="confirmDeleteArticle()">🗑 Hapus Artikel Ini</button>
+        <div class="tip-box" style="margin-top:12px">
+          <div class="tip-title">ℹ️ Catatan</div>
+          <div class="tip-text">Simpan = update file .md di GitHub. Deploy otomatis 1–2 menit. Hapus = file .md dihapus dari repo.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE PRODUCTS -->
+<div id="manage-products-screen" style="display:none">
+  <div class="topbar"><span>Kelola Produk</span><span id="manage-prod-date"></span></div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+      <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Kelola Produk</h1>
+      <p class="page-subtitle">Edit, atur posisi foto, atau hapus produk di Store.</p>
+    </div>
+    <div id="products-list-wrap">
+      <div class="manage-loading">⏳ Memuat daftar produk dari GitHub...</div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PRODUCT -->
+<div id="edit-product-screen" style="display:none">
+  <div class="topbar"><span>Edit Produk</span><span></span></div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('manage-products')">← Kembali</button>
+      <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title" id="edit-prod-title-label">Edit Produk</h1>
+      <p class="page-subtitle">Ubah detail, atur posisi foto, atau hapus produk ini.</p>
+    </div>
+    <input type="hidden" id="edit-prod-index">
+    <div class="editor-grid">
+      <div>
+        <div class="card">
+          <div class="card-title">Detail Produk</div>
+          <div class="field">
+            <label>Nomor produk</label>
+            <input type="number" id="edit-prod-num" min="1">
+          </div>
+          <div class="field">
+            <label>Nama produk</label>
+            <input type="text" id="edit-prod-name" placeholder="Nama produk...">
+          </div>
+          <div class="field">
+            <label>Kategori</label>
+            <div class="cat-pills" id="edit-prod-cat-pills">
+              <span class="cat-pill" onclick="setEditProdCat('running','Running & Fitness',this)">Running & Fitness</span>
+              <span class="cat-pill" onclick="setEditProdCat('tech','Tech & Gadgets',this)">Tech & Gadgets</span>
+              <span class="cat-pill" onclick="setEditProdCat('books','Books',this)">Books</span>
+              <span class="cat-pill" onclick="setEditProdCat('health','Health & Wellness',this)">Health & Wellness</span>
+              <span class="cat-pill" onclick="setEditProdCat('home','Home & Living',this)">Home & Living</span>
+            </div>
+            <input type="hidden" id="edit-prod-cat-key">
+            <input type="hidden" id="edit-prod-cat-label">
+          </div>
+          <div class="field">
+            <label>Badge</label>
+            <div class="cat-pills" id="edit-prod-badge-pills">
+              <span class="cat-pill" onclick="setEditProdBadge('I wear this',this)">I wear this</span>
+              <span class="cat-pill" onclick="setEditProdBadge('I use this',this)">I use this</span>
+              <span class="cat-pill" onclick="setEditProdBadge('I read this',this)">I read this</span>
+              <span class="cat-pill" onclick="setEditProdBadge('Wife recommends',this)">Wife recommends</span>
+            </div>
+            <input type="hidden" id="edit-prod-badge">
+          </div>
+          <div class="field">
+            <label>Deskripsi singkat</label>
+            <textarea id="edit-prod-desc" style="min-height:80px"></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field" style="margin-bottom:0">
+              <label>Harga (Rp)</label>
+              <input type="text" id="edit-prod-price" placeholder="678.030">
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label>Link affiliate</label>
+              <input type="text" id="edit-prod-link" placeholder="https://...">
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Posisi Foto</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">Atur bagian foto yang ditampilkan dalam kartu produk.</div>
+          <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;">
+            <div class="img-pos-grid" id="edit-pos-grid">
+              <button class="img-pos-btn" data-pos="left top" onclick="setEditImgPos('left top',this)">↖</button>
+              <button class="img-pos-btn" data-pos="center top" onclick="setEditImgPos('center top',this)">↑</button>
+              <button class="img-pos-btn" data-pos="right top" onclick="setEditImgPos('right top',this)">↗</button>
+              <button class="img-pos-btn" data-pos="left center" onclick="setEditImgPos('left center',this)">←</button>
+              <button class="img-pos-btn active" data-pos="center center" onclick="setEditImgPos('center center',this)">●</button>
+              <button class="img-pos-btn" data-pos="right center" onclick="setEditImgPos('right center',this)">→</button>
+              <button class="img-pos-btn" data-pos="left bottom" onclick="setEditImgPos('left bottom',this)">↙</button>
+              <button class="img-pos-btn" data-pos="center bottom" onclick="setEditImgPos('center bottom',this)">↓</button>
+              <button class="img-pos-btn" data-pos="right bottom" onclick="setEditImgPos('right bottom',this)">↘</button>
+            </div>
+            <div style="flex:1;min-width:140px;">
+              <div style="font-size:11px;color:var(--text-muted);margin-bottom:6px;">Preview posisi:</div>
+              <div class="img-pos-preview-wrap">
+                <img id="edit-pos-preview-img" src="" alt="">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="edit-prod-img-pos" value="center center">
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title">Preview Kartu</div>
+          <div class="preview-card">
+            <div class="preview-img-box">
+              <img id="edit-preview-img" src="" alt="">
+              <span class="preview-placeholder" id="edit-preview-placeholder" style="display:none">Foto dari Store</span>
+            </div>
+            <div class="preview-body">
+              <div class="preview-num" id="edit-preview-num">No. —</div>
+              <div class="preview-cat" id="edit-preview-cat">Kategori</div>
+              <div class="preview-name" id="edit-preview-name">Nama produk</div>
+              <div class="preview-price" id="edit-preview-price">Rp—</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn-publish" id="btn-save-prod" onclick="saveEditedProduct()">💾 Simpan Perubahan</button>
+        <button class="btn-secondary" style="margin-top:8px;border-color:#cc0000;color:var(--red)" onclick="confirmDeleteProduct()">🗑 Hapus Produk Ini</button>
+        <div class="tip-box" style="margin-top:12px">
+          <div class="tip-title">💡 Catatan posisi foto</div>
+          <div class="tip-text">Klik tombol arah (↖↑↗←●→↙↓↘) untuk mengatur bagian foto mana yang terlihat di dalam kartu produk. Preview langsung update.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM DELETE -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-modal">
+    <div class="confirm-title" id="confirm-title">Hapus ini?</div>
+    <div class="confirm-sub" id="confirm-sub">Tindakan ini tidak bisa dibatalkan.</div>
+    <div class="confirm-btns">
+      <button class="btn-confirm-cancel" onclick="document.getElementById('confirm-overlay').classList.remove('show')">Batal</button>
+      <button class="btn-confirm-del" id="btn-confirm-del" onclick="executeDelete()">Ya, Hapus</button>
     </div>
   </div>
 </div>
@@ -443,13 +782,18 @@ if (sessionStorage.getItem('raisgeo-auth') === '1') {
 
 // ── SCREENS ──
 function showScreen(name) {
-  ['login-screen','dashboard-screen','article-screen','product-screen'].forEach(id => {
-    document.getElementById(id).style.display = 'none';
+  const allScreens = ['login-screen','dashboard-screen','article-screen','product-screen',
+    'manage-articles-screen','edit-article-screen','manage-products-screen','edit-product-screen'];
+  allScreens.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
   });
-  document.getElementById(name+'-screen').style.display = 'block';
+  const target = document.getElementById(name+'-screen');
+  if (target) target.style.display = 'block';
   window.scrollTo(0,0);
-  // Hitung produk otomatis saat buka halaman product
   if (name === 'product') initProductScreen();
+  if (name === 'manage-articles') loadArticlesList();
+  if (name === 'manage-products') loadProductsList();
 }
 
 // ── INIT ──
@@ -566,6 +910,14 @@ function handleProdImg(input) {
     document.getElementById('preview-img').style.display = 'block';
     document.getElementById('preview-placeholder').style.display = 'none';
     setUploadStatus('prod-upload-status', 'success', '✓ Foto siap diupload');
+    // Show image position picker and sync preview
+    document.getElementById('prod-pos-picker').style.display = 'block';
+    const posPreview = document.getElementById('pos-preview-img');
+    posPreview.src = e.target.result;
+    posPreview.style.display = 'block';
+    const curPos = document.getElementById('prod-img-pos').value || 'center center';
+    posPreview.style.objectPosition = curPos;
+    document.getElementById('preview-img').style.objectPosition = curPos;
   };
   reader.readAsDataURL(file);
 }
@@ -680,10 +1032,13 @@ async function publishProduct() {
     }
     const storeContent = decodeURIComponent(escape(atob(storeFile.content.replace(/\n/g,''))));
 
+    const imgPos = document.getElementById('prod-img-pos').value || 'center center';
+    const posStyle = imgPos !== 'center center' ? ` style="object-position:${imgPos}"` : '';
+
     const newCard = `
     <div class="product-card" data-cat="${catKey}" data-num="${num}" data-name="${name.toLowerCase()}">
       <div class="product-img">
-        <img src="/images/store/${prodImgName}" alt="${name.replace(/"/g,'&quot;')}">
+        <img src="/images/store/${prodImgName}" alt="${name.replace(/"/g,'&quot;')}"${posStyle}>
       </div>
       <div class="product-body">
         <div class="product-num">No. ${num}</div>
@@ -710,6 +1065,420 @@ async function publishProduct() {
     console.error(e);
   }
   btn.disabled = false;
+}
+
+// ── IMAGE POSITION (new product form) ──
+function setImgPos(pos, btn) {
+  document.querySelectorAll('#pos-grid .img-pos-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('prod-img-pos').value = pos;
+  const prev = document.getElementById('pos-preview-img');
+  if (prev) prev.style.objectPosition = pos;
+}
+
+// ── IMAGE POSITION (edit product form) ──
+function setEditImgPos(pos, btn) {
+  document.querySelectorAll('#edit-pos-grid .img-pos-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('edit-prod-img-pos').value = pos;
+  const prev = document.getElementById('edit-pos-preview-img');
+  if (prev) prev.style.objectPosition = pos;
+  const eprev = document.getElementById('edit-preview-img');
+  if (eprev) eprev.style.objectPosition = pos;
+}
+
+// ── LOAD ARTICLES LIST ──
+async function loadArticlesList() {
+  const wrap = document.getElementById('articles-list-wrap');
+  wrap.innerHTML = '<div class="manage-loading">⏳ Memuat daftar artikel dari GitHub...</div>';
+  try {
+    const files = await ghGet('content/posts');
+    if (!Array.isArray(files) || files.length === 0) {
+      wrap.innerHTML = '<div class="manage-empty"><div class="manage-empty-title">Belum ada artikel.</div></div>';
+      return;
+    }
+    // Sort by name descending (newest file slug usually newer)
+    const mdFiles = files.filter(f => f.name.endsWith('.md')).reverse();
+    const list = document.createElement('div');
+    list.className = 'manage-list';
+    mdFiles.forEach(f => {
+      const item = document.createElement('div');
+      item.className = 'manage-item';
+      item.innerHTML = `
+        <div class="manage-item-info">
+          <div class="manage-item-name">${f.name.replace('.md','')}</div>
+          <div class="manage-item-meta">content/posts/${f.name}</div>
+        </div>
+        <div class="manage-item-actions">
+          <button class="btn-edit" onclick="openEditArticle('${f.path}')">✏️ Edit</button>
+          <button class="btn-delete" onclick="promptDeleteArticle('${f.path}','${f.name.replace('.md','')}')">🗑</button>
+        </div>`;
+      list.appendChild(item);
+    });
+    wrap.innerHTML = '';
+    wrap.appendChild(list);
+  } catch(e) {
+    wrap.innerHTML = '<div class="manage-loading" style="color:var(--red)">❌ Gagal memuat. Cek token GitHub.</div>';
+  }
+}
+
+// ── OPEN EDIT ARTICLE ──
+async function openEditArticle(path) {
+  showScreen('edit-article');
+  document.getElementById('edit-art-filename-label').textContent = path;
+  document.getElementById('edit-art-path').value = path;
+  document.getElementById('btn-save-art').disabled = true;
+  document.getElementById('btn-save-art').textContent = '⏳ Memuat...';
+  try {
+    const file = await ghGet(path);
+    const raw = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+    document.getElementById('edit-art-sha').value = file.sha;
+
+    // Parse front matter
+    const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+    if (fmMatch) {
+      const fm = fmMatch[1];
+      const body = fmMatch[2].trim();
+
+      const titleMatch = fm.match(/^title:\s*"(.*)"/m);
+      const dateMatch = fm.match(/^date:\s*(\d{4}-\d{2}-\d{2})/m);
+      const catMatch = fm.match(/^categories:\s*\["(.*)"\]/m);
+      const descMatch = fm.match(/^description:\s*"(.*)"/m);
+      const imgMatch = fm.match(/^image:\s*"(.*)"/m);
+
+      document.getElementById('edit-title-input').value = titleMatch ? titleMatch[1] : '';
+      document.getElementById('edit-content-input').value = body;
+      document.getElementById('edit-date-input').value = dateMatch ? dateMatch[1] : '';
+      document.getElementById('edit-desc-input').value = descMatch ? descMatch[1] : '';
+      document.getElementById('edit-image-input').value = imgMatch ? imgMatch[1] : '';
+
+      const cat = catMatch ? catMatch[1] : 'Opinions';
+      document.getElementById('edit-category-input').value = cat;
+      document.querySelectorAll('#edit-art-cats .cat-pill').forEach(p => {
+        p.classList.toggle('active', p.textContent.trim() === cat);
+      });
+    } else {
+      document.getElementById('edit-content-input').value = raw;
+    }
+    document.getElementById('btn-save-art').disabled = false;
+    document.getElementById('btn-save-art').textContent = '💾 Simpan Perubahan';
+  } catch(e) {
+    document.getElementById('btn-save-art').textContent = '❌ Gagal memuat';
+    console.error(e);
+  }
+}
+
+// ── SAVE EDITED ARTICLE ──
+async function saveEditedArticle() {
+  const btn = document.getElementById('btn-save-art');
+  const title = document.getElementById('edit-title-input').value.trim();
+  const content = document.getElementById('edit-content-input').value.trim();
+  const date = document.getElementById('edit-date-input').value;
+  const cat = document.getElementById('edit-category-input').value;
+  const desc = document.getElementById('edit-desc-input').value.trim();
+  const img = document.getElementById('edit-image-input').value.trim();
+  const sha = document.getElementById('edit-art-sha').value;
+  const path = document.getElementById('edit-art-path').value;
+
+  if (!title || !content) { showToast('⚠️ Judul dan isi wajib diisi'); return; }
+  btn.disabled = true;
+  const mdContent = `---\ntitle: "${title}"\ndate: ${date}T07:00:00+07:00\ndraft: false\ncategories: ["${cat}"]\nimage: "${img}"\ndescription: "${desc}"\n---\n\n${content}`;
+
+  try {
+    showLoadingModal('Menyimpan artikel ke GitHub...');
+    await ghPut(path, mdContent, `edit: ${title}`, sha);
+    showModal('Artikel berhasil diperbarui! 🎉', `"${title}" sudah diupdate. Tunggu 1–2 menit untuk deploy.`, '✅');
+  } catch(e) {
+    showModal('Gagal menyimpan', 'Terjadi kesalahan. Cek koneksi.', '❌');
+    console.error(e);
+  }
+  btn.disabled = false;
+}
+
+// ── DELETE ARTICLE ──
+let _deleteTarget = null;
+function promptDeleteArticle(path, name) {
+  _deleteTarget = { type: 'article', path, name };
+  document.getElementById('confirm-title').textContent = `Hapus "${name}"?`;
+  document.getElementById('confirm-sub').textContent = 'File .md akan dihapus dari GitHub. Tindakan ini tidak bisa dibatalkan.';
+  document.getElementById('confirm-overlay').classList.add('show');
+}
+function confirmDeleteArticle() {
+  const path = document.getElementById('edit-art-path').value;
+  const name = document.getElementById('edit-title-input').value || path.split('/').pop();
+  _deleteTarget = { type: 'article', path, name };
+  document.getElementById('confirm-title').textContent = `Hapus artikel ini?`;
+  document.getElementById('confirm-sub').textContent = 'File .md akan dihapus dari GitHub. Tindakan ini tidak bisa dibatalkan.';
+  document.getElementById('confirm-overlay').classList.add('show');
+}
+async function executeDelete() {
+  document.getElementById('confirm-overlay').classList.remove('show');
+  if (!_deleteTarget) return;
+  showLoadingModal('Menghapus dari GitHub...');
+  try {
+    if (_deleteTarget.type === 'article') {
+      // Get SHA first if not stored
+      let sha = document.getElementById('edit-art-sha').value;
+      if (!sha) {
+        const f = await ghGet(_deleteTarget.path);
+        sha = f.sha;
+      }
+      await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${_deleteTarget.path}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `token ${GH_TOKEN()}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `delete: ${_deleteTarget.name}`, sha })
+      });
+      showModal('Artikel dihapus', `"${_deleteTarget.name}" sudah dihapus dari GitHub.`, '🗑');
+      setTimeout(() => { document.getElementById('pub-overlay').classList.remove('show'); showScreen('manage-articles'); }, 1500);
+    } else if (_deleteTarget.type === 'product') {
+      await deleteProductFromStore(_deleteTarget.index);
+    }
+  } catch(e) {
+    showModal('Gagal hapus', 'Terjadi kesalahan. Cek koneksi.', '❌');
+    console.error(e);
+  }
+  _deleteTarget = null;
+}
+
+// ── LOAD PRODUCTS LIST ──
+async function loadProductsList() {
+  const wrap = document.getElementById('products-list-wrap');
+  wrap.innerHTML = '<div class="manage-loading">⏳ Memuat produk dari Store...</div>';
+  try {
+    const storeFile = await ghGet('layouts/store.html');
+    const storeContent = decodeURIComponent(escape(atob(storeFile.content.replace(/\n/g,''))));
+    const products = parseProductCards(storeContent);
+    if (products.length === 0) {
+      wrap.innerHTML = '<div class="manage-empty"><div class="manage-empty-title">Belum ada produk di Store.</div></div>';
+      return;
+    }
+    const list = document.createElement('div');
+    list.className = 'manage-list';
+    products.forEach((p, i) => {
+      const item = document.createElement('div');
+      item.className = 'manage-item';
+      item.innerHTML = `
+        <img class="manage-item-img" src="${p.imgSrc}" alt="${p.name}" onerror="this.style.background='var(--surface2)'">
+        <div class="manage-item-info">
+          <div class="manage-item-num">No. ${p.num}</div>
+          <div class="manage-item-name">${p.name}</div>
+          <div class="manage-item-meta">${p.cat} · Rp${p.price}</div>
+        </div>
+        <div class="manage-item-actions">
+          <button class="btn-edit" onclick="openEditProduct(${i})">✏️ Edit</button>
+          <button class="btn-delete" onclick="promptDeleteProduct(${i},'${p.name.replace(/'/g,"\\'")}')">🗑</button>
+        </div>`;
+      list.appendChild(item);
+    });
+    wrap.innerHTML = '';
+    wrap.appendChild(list);
+    // Cache store data
+    window._storeCache = { content: storeContent, sha: storeFile.sha };
+  } catch(e) {
+    wrap.innerHTML = '<div class="manage-loading" style="color:var(--red)">❌ Gagal memuat. Cek token GitHub.</div>';
+    console.error(e);
+  }
+}
+
+// ── PARSE PRODUCT CARDS FROM store.html ──
+function parseProductCards(html) {
+  const cards = [];
+  const regex = /<div class="product-card" data-cat="([^"]*)" data-num="([^"]*)" data-name="([^"]*)">([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/g;
+  let m;
+  while ((m = regex.exec(html)) !== null) {
+    const inner = m[4];
+    const imgMatch = inner.match(/<img src="([^"]*)" alt="([^"]*)"/);
+    const imgPosMatch = inner.match(/object-position:\s*([^;"]+)/);
+    const numMatch = inner.match(/class="product-num">No\.\s*(\d+)/);
+    const catMatch = inner.match(/class="product-cat">([^<]+)</);
+    const nameMatch = inner.match(/class="product-name">([^<]+)</);
+    const badgeMatch = inner.match(/class="product-badge">([^<]+)</);
+    const descMatch = inner.match(/class="product-desc">([^<]+)</);
+    const priceMatch = inner.match(/class="product-price">Rp([^<]+)</);
+    const linkMatch = inner.match(/class="product-btn" href="([^"]*)"/);
+    // alt link match
+    const linkMatch2 = inner.match(/href="([^"]*)"[^>]*class="product-btn"/);
+
+    cards.push({
+      catKey: m[1],
+      num: m[2],
+      dataName: m[3],
+      imgSrc: imgMatch ? imgMatch[1] : '',
+      imgPos: imgPosMatch ? imgPosMatch[1].trim() : 'center center',
+      name: nameMatch ? nameMatch[1].trim() : '',
+      cat: catMatch ? catMatch[1].trim() : '',
+      badge: badgeMatch ? badgeMatch[1].trim() : '',
+      desc: descMatch ? descMatch[1].trim() : '',
+      price: priceMatch ? priceMatch[1].trim() : '',
+      link: linkMatch ? linkMatch[1] : (linkMatch2 ? linkMatch2[1] : ''),
+      raw: m[0]
+    });
+  }
+  return cards;
+}
+
+// ── OPEN EDIT PRODUCT ──
+function openEditProduct(index) {
+  if (!window._storeCache) { showToast('⚠️ Muat ulang daftar produk dulu'); return; }
+  const products = parseProductCards(window._storeCache.content);
+  const p = products[index];
+  if (!p) return;
+
+  showScreen('edit-product');
+  document.getElementById('edit-prod-index').value = index;
+  document.getElementById('edit-prod-title-label').textContent = `Edit Produk — ${p.name}`;
+  document.getElementById('edit-prod-num').value = p.num;
+  document.getElementById('edit-prod-name').value = p.name;
+  document.getElementById('edit-prod-desc').value = p.desc;
+  document.getElementById('edit-prod-price').value = p.price;
+  document.getElementById('edit-prod-link').value = p.link;
+  document.getElementById('edit-prod-badge').value = p.badge;
+  document.getElementById('edit-prod-cat-key').value = p.catKey;
+  document.getElementById('edit-prod-cat-label').value = p.cat;
+  document.getElementById('edit-prod-img-pos').value = p.imgPos;
+
+  // Set cat pills
+  document.querySelectorAll('#edit-prod-cat-pills .cat-pill').forEach(pill => {
+    pill.classList.toggle('active', pill.textContent.trim() === p.cat);
+  });
+  // Set badge pills
+  document.querySelectorAll('#edit-prod-badge-pills .cat-pill').forEach(pill => {
+    pill.classList.toggle('active', pill.textContent.trim() === p.badge);
+  });
+  // Set pos grid
+  document.querySelectorAll('#edit-pos-grid .img-pos-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pos === p.imgPos);
+  });
+
+  // Preview image
+  const prevImg = document.getElementById('edit-preview-img');
+  const posImg = document.getElementById('edit-pos-preview-img');
+  prevImg.src = p.imgSrc;
+  prevImg.style.display = 'block';
+  prevImg.style.objectPosition = p.imgPos;
+  posImg.src = p.imgSrc;
+  posImg.style.display = 'block';
+  posImg.style.objectPosition = p.imgPos;
+
+  document.getElementById('edit-preview-num').textContent = `No. ${p.num}`;
+  document.getElementById('edit-preview-cat').textContent = p.cat;
+  document.getElementById('edit-preview-name').textContent = p.name;
+  document.getElementById('edit-preview-price').textContent = `Rp${p.price}`;
+}
+
+function setEditProdCat(key, label, el) {
+  document.querySelectorAll('#edit-prod-cat-pills .cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('edit-prod-cat-key').value = key;
+  document.getElementById('edit-prod-cat-label').value = label;
+  document.getElementById('edit-preview-cat').textContent = label;
+}
+function setEditProdBadge(val, el) {
+  document.querySelectorAll('#edit-prod-badge-pills .cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('edit-prod-badge').value = val;
+}
+function setEditCategory(val, el) {
+  document.querySelectorAll('#edit-art-cats .cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('edit-category-input').value = val;
+}
+
+// ── SAVE EDITED PRODUCT ──
+async function saveEditedProduct() {
+  const btn = document.getElementById('btn-save-prod');
+  const index = parseInt(document.getElementById('edit-prod-index').value);
+  const num = document.getElementById('edit-prod-num').value.trim();
+  const name = document.getElementById('edit-prod-name').value.trim();
+  const catKey = document.getElementById('edit-prod-cat-key').value;
+  const catLabel = document.getElementById('edit-prod-cat-label').value;
+  const badge = document.getElementById('edit-prod-badge').value;
+  const desc = document.getElementById('edit-prod-desc').value.trim();
+  const price = document.getElementById('edit-prod-price').value.trim();
+  const link = document.getElementById('edit-prod-link').value.trim();
+  const imgPos = document.getElementById('edit-prod-img-pos').value;
+
+  if (!name || !link) { showToast('⚠️ Nama dan link wajib diisi'); return; }
+  btn.disabled = true;
+
+  if (!window._storeCache) {
+    showToast('⚠️ Data store belum dimuat, muat ulang halaman kelola produk');
+    btn.disabled = false; return;
+  }
+
+  try {
+    showLoadingModal('Memperbarui Store...');
+    const products = parseProductCards(window._storeCache.content);
+    const p = products[index];
+    if (!p) throw new Error('Produk tidak ditemukan');
+
+    // Build updated object-position style if needed
+    const posStyle = imgPos !== 'center center' ? ` style="object-position:${imgPos}"` : '';
+
+    const newCard = `<div class="product-card" data-cat="${catKey}" data-num="${num}" data-name="${name.toLowerCase()}">
+      <div class="product-img">
+        <img src="${p.imgSrc}" alt="${name.replace(/"/g,'&quot;')}"${posStyle}>
+      </div>
+      <div class="product-body">
+        <div class="product-num">No. ${num}</div>
+        <div class="product-cat">${catLabel}</div>
+        <div class="product-name">${name}</div>
+        <span class="product-badge">${badge}</span>
+        <p class="product-desc">${desc}</p>
+        <div class="product-footer">
+          <span class="product-price">Rp${price}</span>
+          <a href="${link}" target="_blank" rel="noopener" class="product-btn">Get it →</a>
+        </div>
+      </div>
+    </div>`;
+
+    let newContent = window._storeCache.content.replace(p.raw, newCard);
+
+    const storeFile = await ghGet('layouts/store.html');
+    await ghPut('layouts/store.html', newContent, `edit product: ${name}`, storeFile.sha);
+
+    // Refresh cache
+    window._storeCache.content = newContent;
+
+    showModal('Produk diperbarui! 🎉', `"${name}" sudah diupdate di Store. Tunggu 1–2 menit untuk deploy.`, '✅', 'https://raisgeo.site/store/');
+  } catch(e) {
+    showModal('Gagal menyimpan', 'Terjadi kesalahan. Cek koneksi.', '❌');
+    console.error(e);
+  }
+  btn.disabled = false;
+}
+
+// ── DELETE PRODUCT ──
+function promptDeleteProduct(index, name) {
+  _deleteTarget = { type: 'product', index, name };
+  document.getElementById('confirm-title').textContent = `Hapus "${name}"?`;
+  document.getElementById('confirm-sub').textContent = 'Produk akan dihapus dari Store. Foto di repo tidak ikut dihapus.';
+  document.getElementById('confirm-overlay').classList.add('show');
+}
+function confirmDeleteProduct() {
+  const index = parseInt(document.getElementById('edit-prod-index').value);
+  const name = document.getElementById('edit-prod-name').value;
+  promptDeleteProduct(index, name);
+}
+async function deleteProductFromStore(index) {
+  if (!window._storeCache) throw new Error('No store cache');
+  const products = parseProductCards(window._storeCache.content);
+  const p = products[index];
+  if (!p) throw new Error('Produk tidak ditemukan');
+  const newContent = window._storeCache.content.replace(p.raw, '');
+  const storeFile = await ghGet('layouts/store.html');
+  await ghPut('layouts/store.html', newContent, `delete product: ${p.name}`, storeFile.sha);
+  window._storeCache.content = newContent;
+  showModal('Produk dihapus', `"${p.name}" sudah dihapus dari Store.`, '🗑');
+  setTimeout(() => { document.getElementById('pub-overlay').classList.remove('show'); showScreen('manage-products'); }, 1500);
+}
+
+// ── INSERT MD (edit article editor) ──
+function insertMdEdit(before, after) {
+  const ta = document.getElementById('edit-content-input');
+  const s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.substring(s,e);
+  ta.value = ta.value.substring(0,s) + before + sel + after + ta.value.substring(e);
+  ta.focus(); ta.selectionStart = s+before.length; ta.selectionEnd = s+before.length+sel.length;
 }
 
 // ── HELPERS ──
@@ -774,6 +1543,11 @@ async function resetProductForm() {
   document.getElementById('preview-img').style.display = 'none';
   document.getElementById('preview-placeholder').style.display = 'block';
   document.getElementById('prod-img-preview').style.display = 'none';
+  document.getElementById('prod-pos-picker').style.display = 'none';
+  document.getElementById('prod-img-pos').value = 'center center';
+  document.querySelectorAll('#pos-grid .img-pos-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.pos === 'center center');
+  });
   setUploadStatus('prod-upload-status','','');
   prodImgBase64 = null; prodImgName = null;
   // Hitung ulang nomor produk setelah reset
