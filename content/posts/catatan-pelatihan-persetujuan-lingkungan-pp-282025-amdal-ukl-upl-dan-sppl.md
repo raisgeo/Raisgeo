@@ -7,7 +7,7 @@ image: "/images/covers/traning.png"
 description: "Catatan lengkap pelatihan Persetujuan Lingkungan PP 28/2025 bersama Taalenta, 8–9 Juni 2026. Mencakup jenis dokumen lingkungan, alur AMDAL, persetujuan teknis, sanksi, dan dinamika regulasi terkini pasca PP 28/2025."
 ---
 
-Senin dan Selasa, 8–9 Juni 2026, saya mengikuti pelatihan dua hari bertajuk *Persetujuan Lingkungan PP 28/2025* (Batch 7) yang diselenggarakan oleh PT Taalenta Digital Inteleksia secara daring via Zoom. Ini bukan undangan kerja, bukan penugasan dari kantor — saya daftar sendiri, bayar sendiri, dan ikut atas inisiatif pribadi.
+Senin dan Selasa, 8–9 Juni 2026, saya mengikuti pelatihan dua hari bertajuk *Persetujuan Lingkungan PP 28/2025* (Batch 7) yang diselenggarakan oleh PT Taalenta Digital Inteleksia secara daring via Zoom. Ini bukan penugasan dari kantor — saya daftar sendiri atas inisiatif pribadi.
 
 Alasannya sederhana: saya bekerja di unit *planning* sebuah perusahaan kehutanan di Kalimantan Tengah, dan isu persetujuan lingkungan serta perizinan berusaha adalah hal yang sehari-hari bersinggungan langsung dengan pekerjaan saya. Ketika PP 28/2025 terbit mencabut PP 5/2021, saya merasa perlu memahami perubahannya secara lebih sistematis — bukan sekadar membaca ringkasan, tapi belajar dari seseorang yang terlibat langsung dalam penyusunan regulasinya.
 
