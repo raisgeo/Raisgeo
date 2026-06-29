@@ -1,227 +1,188 @@
-/*
- * Giscus Custom Theme — Raisgeo
- * Upload ke: static/css/giscus-raisgeo.css
- * Kemudian referensikan sebagai data-theme di script Giscus
- *
- * Base: transparan, menyesuaikan light/dark dari parent page
+/*! Giscus Custom Theme — Raisgeo (Light)
+ * Based on giscus official light.css
+ * Override CSS variables + gsc- classes only
  */
 
-:root {
-  --color-canvas-default:          transparent;
-  --color-canvas-subtle:           rgba(0,0,0,0.03);
-  --color-canvas-inset:            rgba(0,0,0,0.04);
-  --color-border-default:          rgba(0,0,0,0.08);
-  --color-border-muted:            rgba(0,0,0,0.06);
-  --color-neutral-muted:           rgba(0,0,0,0.05);
-  --color-fg-default:              #1a1814;
-  --color-fg-muted:                #6b6560;
-  --color-fg-subtle:               #9c978e;
-  --color-btn-text:                #1a1814;
-  --color-btn-bg:                  rgba(0,0,0,0.04);
-  --color-btn-border:              rgba(0,0,0,0.10);
-  --color-btn-hover-bg:            rgba(0,0,0,0.07);
-  --color-btn-hover-border:        rgba(0,0,0,0.16);
-  --color-btn-primary-text:        #ffffff;
-  --color-btn-primary-bg:          #CC0000;
-  --color-btn-primary-border:      #CC0000;
-  --color-btn-primary-hover-bg:    #a80000;
-  --color-btn-primary-hover-border:#a80000;
-  --color-accent-fg:               #CC0000;
-  --color-accent-emphasis:         #CC0000;
-  --color-danger-fg:               #CC0000;
-  --color-header-bg:               transparent;
-  --color-header-divider:          rgba(0,0,0,0.08);
-  --color-prettylights-syntax-comment: #9c978e;
-  --color-social-reaction-bg-hover: rgba(204,0,0,0.06);
-  --color-social-reaction-bg-reacted-hover: rgba(204,0,0,0.10);
-  --color-reactions-reaction-bg-reacted: rgba(204,0,0,0.08);
-  --color-reactions-reaction-fg-reacted: #CC0000;
-  --color-reactions-reaction-border-reacted: rgba(204,0,0,0.20);
+/*! MIT License - Copyright (c) 2018 GitHub Inc. */
+main {
+  /* ── Syntax highlighting (tidak diubah) ── */
+  --color-prettylights-syntax-comment: #6e7781;
+  --color-prettylights-syntax-constant: #0550ae;
+  --color-prettylights-syntax-entity: #8250df;
+  --color-prettylights-syntax-storage-modifier-import: #24292f;
+  --color-prettylights-syntax-entity-tag: #116329;
+  --color-prettylights-syntax-keyword: #cf222e;
+  --color-prettylights-syntax-string: #0a3069;
+  --color-prettylights-syntax-variable: #953800;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #82071e;
+  --color-prettylights-syntax-invalid-illegal-text: #f6f8fa;
+  --color-prettylights-syntax-invalid-illegal-bg: #82071e;
+  --color-prettylights-syntax-carriage-return-text: #f6f8fa;
+  --color-prettylights-syntax-carriage-return-bg: #cf222e;
+  --color-prettylights-syntax-string-regexp: #116329;
+  --color-prettylights-syntax-markup-list: #3b2300;
+  --color-prettylights-syntax-markup-heading: #0550ae;
+  --color-prettylights-syntax-markup-italic: #24292f;
+  --color-prettylights-syntax-markup-bold: #24292f;
+  --color-prettylights-syntax-markup-deleted-text: #82071e;
+  --color-prettylights-syntax-markup-deleted-bg: #ffebe9;
+  --color-prettylights-syntax-markup-inserted-text: #116329;
+  --color-prettylights-syntax-markup-inserted-bg: #dafbe1;
+  --color-prettylights-syntax-markup-changed-text: #953800;
+  --color-prettylights-syntax-markup-changed-bg: #ffd8b5;
+  --color-prettylights-syntax-markup-ignored-text: #eaeef2;
+  --color-prettylights-syntax-markup-ignored-bg: #0550ae;
+  --color-prettylights-syntax-meta-diff-range: #8250df;
+  --color-prettylights-syntax-brackethighlighter-angle: #57606a;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #8c959f;
+  --color-prettylights-syntax-constant-other-reference-link: #0a3069;
+
+  /* ── Button — default ── */
+  --color-btn-text: #1a1814;
+  --color-btn-bg: #f7f5f0;
+  --color-btn-border: rgba(0,0,0,0.12);
+  --color-btn-shadow: 0 1px 0 rgba(0,0,0,0.04);
+  --color-btn-inset-shadow: none;
+  --color-btn-hover-bg: #f0ece4;
+  --color-btn-hover-border: rgba(0,0,0,0.16);
+  --color-btn-active-bg: #e8e4dc;
+  --color-btn-active-border: rgba(0,0,0,0.16);
+  --color-btn-selected-bg: #e8e4dc;
+
+  /* ── Button — primary (LOGIN / KOMENTAR) → merah Raisgeo ── */
+  --color-btn-primary-text: #fff;
+  --color-btn-primary-bg: #CC0000;
+  --color-btn-primary-border: rgba(0,0,0,0.10);
+  --color-btn-primary-shadow: 0 1px 0 rgba(204,0,0,0.20);
+  --color-btn-primary-inset-shadow: none;
+  --color-btn-primary-hover-bg: #a80000;
+  --color-btn-primary-hover-border: rgba(0,0,0,0.12);
+  --color-btn-primary-selected-bg: #8c0000;
+  --color-btn-primary-selected-shadow: inset 0 1px 0 rgba(0,0,0,0.10);
+  --color-btn-primary-disabled-text: rgba(255,255,255,0.6);
+  --color-btn-primary-disabled-bg: rgba(204,0,0,0.5);
+  --color-btn-primary-disabled-border: rgba(0,0,0,0.08);
+
+  /* ── Action list ── */
+  --color-action-list-item-default-hover-bg: rgba(0,0,0,0.04);
+  --color-segmented-control-bg: #f0ece4;
+  --color-segmented-control-button-bg: #fff;
+  --color-segmented-control-button-selected-border: #9c978e;
+
+  /* ── Foreground / Text ── */
+  --color-fg-default: #1a1814;
+  --color-fg-muted: #6b6560;
+  --color-fg-subtle: #9c978e;
+
+  /* ── Canvas / Background → transparan agar sesuai card ── */
+  --color-canvas-default: transparent;
+  --color-canvas-overlay: #fff;
+  --color-canvas-inset: rgba(0,0,0,0.02);
+  --color-canvas-subtle: rgba(0,0,0,0.02);
+
+  /* ── Border ── */
+  --color-border-default: rgba(0,0,0,0.10);
+  --color-border-muted: rgba(0,0,0,0.07);
+  --color-neutral-muted: rgba(0,0,0,0.06);
+
+  /* ── Accent → merah Raisgeo ── */
+  --color-accent-fg: #CC0000;
+  --color-accent-emphasis: #CC0000;
+  --color-accent-muted: rgba(204,0,0,0.20);
+  --color-accent-subtle: rgba(204,0,0,0.06);
+
+  /* ── Status colors ── */
+  --color-success-fg: #2a7a3a;
+  --color-attention-fg: #9a6700;
+  --color-attention-muted: rgba(212,167,44,0.4);
+  --color-attention-subtle: #fff8c5;
+  --color-danger-fg: #CC0000;
+  --color-danger-muted: rgba(204,0,0,0.30);
+  --color-danger-subtle: #fff5f5;
+  --color-primer-shadow-inset: inset 0 1px 0 rgba(0,0,0,0.06);
+
+  /* ── Reaction buttons ── */
+  --color-social-reaction-bg-hover: rgba(0,0,0,0.04);
+  --color-social-reaction-bg-reacted-hover: rgba(204,0,0,0.08);
 }
 
-/* ── Base ── */
-body {
-  font-family: 'Inter', -apple-system, sans-serif;
-  font-size: 13px;
-  background: transparent !important;
-  margin: 0;
-  padding: 0;
+main .pagination-loader-container {
+  background-image: url(https://github.com/images/modules/pulls/progressive-disclosure-line.svg);
+}
+main .gsc-loading-image {
+  background-image: url(https://github.githubassets.com/images/mona-loading-default.gif);
 }
 
-/* ── Timeline comment thread ── */
-.timeline-item {
-  padding: 0 !important;
-  margin-bottom: 0 !important;
-}
-.timeline-item::before { display: none !important; }
+/* ── gsc-* class overrides ── */
 
-/* ── Comment header bar ── */
-.comment-header {
-  border-radius: 10px 10px 0 0 !important;
-  background: rgba(0,0,0,0.025) !important;
-  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
-  padding: 8px 14px !important;
-}
+/* Hapus background header bawaan */
+.gsc-header { background: transparent !important; }
 
-/* ── Comment body ── */
-.comment .Box {
-  border: 1px solid rgba(0,0,0,0.07) !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
-  background: #fff !important;
-}
-.comment .Box:hover {
-  border-color: rgba(204,0,0,0.12) !important;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06) !important;
-}
-
-/* ── Avatar ── */
-.avatar, .avatar-user {
-  border-radius: 50% !important;
-  border: 1.5px solid rgba(0,0,0,0.08) !important;
-}
-
-/* ── Author link ── */
-.author {
-  font-weight: 600 !important;
+/* Comment box textarea */
+.gsc-comment-box-textarea {
+  font-family: 'Inter', -apple-system, sans-serif !important;
   font-size: 13px !important;
-  color: #1a1814 !important;
-}
-.author:hover { color: #CC0000 !important; }
-
-/* ── Timestamp ── */
-.color-fg-muted { color: #9c978e !important; }
-
-/* ── Reaction buttons ── */
-.reaction-summary-item {
-  border-radius: 100px !important;
-  font-size: 11px !important;
-  padding: 3px 10px !important;
-  border: 1px solid rgba(0,0,0,0.08) !important;
-  background: transparent !important;
-  transition: all 0.15s !important;
-}
-.reaction-summary-item:hover {
-  border-color: rgba(204,0,0,0.20) !important;
-  background: rgba(204,0,0,0.04) !important;
-}
-
-/* ── Write comment box ── */
-.form-control, textarea {
   border-radius: 8px !important;
-  border: 1px solid rgba(0,0,0,0.10) !important;
+  border-color: rgba(0,0,0,0.10) !important;
   background: rgba(0,0,0,0.02) !important;
-  font-family: 'Inter', sans-serif !important;
-  font-size: 13px !important;
-  padding: 10px 12px !important;
-  transition: border-color 0.15s !important;
   color: #1a1814 !important;
+  resize: vertical !important;
 }
-.form-control:focus, textarea:focus {
+.gsc-comment-box-textarea:focus {
   border-color: #CC0000 !important;
   box-shadow: 0 0 0 3px rgba(204,0,0,0.08) !important;
   background: #fff !important;
 }
-textarea::placeholder { color: #9c978e !important; }
 
-/* ── Tab nav (Tulis / Pratinjau) ── */
-.tabnav-tab {
-  font-family: 'Inter', sans-serif !important;
+/* Tab Tulis / Pratinjau */
+.gsc-comment-box-tabs .color-text-link,
+.gsc-comment-box-tabs [role="tab"] {
+  font-family: 'Inter', -apple-system, sans-serif !important;
   font-size: 12px !important;
   font-weight: 500 !important;
-  border-radius: 6px 6px 0 0 !important;
-  padding: 6px 14px !important;
   color: #6b6560 !important;
-  border: none !important;
-  background: transparent !important;
-  letter-spacing: 0.01em !important;
 }
-.tabnav-tab.selected,
-.tabnav-tab[aria-selected="true"] {
+.gsc-comment-box-tabs [aria-selected="true"],
+.gsc-comment-box-tabs [role="tab"].selected {
   color: #1a1814 !important;
-  border-bottom: 2px solid #CC0000 !important;
+  border-bottom-color: #CC0000 !important;
 }
 
-/* ── Login button ── */
-.btn-primary {
-  background: #CC0000 !important;
-  border-color: #CC0000 !important;
-  color: #fff !important;
-  border-radius: 100px !important;
-  font-size: 12px !important;
+/* Avatar user */
+.gsc-comment-author-avatar img,
+.gsc-tl-line + div img.avatar {
+  border-radius: 50% !important;
+}
+
+/* Nama author */
+.gsc-comment-author .color-text-link,
+.gsc-comment-author a {
   font-weight: 600 !important;
-  letter-spacing: 0.04em !important;
-  padding: 8px 20px !important;
-  transition: background 0.15s !important;
-}
-.btn-primary:hover {
-  background: #a80000 !important;
-  border-color: #a80000 !important;
-}
-/* GitHub octicon di login button */
-.btn-primary svg { fill: #fff !important; }
-
-/* ── Markdown content ── */
-.markdown-body {
-  font-family: 'Lora', Georgia, serif !important;
-  font-size: 14px !important;
-  line-height: 1.75 !important;
   color: #1a1814 !important;
 }
-.markdown-body a { color: #CC0000 !important; }
-.markdown-body code {
-  background: rgba(0,0,0,0.05) !important;
-  border-radius: 4px !important;
-  font-size: 12px !important;
-  padding: 1px 5px !important;
-}
+.gsc-comment-author a:hover { color: #CC0000 !important; }
 
-/* ── "0 reaksi" / counter heading ── */
-.sr-only { font-size: 0 !important; }
-
-/* ── Divider ── */
-.discussion-divider {
-  border-top: 1px solid rgba(0,0,0,0.06) !important;
-  margin: 16px 0 !important;
-}
-
-/* ── Load more button ── */
-.pagination-loader-container, .BtnGroup {
-  text-align: center !important;
-  margin-top: 12px !important;
-}
-.btn {
+/* Reaction pill */
+.gsc-reactions-button {
   border-radius: 100px !important;
-  font-size: 12px !important;
-  font-weight: 500 !important;
-  padding: 7px 18px !important;
-  border: 1px solid rgba(0,0,0,0.10) !important;
-  background: transparent !important;
-  color: #6b6560 !important;
-  font-family: 'Inter', sans-serif !important;
-  transition: all 0.15s !important;
+  font-size: 11px !important;
+  border-color: rgba(0,0,0,0.08) !important;
 }
-.btn:hover {
-  border-color: #CC0000 !important;
-  color: #CC0000 !important;
+.gsc-reactions-button:hover {
+  border-color: rgba(204,0,0,0.20) !important;
   background: rgba(204,0,0,0.04) !important;
 }
 
-/* ── Giscus powered-by footer ── */
-.giscus-footer {
-  font-size: 11px !important;
-  text-align: center !important;
-  color: #9c978e !important;
-  padding-top: 8px !important;
-  opacity: 0.7 !important;
+/* Count "0 komentar" */
+.gsc-comments-count {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #1a1814 !important;
 }
-.giscus-footer a { color: #9c978e !important; }
-.giscus-footer a:hover { color: #CC0000 !important; }
 
-/* ── Emoji reaction picker ── */
-.popover {
-  border-radius: 10px !important;
-  border: 1px solid rgba(0,0,0,0.08) !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.10) !important;
+/* Footer powered by giscus */
+.gsc-footer {
+  font-size: 11px !important;
+  opacity: 0.55 !important;
 }
