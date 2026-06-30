@@ -198,6 +198,18 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
 .btn-confirm-cancel { background: none; border: 1px solid var(--border-strong); border-radius: 6px; padding: 10px 24px; font-size: 14px; cursor: pointer; color: var(--text-secondary); font-family: 'Inter', sans-serif; }
 .btn-confirm-cancel:hover { border-color: var(--text); color: var(--text); }
 
+/* Photo grid for achievement/certification management */
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+.photo-tile { position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); background: var(--surface2); aspect-ratio: 1; }
+.photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-tile-code { position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.65); color: #fff; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; padding: 3px 7px; border-radius: 5px; letter-spacing: 0.03em; }
+.photo-tile-del { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: rgba(0,0,0,0.65); color: #fff; border: none; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+.photo-tile-del:hover { background: var(--red); }
+.photo-tile-cap { position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 8px 5px; background: linear-gradient(to top, rgba(0,0,0,0.75), transparent); color: #fff; font-family: 'Inter', sans-serif; font-size: 9.5px; line-height: 1.3; }
+.upload-multi-status { font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+.upload-multi-status .ok { color: #2a7a3a; }
+.upload-multi-status .fail { color: var(--red); }
+
 @media (max-width: 700px) { .editor-grid { grid-template-columns: 1fr; } .dash-grid { grid-template-columns: 1fr; } .field-row { grid-template-columns: 1fr; } .manage-item { flex-wrap: wrap; } .manage-item-actions { width: 100%; justify-content: flex-end; } }
 </style>
 </head>
@@ -255,6 +267,24 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
         <div class="dash-title">Kelola Produk</div>
         <div class="dash-desc">Edit, atur posisi foto, atau hapus produk di Store. Semua perubahan langsung ter-deploy.</div>
         <div class="dash-arrow">Kelola produk →</div>
+      </div>
+      <div class="dash-card" onclick="showScreen('manage-achievements')">
+        <span class="dash-icon">🏆</span>
+        <div class="dash-title">Foto Penghargaan</div>
+        <div class="dash-desc">Upload foto piala/penghargaan untuk slider di halaman About. Otomatis diberi nomor urut.</div>
+        <div class="dash-arrow">Kelola foto →</div>
+      </div>
+      <div class="dash-card" onclick="showScreen('manage-certs')">
+        <span class="dash-icon">📜</span>
+        <div class="dash-title">Foto Sertifikat</div>
+        <div class="dash-desc">Upload foto sertifikat untuk carousel di halaman About, lengkap dengan nama dan penerbit.</div>
+        <div class="dash-arrow">Kelola sertifikat →</div>
+      </div>
+      <div class="dash-card" onclick="showScreen('manage-photos')">
+        <span class="dash-icon">📷</span>
+        <div class="dash-title">Foto Profil & Kegiatan</div>
+        <div class="dash-desc">Upload foto kegiatan/profil untuk galeri di bagian atas halaman About. Jumlah bebas.</div>
+        <div class="dash-arrow">Kelola foto →</div>
       </div>
     </div>
   </div>
@@ -719,6 +749,135 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
   </div>
 </div>
 
+<!-- MANAGE ACHIEVEMENTS (Foto Penghargaan) -->
+<div id="manage-achievements-screen" style="display:none">
+  <div class="topbar"><span>Foto Penghargaan</span><span id="manage-ach-date"></span></div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+      <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Foto Penghargaan</h1>
+      <p class="page-subtitle">Upload foto piala/penghargaan untuk slider di halaman About. Setiap foto otomatis diberi kode A1, A2, dst.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Upload Foto Baru</div>
+      <div class="drop-zone" id="ach-drop-zone">
+        <input type="file" accept="image/*" multiple onchange="handleAchUpload(this)">
+        <div class="drop-zone-text">🏆 <strong>Klik atau drag & drop</strong> foto penghargaan<br><span style="font-size:11px">Bisa pilih beberapa foto sekaligus · JPG/PNG · Ideal di bawah 300KB</span></div>
+      </div>
+      <div class="upload-status" id="ach-upload-status"></div>
+    </div>
+
+    <div class="card-title" style="margin:28px 0 14px">Foto Tersimpan</div>
+    <div id="ach-grid-wrap">
+      <div class="manage-loading">⏳ Memuat daftar foto...</div>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE CERTIFICATIONS (Foto Sertifikat) -->
+<div id="manage-certs-screen" style="display:none">
+  <div class="topbar"><span>Foto Sertifikat</span><span id="manage-cert-date"></span></div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+      <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Foto Sertifikat</h1>
+      <p class="page-subtitle">Upload foto sertifikat untuk carousel di halaman About. Setiap foto otomatis diberi kode B1, B2, dst.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Upload Sertifikat Baru</div>
+      <div class="drop-zone" id="cert-drop-zone">
+        <input type="file" accept="image/*" onchange="handleCertUpload(this)">
+        <div class="drop-zone-text">📜 <strong>Klik atau drag & drop</strong> foto sertifikat<br><span style="font-size:11px">JPG/PNG · Ideal di bawah 300KB</span></div>
+      </div>
+      <img class="img-preview" id="cert-img-preview">
+      <div class="upload-status" id="cert-upload-status"></div>
+      <div class="field" style="margin-top:14px">
+        <label>Nama sertifikat / penghargaan</label>
+        <input type="text" id="cert-name-input" placeholder="Contoh: Remote Pilot Certification">
+      </div>
+      <div class="field">
+        <label>Penerbit & tahun</label>
+        <input type="text" id="cert-issuer-input" placeholder="Contoh: Asosiasi Pilot Drone Indonesia (APDI) · 2024">
+      </div>
+      <button class="btn-publish" id="btn-add-cert" onclick="addCertification()">➕ Tambahkan ke Carousel</button>
+    </div>
+
+    <div class="card-title" style="margin:28px 0 14px">Sertifikat Tersimpan</div>
+    <div id="cert-grid-wrap">
+      <div class="manage-loading">⏳ Memuat daftar sertifikat...</div>
+    </div>
+  </div>
+</div>
+
+<!-- MANAGE PROFILE/ACTIVITY PHOTOS (Galeri About) -->
+<div id="manage-photos-screen" style="display:none">
+  <div class="topbar"><span>Foto Profil & Kegiatan</span><span id="manage-photos-date"></span></div>
+  <nav class="navbar">
+    <a href="/" class="logo">The Geographer's <span>Journal</span></a>
+    <div class="nav-right">
+      <button class="back-btn" onclick="showScreen('dashboard')">← Dashboard</button>
+      <button class="dark-toggle" onclick="toggleDark()">🌙 Dark</button>
+      <button class="logout-btn" onclick="doLogout()">Keluar</button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="page-header">
+      <h1 class="page-title">Foto Profil & Kegiatan</h1>
+      <p class="page-subtitle">Upload foto untuk galeri di bagian atas halaman About. Bisa upload beberapa sekaligus, jumlah bebas. Keterangan foto opsional.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Upload Foto Baru</div>
+      <div class="drop-zone" id="photos-drop-zone">
+        <input type="file" accept="image/*" multiple onchange="handlePhotosUpload(this)">
+        <div class="drop-zone-text">📷 <strong>Klik atau drag & drop</strong> foto profil/kegiatan<br><span style="font-size:11px">Bisa pilih beberapa foto sekaligus · JPG/PNG · Ideal di bawah 300KB</span></div>
+      </div>
+      <div class="upload-status" id="photos-upload-status"></div>
+      <div class="tip-box" style="margin-top:12px">
+        <div class="tip-title">💡 Tentang keterangan foto</div>
+        <div class="tip-text">Foto langsung tersimpan tanpa keterangan. Mau tambah keterangan singkat (misal "Survei lapangan, Kalimantan Tengah")? Klik foto di bawah setelah ter-upload.</div>
+      </div>
+    </div>
+
+    <div class="card-title" style="margin:28px 0 14px">Foto Tersimpan</div>
+    <div id="photos-grid-wrap">
+      <div class="manage-loading">⏳ Memuat daftar foto...</div>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PHOTO CAPTION MODAL -->
+<div class="confirm-overlay" id="caption-overlay">
+  <div class="confirm-modal" style="text-align:left">
+    <div class="confirm-title" style="text-align:center;margin-bottom:16px">Keterangan Foto</div>
+    <img id="caption-modal-img" src="" style="width:100%;border-radius:8px;margin-bottom:14px;aspect-ratio:1;object-fit:cover">
+    <div class="field" style="margin-bottom:16px">
+      <label>Keterangan (opsional)</label>
+      <input type="text" id="caption-input" placeholder="Contoh: Survei lapangan, Kalimantan Tengah">
+    </div>
+    <div class="confirm-btns">
+      <button class="btn-confirm-cancel" onclick="document.getElementById('caption-overlay').classList.remove('show')">Batal</button>
+      <button class="btn-confirm-del" style="background:var(--red)" onclick="saveCaptionEdit()">💾 Simpan</button>
+    </div>
+  </div>
+</div>
+
 <!-- CONFIRM DELETE -->
 <div class="confirm-overlay" id="confirm-overlay">
   <div class="confirm-modal">
@@ -783,7 +942,8 @@ if (sessionStorage.getItem('raisgeo-auth') === '1') {
 // ── SCREENS ──
 function showScreen(name) {
   const allScreens = ['login-screen','dashboard-screen','article-screen','product-screen',
-    'manage-articles-screen','edit-article-screen','manage-products-screen','edit-product-screen'];
+    'manage-articles-screen','edit-article-screen','manage-products-screen','edit-product-screen',
+    'manage-achievements-screen','manage-certs-screen','manage-photos-screen'];
   allScreens.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
@@ -794,6 +954,9 @@ function showScreen(name) {
   if (name === 'product') initProductScreen();
   if (name === 'manage-articles') loadArticlesList();
   if (name === 'manage-products') loadProductsList();
+  if (name === 'manage-achievements') loadAchievementsGrid();
+  if (name === 'manage-certs') loadCertsGrid();
+  if (name === 'manage-photos') loadPhotosGrid();
 }
 
 // ── INIT ──
@@ -1232,6 +1395,12 @@ async function executeDelete() {
       setTimeout(() => { document.getElementById('pub-overlay').classList.remove('show'); showScreen('manage-articles'); }, 1500);
     } else if (_deleteTarget.type === 'product') {
       await deleteProductFromStore(_deleteTarget.index);
+    } else if (_deleteTarget.type === 'achievement') {
+      await deleteAchievementByCode(_deleteTarget.code);
+    } else if (_deleteTarget.type === 'certification') {
+      await deleteCertificationByCode(_deleteTarget.code);
+    } else if (_deleteTarget.type === 'profile-photo') {
+      await deletePhotoByCode(_deleteTarget.code);
     }
   } catch(e) {
     showModal('Gagal hapus', 'Terjadi kesalahan. Cek koneksi.', '❌');
@@ -1479,6 +1648,428 @@ function insertMdEdit(before, after) {
   const s = ta.selectionStart, e = ta.selectionEnd, sel = ta.value.substring(s,e);
   ta.value = ta.value.substring(0,s) + before + sel + after + ta.value.substring(e);
   ta.focus(); ta.selectionStart = s+before.length; ta.selectionEnd = s+before.length+sel.length;
+}
+
+// ════════════════════════════════════════
+// ACHIEVEMENT PHOTOS (A1, A2, A3, ...)
+// ════════════════════════════════════════
+const ACH_JSON_PATH = 'data/achievements.json';
+const ACH_IMG_DIR = 'static/images/about';
+
+async function loadAchievementsJson() {
+  try {
+    const file = await ghGet(ACH_JSON_PATH);
+    if (!file.content) return { list: [], sha: null };
+    const raw = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+    const list = JSON.parse(raw);
+    return { list: Array.isArray(list) ? list : [], sha: file.sha };
+  } catch(e) {
+    return { list: [], sha: null };
+  }
+}
+
+async function saveAchievementsJson(list, sha, message) {
+  const content = JSON.stringify(list, null, 2);
+  return ghPut(ACH_JSON_PATH, content, message, sha);
+}
+
+function nextAchCode(list) {
+  let max = 0;
+  list.forEach(item => {
+    const m = (item.code || '').match(/^A(\d+)$/);
+    if (m) max = Math.max(max, parseInt(m[1]));
+  });
+  return 'A' + (max + 1);
+}
+
+async function loadAchievementsGrid() {
+  const wrap = document.getElementById('ach-grid-wrap');
+  wrap.innerHTML = '<div class="manage-loading">⏳ Memuat daftar foto...</div>';
+  const { list } = await loadAchievementsJson();
+  window._achCache = list;
+  renderAchGrid(list);
+}
+
+function renderAchGrid(list) {
+  const wrap = document.getElementById('ach-grid-wrap');
+  if (list.length === 0) {
+    wrap.innerHTML = '<div class="manage-empty"><div class="manage-empty-title">Belum ada foto penghargaan.</div></div>';
+    return;
+  }
+  const grid = document.createElement('div');
+  grid.className = 'photo-grid';
+  list.forEach(item => {
+    const tile = document.createElement('div');
+    tile.className = 'photo-tile';
+    tile.innerHTML = `
+      <img src="${item.img}" alt="${item.code}">
+      <span class="photo-tile-code">${item.code}</span>
+      <button class="photo-tile-del" onclick="promptDeleteAch('${item.code}')" title="Hapus">✕</button>`;
+    grid.appendChild(tile);
+  });
+  wrap.innerHTML = '';
+  wrap.appendChild(grid);
+}
+
+async function handleAchUpload(input) {
+  const files = Array.from(input.files || []);
+  if (files.length === 0) return;
+  const statusEl = document.getElementById('ach-upload-status');
+  setUploadStatus('ach-upload-status', '', `⏳ Mengupload ${files.length} foto...`);
+
+  let { list, sha } = await loadAchievementsJson();
+  let okCount = 0, failCount = 0;
+
+  for (const file of files) {
+    try {
+      const code = nextAchCode(list);
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const filename = `achievement-${code.toLowerCase()}.${ext}`;
+      const imgPath = `${ACH_IMG_DIR}/${filename}`;
+      const base64 = await fileToBase64(file);
+      await ghUploadImg(imgPath, base64, `add achievement photo ${code}`);
+      list.push({ code, img: `/images/about/${filename}` });
+      okCount++;
+    } catch(e) {
+      failCount++;
+      console.error(e);
+    }
+  }
+
+  // Save updated JSON once after all uploads
+  try {
+    const fresh = await loadAchievementsJson(); // re-fetch sha in case it changed
+    await saveAchievementsJson(list, fresh.sha, `update achievements.json (+${okCount} foto)`);
+  } catch(e) {
+    console.error(e);
+  }
+
+  window._achCache = list;
+  renderAchGrid(list);
+  setUploadStatus('ach-upload-status', okCount > 0 ? 'success' : 'error',
+    `✓ ${okCount} foto berhasil${failCount > 0 ? `, ${failCount} gagal` : ''}`);
+  input.value = '';
+}
+
+let _achDeleteCode = null;
+function promptDeleteAch(code) {
+  _achDeleteCode = code;
+  document.getElementById('confirm-title').textContent = `Hapus foto ${code}?`;
+  document.getElementById('confirm-sub').textContent = 'Foto akan dihapus dari slider penghargaan. Tindakan ini tidak bisa dibatalkan.';
+  document.getElementById('confirm-overlay').classList.add('show');
+  _deleteTarget = { type: 'achievement', code };
+}
+
+async function deleteAchievementByCode(code) {
+  const { list, sha } = await loadAchievementsJson();
+  const item = list.find(i => i.code === code);
+  const newList = list.filter(i => i.code !== code);
+  await saveAchievementsJson(newList, sha, `delete achievement photo ${code}`);
+  window._achCache = newList;
+  renderAchGrid(newList);
+  showModal('Foto dihapus', `Foto ${code} sudah dihapus.`, '🗑');
+  setTimeout(() => { document.getElementById('pub-overlay').classList.remove('show'); }, 1200);
+}
+
+// ════════════════════════════════════════
+// CERTIFICATION PHOTOS (B1, B2, B3, ...)
+// ════════════════════════════════════════
+const CERT_JSON_PATH = 'data/certifications.json';
+
+let certPendingBase64 = null;
+let certPendingFilename = null;
+
+async function loadCertsJson() {
+  try {
+    const file = await ghGet(CERT_JSON_PATH);
+    if (!file.content) return { list: [], sha: null };
+    const raw = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+    const list = JSON.parse(raw);
+    return { list: Array.isArray(list) ? list : [], sha: file.sha };
+  } catch(e) {
+    return { list: [], sha: null };
+  }
+}
+
+async function saveCertsJson(list, sha, message) {
+  const content = JSON.stringify(list, null, 2);
+  return ghPut(CERT_JSON_PATH, content, message, sha);
+}
+
+function nextCertCode(list) {
+  let max = 0;
+  list.forEach(item => {
+    const m = (item.code || '').match(/^B(\d+)$/);
+    if (m) max = Math.max(max, parseInt(m[1]));
+  });
+  return 'B' + (max + 1);
+}
+
+async function loadCertsGrid() {
+  const wrap = document.getElementById('cert-grid-wrap');
+  wrap.innerHTML = '<div class="manage-loading">⏳ Memuat daftar sertifikat...</div>';
+  const { list } = await loadCertsJson();
+  window._certCache = list;
+  renderCertGrid(list);
+}
+
+function renderCertGrid(list) {
+  const wrap = document.getElementById('cert-grid-wrap');
+  if (list.length === 0) {
+    wrap.innerHTML = '<div class="manage-empty"><div class="manage-empty-title">Belum ada sertifikat.</div></div>';
+    return;
+  }
+  const grid = document.createElement('div');
+  grid.className = 'photo-grid';
+  list.forEach(item => {
+    const tile = document.createElement('div');
+    tile.className = 'photo-tile';
+    tile.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <span class="photo-tile-code">${item.code}</span>
+      <button class="photo-tile-del" onclick="promptDeleteCert('${item.code}')" title="Hapus">✕</button>
+      <div class="photo-tile-cap">${item.name}</div>`;
+    grid.appendChild(tile);
+  });
+  wrap.innerHTML = '';
+  wrap.appendChild(grid);
+}
+
+function handleCertUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    certPendingBase64 = e.target.result.split(',')[1];
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    certPendingFilename = { ext };
+    const prev = document.getElementById('cert-img-preview');
+    prev.src = e.target.result;
+    prev.style.display = 'block';
+    setUploadStatus('cert-upload-status', 'success', '✓ Foto siap diupload — isi nama & penerbit lalu klik Tambahkan');
+  };
+  reader.readAsDataURL(file);
+}
+
+async function addCertification() {
+  const btn = document.getElementById('btn-add-cert');
+  const name = document.getElementById('cert-name-input').value.trim();
+  const issuer = document.getElementById('cert-issuer-input').value.trim();
+
+  if (!certPendingBase64) { showToast('⚠️ Upload foto sertifikat dulu'); return; }
+  if (!name || !issuer) { showToast('⚠️ Nama dan penerbit wajib diisi'); return; }
+
+  btn.disabled = true;
+  btn.textContent = '⏳ Menyimpan...';
+
+  try {
+    const { list } = await loadCertsJson();
+    const code = nextCertCode(list);
+    const filename = `cert-${code.toLowerCase()}.${certPendingFilename.ext}`;
+    const imgPath = `${ACH_IMG_DIR}/${filename}`;
+
+    await ghUploadImg(imgPath, certPendingBase64, `add certification photo ${code}`);
+
+    const fresh = await loadCertsJson();
+    const newList = fresh.list;
+    newList.push({ code, img: `/images/about/${filename}`, name, issuer });
+    await saveCertsJson(newList, fresh.sha, `add certification ${code}: ${name}`);
+
+    window._certCache = newList;
+    renderCertGrid(newList);
+
+    // Reset form
+    document.getElementById('cert-name-input').value = '';
+    document.getElementById('cert-issuer-input').value = '';
+    document.getElementById('cert-img-preview').style.display = 'none';
+    setUploadStatus('cert-upload-status', '', '');
+    certPendingBase64 = null;
+    certPendingFilename = null;
+
+    showToast(`✓ ${code} berhasil ditambahkan`);
+  } catch(e) {
+    console.error(e);
+    showToast('❌ Gagal menyimpan, coba lagi');
+  }
+  btn.disabled = false;
+  btn.textContent = '➕ Tambahkan ke Carousel';
+}
+
+function promptDeleteCert(code) {
+  document.getElementById('confirm-title').textContent = `Hapus sertifikat ${code}?`;
+  document.getElementById('confirm-sub').textContent = 'Foto akan dihapus dari carousel sertifikat. Tindakan ini tidak bisa dibatalkan.';
+  document.getElementById('confirm-overlay').classList.add('show');
+  _deleteTarget = { type: 'certification', code };
+}
+
+async function deleteCertificationByCode(code) {
+  const { list, sha } = await loadCertsJson();
+  const newList = list.filter(i => i.code !== code);
+  await saveCertsJson(newList, sha, `delete certification ${code}`);
+  window._certCache = newList;
+  renderCertGrid(newList);
+  showModal('Sertifikat dihapus', `${code} sudah dihapus.`, '🗑');
+  setTimeout(() => { document.getElementById('pub-overlay').classList.remove('show'); }, 1200);
+}
+
+// ── Shared file→base64 helper ──
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// ════════════════════════════════════════
+// PROFILE / ACTIVITY PHOTOS (C1, C2, C3, ...)
+// ════════════════════════════════════════
+const PHOTOS_JSON_PATH = 'data/profile-photos.json';
+
+async function loadPhotosJson() {
+  try {
+    const file = await ghGet(PHOTOS_JSON_PATH);
+    if (!file.content) return { list: [], sha: null };
+    const raw = decodeURIComponent(escape(atob(file.content.replace(/\n/g,''))));
+    const list = JSON.parse(raw);
+    return { list: Array.isArray(list) ? list : [], sha: file.sha };
+  } catch(e) {
+    return { list: [], sha: null };
+  }
+}
+
+async function savePhotosJson(list, sha, message) {
+  const content = JSON.stringify(list, null, 2);
+  return ghPut(PHOTOS_JSON_PATH, content, message, sha);
+}
+
+function nextPhotoCode(list) {
+  let max = 0;
+  list.forEach(item => {
+    const m = (item.code || '').match(/^C(\d+)$/);
+    if (m) max = Math.max(max, parseInt(m[1]));
+  });
+  return 'C' + (max + 1);
+}
+
+async function loadPhotosGrid() {
+  const wrap = document.getElementById('photos-grid-wrap');
+  wrap.innerHTML = '<div class="manage-loading">⏳ Memuat daftar foto...</div>';
+  const { list } = await loadPhotosJson();
+  window._photosCache = list;
+  renderPhotosGrid(list);
+}
+
+function renderPhotosGrid(list) {
+  const wrap = document.getElementById('photos-grid-wrap');
+  if (list.length === 0) {
+    wrap.innerHTML = '<div class="manage-empty"><div class="manage-empty-title">Belum ada foto profil/kegiatan.</div></div>';
+    return;
+  }
+  const grid = document.createElement('div');
+  grid.className = 'photo-grid';
+  list.forEach(item => {
+    const tile = document.createElement('div');
+    tile.className = 'photo-tile';
+    tile.style.cursor = 'pointer';
+    tile.innerHTML = `
+      <img src="${item.img}" alt="${item.code}" onclick="openCaptionEdit('${item.code}')">
+      <span class="photo-tile-code">${item.code}</span>
+      <button class="photo-tile-del" onclick="event.stopPropagation();promptDeletePhoto('${item.code}')" title="Hapus">✕</button>
+      ${item.caption ? `<div class="photo-tile-cap">${item.caption}</div>` : ''}`;
+    grid.appendChild(tile);
+  });
+  wrap.innerHTML = '';
+  wrap.appendChild(grid);
+}
+
+async function handlePhotosUpload(input) {
+  const files = Array.from(input.files || []);
+  if (files.length === 0) return;
+  setUploadStatus('photos-upload-status', '', `⏳ Mengupload ${files.length} foto...`);
+
+  let { list } = await loadPhotosJson();
+  let okCount = 0, failCount = 0;
+
+  for (const file of files) {
+    try {
+      const code = nextPhotoCode(list);
+      const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+      const filename = `profile-${code.toLowerCase()}.${ext}`;
+      const imgPath = `static/images/about/${filename}`;
+      const base64 = await fileToBase64(file);
+      await ghUploadImg(imgPath, base64, `add profile photo ${code}`);
+      list.push({ code, img: `/images/about/${filename}`, caption: '' });
+      okCount++;
+    } catch(e) {
+      failCount++;
+      console.error(e);
+    }
+  }
+
+  try {
+    const fresh = await loadPhotosJson();
+    await savePhotosJson(list, fresh.sha, `update profile-photos.json (+${okCount} foto)`);
+  } catch(e) {
+    console.error(e);
+  }
+
+  window._photosCache = list;
+  renderPhotosGrid(list);
+  setUploadStatus('photos-upload-status', okCount > 0 ? 'success' : 'error',
+    `✓ ${okCount} foto berhasil${failCount > 0 ? `, ${failCount} gagal` : ''}`);
+  input.value = '';
+}
+
+let _captionEditCode = null;
+function openCaptionEdit(code) {
+  const list = window._photosCache || [];
+  const item = list.find(i => i.code === code);
+  if (!item) return;
+  _captionEditCode = code;
+  document.getElementById('caption-modal-img').src = item.img;
+  document.getElementById('caption-input').value = item.caption || '';
+  document.getElementById('caption-overlay').classList.add('show');
+}
+
+async function saveCaptionEdit() {
+  if (!_captionEditCode) return;
+  const newCaption = document.getElementById('caption-input').value.trim();
+  document.getElementById('caption-overlay').classList.remove('show');
+  showLoadingModal('Menyimpan keterangan...');
+  try {
+    const { list, sha } = await loadPhotosJson();
+    const item = list.find(i => i.code === _captionEditCode);
+    if (item) item.caption = newCaption;
+    await savePhotosJson(list, sha, `update caption ${_captionEditCode}`);
+    window._photosCache = list;
+    renderPhotosGrid(list);
+    document.getElementById('pub-overlay').classList.remove('show');
+    showToast('✓ Keterangan disimpan');
+  } catch(e) {
+    console.error(e);
+    document.getElementById('pub-overlay').classList.remove('show');
+    showToast('❌ Gagal menyimpan');
+  }
+  _captionEditCode = null;
+}
+
+function promptDeletePhoto(code) {
+  document.getElementById('confirm-title').textContent = `Hapus foto ${code}?`;
+  document.getElementById('confirm-sub').textContent = 'Foto akan dihapus dari galeri profil. Tindakan ini tidak bisa dibatalkan.';
+  document.getElementById('confirm-overlay').classList.add('show');
+  _deleteTarget = { type: 'profile-photo', code };
+}
+
+async function deletePhotoByCode(code) {
+  const { list, sha } = await loadPhotosJson();
+  const newList = list.filter(i => i.code !== code);
+  await savePhotosJson(newList, sha, `delete profile photo ${code}`);
+  window._photosCache = newList;
+  renderPhotosGrid(newList);
+  showModal('Foto dihapus', `Foto ${code} sudah dihapus.`, '🗑');
+  setTimeout(() => { document.getElementById('pub-overlay').classList.remove('show'); }, 1200);
 }
 
 // ── HELPERS ──
