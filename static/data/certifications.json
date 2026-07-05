@@ -26,5 +26,12 @@
     "name": "Training of QGIS Basic for Plantation Forest Management",
     "issuer": "APP Forestry - 2023",
     "date": "2023-10"
+  },
+  {
+    "code": "B5",
+    "img": "/images/about/cert-b5.jpg",
+    "name": "Short Course Basic HEC-RAS: Simple Geometry River",
+    "issuer": "Takeclass - 2023",
+    "date": "2023-07"
   }
 ]
