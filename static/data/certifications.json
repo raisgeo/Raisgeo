@@ -61,5 +61,12 @@
     "name": "GANIS CANHUT — Tenaga Teknis Pengelolaan Hutan Bid. Perencanaan Hutan",
     "issuer": "Kementerian LHK (Pusdiklat SDM LHK) - 2022",
     "date": "2022-08"
+  },
+  {
+    "code": "B11",
+    "img": "/images/about/cert-b11.jpg",
+    "name": "Stradata Academy: Learning Python 101",
+    "issuer": "Stradata Academy - 2021",
+    "date": "2021-07"
   }
 ]
