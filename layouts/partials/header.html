@@ -18,6 +18,10 @@
       The Geographer's <span class="logo-accent">Journal</span>
     </a>
 
+    <button class="hdr-hamburger" id="hdr-hamburger" aria-label="Buka menu" aria-expanded="false" aria-controls="hdr-mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+
     <!-- NAVBAR FLOATING PILL -->
     <nav class="hdr-nav" aria-label="Navigasi utama">
       <div class="hdr-float-pill">
@@ -58,6 +62,26 @@
         <button class="tog" id="tog" onclick="toggleTheme()" aria-label="Toggle theme"></button>
       </div>
     </nav>
+  </div>
+
+  <!-- MENU MOBILE (muncul cuma di layar sempit, lihat @media di bawah) -->
+  <div class="hdr-mobile-menu" id="hdr-mobile-menu">
+    <a href="/" class="hdr-mobile-link" id="pill-blog-m">✦ All Posts</a>
+    <a href="/categories/notes/" class="hdr-mobile-link">○ Notes</a>
+    <a href="/categories/insight/" class="hdr-mobile-link">○ Insight</a>
+    <a href="/categories/opinions/" class="hdr-mobile-link">○ Opinions</a>
+    <a href="/categories/reflections/" class="hdr-mobile-link">○ Reflections</a>
+    <a href="/categories/book-review/" class="hdr-mobile-link">○ Book Review</a>
+    <div class="hdr-mobile-divider"></div>
+    <a href="/webgis/" class="hdr-mobile-link" id="pill-webgis-m">WebGIS</a>
+    <a href="/store/" class="hdr-mobile-link" id="pill-store-m">Store</a>
+    <a href="/archives/" class="hdr-mobile-link" id="pill-arsip-m">Arsip</a>
+    <a href="/about/" class="hdr-mobile-link" id="pill-about-m">About</a>
+    <div class="hdr-mobile-divider"></div>
+    <div class="hdr-mobile-theme-row">
+      <span>Dark Mode</span>
+      <button class="tog" id="tog-m" onclick="toggleTheme()" aria-label="Toggle theme"></button>
+    </div>
   </div>
 
 </header>
@@ -253,6 +277,89 @@ html.dark .hdr-drop-item:hover { background: #1f1f1f; color: #FF3333; border-lef
 html.dark .hdr-drop-divider { background: #2a2a2a; }
 html.dark .hdr-drop-icon { color: #444; }
 
+/* ── HAMBURGER (mobile only, tersembunyi di desktop/tablet) ── */
+.hdr-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: rgba(0,0,0,0.05);
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+}
+.hdr-hamburger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: var(--text, #1a1814);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.hdr-hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hdr-hamburger.active span:nth-child(2) { opacity: 0; }
+.hdr-hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+html.dark .hdr-hamburger { background: rgba(255,255,255,0.10); }
+html.dark .hdr-hamburger span { background: var(--text, #f0ece4); }
+
+/* ── PANEL MENU MOBILE ── */
+.hdr-mobile-menu {
+  display: none;
+  flex-direction: column;
+  padding: 4px 24px 20px;
+  background: rgba(247, 245, 240, 0.98);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+.hdr-mobile-menu.open { display: flex; }
+html.dark .hdr-mobile-menu {
+  background: rgba(17, 16, 9, 0.98);
+  border-top-color: rgba(255,255,255,0.07);
+}
+.hdr-mobile-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text, #1a1814);
+  text-decoration: none;
+  padding: 14px 4px;
+  border-bottom: 1px solid rgba(0,0,0,0.055);
+}
+.hdr-mobile-link:last-of-type { border-bottom: none; }
+html.dark .hdr-mobile-link { color: var(--text, #f0ece4); border-bottom-color: rgba(255,255,255,0.07); }
+.hdr-mobile-link.active { color: var(--ac, #CC0000); font-weight: 700; }
+html.dark .hdr-mobile-link.active { color: #FF3333; }
+.hdr-mobile-divider { height: 1px; background: rgba(0,0,0,0.08); margin: 6px 0; }
+html.dark .hdr-mobile-divider { background: rgba(255,255,255,0.09); }
+.hdr-mobile-theme-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 4px 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text2, #555);
+}
+html.dark .hdr-mobile-theme-row { color: var(--text2, #bbb); }
+
+/* ── BREAKPOINT: di bawah 720px, pill nav desktop diganti hamburger + panel ── */
+@media (max-width: 720px) {
+  .hdr-nav { display: none; }
+  .hdr-hamburger { display: flex; }
+  .hdr-logo { font-size: 16px; }
+  .hdr-main { padding: 12px 18px; }
+}
+@media (max-width: 380px) {
+  .hdr-logo { font-size: 14.5px; }
+}
+
 /* ── STICKY HEADER — override tempo.css (berlaku semua halaman) ── */
 .site-header {
   position: sticky !important;
@@ -319,6 +426,49 @@ html.dark .site-header {
 
   var pill = document.getElementById(activeId);
   if (pill) pill.classList.add('active');
+
+  // Sinkronkan status aktif ke link versi mobile juga
+  var mobileIdMap = {
+    'pill-blog': 'pill-blog-m',
+    'pill-webgis': 'pill-webgis-m',
+    'pill-store': 'pill-store-m',
+    'pill-arsip': 'pill-arsip-m',
+    'pill-about': 'pill-about-m'
+  };
+  var mobilePillId = mobileIdMap[activeId];
+  if (mobilePillId) {
+    var mobilePill = document.getElementById(mobilePillId);
+    if (mobilePill) mobilePill.classList.add('active');
+  }
+
+  // ── HAMBURGER MENU (mobile) ──
+  var hamburger = document.getElementById('hdr-hamburger');
+  var mobileMenu = document.getElementById('hdr-mobile-menu');
+
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    hamburger.classList.remove('active');
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('active', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    // Klik di luar menu → tutup
+    document.addEventListener('click', function (e) {
+      if (!mobileMenu.classList.contains('open')) return;
+      if (mobileMenu.contains(e.target) || hamburger.contains(e.target)) return;
+      closeMobileMenu();
+    });
+    // Tombol Escape → tutup
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu();
+    });
+  }
 
   var wrap = document.getElementById('blog-wrap');
   var dropdown = document.getElementById('blog-dropdown');
