@@ -34,21 +34,11 @@
               <span class="hdr-drop-icon">✦</span>All Posts
             </a>
             <div class="hdr-drop-divider"></div>
-            <a href="/categories/notes/" class="hdr-drop-item">
-              <span class="hdr-drop-icon">○</span>Notes
+            {{ range .Site.Data.categories }}
+            <a href="/categories/{{ .urlSlug }}/" class="hdr-drop-item">
+              <span class="hdr-drop-icon">○</span>{{ .name }}
             </a>
-            <a href="/categories/insight/" class="hdr-drop-item">
-              <span class="hdr-drop-icon">○</span>Insight
-            </a>
-            <a href="/categories/opinions/" class="hdr-drop-item">
-              <span class="hdr-drop-icon">○</span>Opinions
-            </a>
-            <a href="/categories/reflections/" class="hdr-drop-item">
-              <span class="hdr-drop-icon">○</span>Reflections
-            </a>
-            <a href="/categories/book-review/" class="hdr-drop-item">
-              <span class="hdr-drop-icon">○</span>Book Review
-            </a>
+            {{ end }}
             </div>
           </div>
         </div>
@@ -67,11 +57,9 @@
   <!-- MENU MOBILE (muncul cuma di layar sempit, lihat @media di bawah) -->
   <div class="hdr-mobile-menu" id="hdr-mobile-menu">
     <a href="/" class="hdr-mobile-link" id="pill-blog-m">✦ All Posts</a>
-    <a href="/categories/notes/" class="hdr-mobile-link">○ Notes</a>
-    <a href="/categories/insight/" class="hdr-mobile-link">○ Insight</a>
-    <a href="/categories/opinions/" class="hdr-mobile-link">○ Opinions</a>
-    <a href="/categories/reflections/" class="hdr-mobile-link">○ Reflections</a>
-    <a href="/categories/book-review/" class="hdr-mobile-link">○ Book Review</a>
+    {{ range .Site.Data.categories }}
+    <a href="/categories/{{ .urlSlug }}/" class="hdr-mobile-link">○ {{ .name }}</a>
+    {{ end }}
     <div class="hdr-mobile-divider"></div>
     <a href="/webgis/" class="hdr-mobile-link" id="pill-webgis-m">WebGIS</a>
     <a href="/store/" class="hdr-mobile-link" id="pill-store-m">Store</a>
