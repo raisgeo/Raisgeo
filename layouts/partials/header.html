@@ -386,6 +386,33 @@ html.dark .site-header {
 </style>
 
 <script>
+// ── DARK/LIGHT MODE TOGGLE ──
+// Didefinisikan di sini (partial header, dipakai bareng semua halaman kecuali
+// store.html & admin.html yang punya salinan sendiri) supaya tombol toggle
+// berfungsi konsisten di semua halaman, bukan cuma di satu halaman saja.
+function toggleTheme() {
+  var html = document.documentElement;
+  if (html.classList.contains('dark')) {
+    html.classList.remove('dark');
+    html.classList.add('light');
+    localStorage.setItem('theme', 'light');
+  } else {
+    html.classList.remove('light');
+    html.classList.add('dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+// Terapkan tema yang tersimpan dari kunjungan sebelumnya (kalau ada)
+(function () {
+  try {
+    var saved = localStorage.getItem('theme');
+    if (saved === 'dark') {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    }
+  } catch (e) { /* localStorage tidak tersedia — biarkan default light */ }
+})();
+
 (function () {
   var DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var MONTHS = ['January','February','March','April','May','June',
