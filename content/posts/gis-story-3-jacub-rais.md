@@ -1,6 +1,6 @@
 ---
 title: "GIS Story #3: Jacub Rais, Bapak Geodesi Indonesia"
-date: 2020-12-02T00:00:00+07:00
+date: 2020-12-03T07:00:00+07:00
 draft: false
 categories: ["Insight"]
 image: "https://miro.medium.com/v2/resize:fit:1071/1*YeNcTXL03iFxxP59aQTYdQ.png"
