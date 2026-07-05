@@ -60,25 +60,82 @@
   font-weight: 300;
 }
 
-/* SEARCH */
-.search-bar-wrap {
+/* TRUST STATS ROW */
+.store-stats {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.01em;
+}
+.store-stats span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.store-stats span::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ac);
+  flex-shrink: 0;
+}
+
+/* SEARCH + SORT ROW */
+.search-sort-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
   margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.search-bar-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+  max-width: 400px;
+}
+.search-icon {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  pointer-events: none;
 }
 .search-bar {
   width: 100%;
-  max-width: 400px;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
-  padding: 9px 14px;
+  padding: 9px 14px 9px 34px;
   border: 1px solid var(--border);
   background: var(--bg2);
   color: var(--text);
-  border-radius: 3px;
+  border-radius: 7px;
   outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.search-bar:focus { border-color: var(--ac); box-shadow: 0 0 0 3px hsla(0,80%,45%,0.08); }
+.search-bar::placeholder { color: var(--text3); }
+
+.sort-select {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text2);
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 9px 14px;
+  outline: none;
+  cursor: pointer;
   transition: border-color 0.15s;
 }
-.search-bar:focus { border-color: var(--ac); }
-.search-bar::placeholder { color: var(--text3); }
+.sort-select:focus, .sort-select:hover { border-color: var(--ac); }
 
 /* FILTER */
 .filter-bar {
@@ -90,18 +147,18 @@
 .filter-btn {
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  padding: 7px 18px;
-  border-radius: 2px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 8px 18px;
+  border-radius: 100px;
   border: 1px solid var(--border);
   background: transparent;
   color: var(--text2);
   cursor: pointer;
   transition: all 0.15s;
 }
-.filter-btn:hover { border-color: var(--text); color: var(--text); }
-.filter-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+.filter-btn:hover { border-color: var(--ac); color: var(--ac); }
+.filter-btn.active { background: var(--ac); color: #fff; border-color: var(--ac); box-shadow: 0 3px 10px hsla(0,80%,45%,0.25); }
 
 /* GRID */
 .product-grid {
@@ -187,12 +244,29 @@
   background: var(--bg2);
   border-bottom: 1px solid var(--border);
   overflow: hidden;
+  position: relative;
 }
 .product-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.product-ribbon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--ac);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 2;
 }
 .product-body { padding: 18px 20px 20px; }
 
@@ -206,12 +280,8 @@
   margin-bottom: 4px;
 }
 .product-cat {
-  font-size: 9px;
-  color: var(--ac);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 500;
-  margin-bottom: 6px;
+  /* Digantikan ribbon kategori di atas foto (lihat .product-ribbon) — tetap ada di markup untuk kompatibilitas Admin, disembunyikan secara visual */
+  display: none;
 }
 .product-name {
   font-family: 'Playfair Display', serif;
@@ -224,11 +294,14 @@
 .product-badge {
   display: inline-block;
   font-size: 9px;
-  font-weight: 400;
-  padding: 3px 9px;
-  border: 1px solid var(--border);
-  color: var(--text3);
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  padding: 4px 11px;
+  border: none;
+  border-radius: 100px;
+  background: hsla(0, 80%, 45%, 0.08);
+  color: var(--ac);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   margin-bottom: 10px;
 }
 .product-desc {
@@ -321,6 +394,8 @@ footer {
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .store-title { font-size: 28px; }
   footer { padding: 20px 24px; }
+  .search-bar-wrap { max-width: none; min-width: 100%; }
+  .sort-select { width: 100%; }
 }
 @media (max-width: 480px) {
   .product-grid { grid-template-columns: 1fr; }
@@ -336,11 +411,20 @@ footer {
   <div class="store-hero">
     <div class="store-eyebrow">Store</div>
     <h1 class="store-title" id="store-title-tw"></h1>
-    <p class="store-subtitle">A curated selection of products I personally use — running gear, gadgets, books, and everyday essentials. Recommended by me and my wife.</p>
+    <p class="store-subtitle">A curated selection of products I personally use and trust — running gear, gadgets, books, and everyday essentials I rely on.</p>
+    <div class="store-stats" id="store-stats"></div>
   </div>
 
-  <div class="search-bar-wrap">
-    <input type="text" class="search-bar" id="search-input" placeholder="Cari produk atau nomor (cth: 3, sepatu, kamb)..." oninput="searchProducts()">
+  <div class="search-sort-row">
+    <div class="search-bar-wrap">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" class="search-bar" id="search-input" placeholder="Cari produk atau nomor (cth: 3, sepatu, kamb)..." oninput="searchProducts()">
+    </div>
+    <select class="sort-select" id="sort-select" onchange="sortProducts()">
+      <option value="default">Urutkan: Default</option>
+      <option value="price-asc">Harga: Rendah ke Tinggi</option>
+      <option value="price-desc">Harga: Tinggi ke Rendah</option>
+    </select>
   </div>
   <div class="search-result-info" id="search-info"></div>
 
@@ -464,7 +548,7 @@ footer {
 
   </div>
 
-  <p class="store-disclaimer">Some links on this page are affiliate links. I only recommend products I genuinely use or believe in — my wife and I both stand behind everything listed here.</p>
+  <p class="store-disclaimer">Some links on this page are affiliate links. I only recommend products I genuinely use and believe in — chosen with care, not just for promotion.</p>
 
 </div>
 
@@ -624,6 +708,84 @@ function applyFilter() {
   });
   var empty = document.getElementById('empty-state');
   if (empty) empty.style.display = visible === 0 ? 'block' : 'none';
+}
+
+// ── RIBBON KATEGORI (injeksi otomatis di foto, dibaca dari .product-cat) ──
+// Dilakukan via JS agar tidak perlu ubah markup kartu produk / template Admin —
+// setiap produk baru yang ditambah lewat Admin otomatis mendapat ribbon ini juga.
+(function() {
+  function injectRibbons() {
+    document.querySelectorAll('.product-card').forEach(function(card) {
+      var img = card.querySelector('.product-img');
+      var catEl = card.querySelector('.product-cat');
+      if (!img || !catEl) return;
+      if (img.querySelector('.product-ribbon')) return; // sudah ada
+      var ribbon = document.createElement('div');
+      ribbon.className = 'product-ribbon';
+      ribbon.textContent = catEl.textContent.trim();
+      img.appendChild(ribbon);
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectRibbons);
+  } else {
+    injectRibbons();
+  }
+})();
+
+// ── STATS ROW (jumlah produk otomatis) ──
+(function() {
+  function renderStats() {
+    var el = document.getElementById('store-stats');
+    if (!el) return;
+    var count = document.querySelectorAll('.product-card').length;
+    el.innerHTML =
+      '<span>' + count + ' produk dikurasi</span>' +
+      '<span>Link afiliasi resmi</span>' +
+      '<span>Diperbarui rutin</span>';
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderStats);
+  } else {
+    renderStats();
+  }
+})();
+
+// ── SORT PRODUK (Default / Harga Rendah-Tinggi / Harga Tinggi-Rendah) ──
+var _originalOrder = [];
+(function() {
+  function captureOrder() {
+    var grid = document.getElementById('product-grid');
+    if (!grid) return;
+    _originalOrder = Array.prototype.slice.call(grid.querySelectorAll('.product-card'));
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', captureOrder);
+  } else {
+    captureOrder();
+  }
+})();
+
+function sortProducts() {
+  var grid = document.getElementById('product-grid');
+  var select = document.getElementById('sort-select');
+  if (!grid || !select || !_originalOrder.length) return;
+  var mode = select.value;
+  var cards = _originalOrder.slice();
+
+  if (mode === 'price-asc' || mode === 'price-desc') {
+    cards.sort(function(a, b) {
+      var priceEl = a.querySelector('.product-price');
+      var priceElB = b.querySelector('.product-price');
+      var pa = parseInt((priceEl ? priceEl.textContent : '0').replace(/[^0-9]/g, ''), 10) || 0;
+      var pb = parseInt((priceElB ? priceElB.textContent : '0').replace(/[^0-9]/g, ''), 10) || 0;
+      return mode === 'price-asc' ? pa - pb : pb - pa;
+    });
+  }
+
+  cards.forEach(function(c) { grid.appendChild(c); });
+  var empty = document.getElementById('empty-state');
+  if (empty) grid.appendChild(empty);
 }
 
 // ── SPOTLIGHT EFFECT pada product-card ──
