@@ -350,13 +350,11 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
           <div class="field">
             <label>Kategori</label>
             <div class="cat-pills">
-              <span class="cat-pill active" onclick="setCategory('Opinions',this)">Opinions</span>
-              <span class="cat-pill" onclick="setCategory('Reflections',this)">Reflections</span>
-              <span class="cat-pill" onclick="setCategory('Notes',this)">Notes</span>
-              <span class="cat-pill" onclick="setCategory('Insight',this)">Insight</span>
-              <span class="cat-pill" onclick="setCategory('Book Review',this)">Book Review</span>
+              {{ range $i, $c := .Site.Data.categories }}
+              <span class="cat-pill{{ if eq $i 0 }} active{{ end }}" onclick="setCategory('{{ $c.name }}',this)">{{ $c.name }}</span>
+              {{ end }}
             </div>
-            <input type="hidden" id="category-input" value="Opinions">
+            <input type="hidden" id="category-input" value="{{ (index .Site.Data.categories 0).name }}">
           </div>
           <div class="field">
             <label>Tanggal posting</label>
@@ -583,11 +581,9 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
           <div class="field">
             <label>Kategori</label>
             <div class="cat-pills" id="edit-art-cats">
-              <span class="cat-pill active" onclick="setEditCategory('Opinions',this)">Opinions</span>
-              <span class="cat-pill" onclick="setEditCategory('Reflections',this)">Reflections</span>
-              <span class="cat-pill" onclick="setEditCategory('Notes',this)">Notes</span>
-              <span class="cat-pill" onclick="setEditCategory('Insight',this)">Insight</span>
-              <span class="cat-pill" onclick="setEditCategory('Book Review',this)">Book Review</span>
+              {{ range $i, $c := .Site.Data.categories }}
+              <span class="cat-pill{{ if eq $i 0 }} active{{ end }}" onclick="setEditCategory('{{ $c.name }}',this)">{{ $c.name }}</span>
+              {{ end }}
             </div>
             <input type="hidden" id="edit-category-input">
           </div>
@@ -1321,7 +1317,7 @@ async function openEditArticle(path) {
       document.getElementById('edit-desc-input').value = descMatch ? descMatch[1] : '';
       document.getElementById('edit-image-input').value = imgMatch ? imgMatch[1] : '';
 
-      const cat = catMatch ? catMatch[1] : 'Opinions';
+      const cat = catMatch ? catMatch[1] : '{{ (index .Site.Data.categories 0).name }}';
       document.getElementById('edit-category-input').value = cat;
       document.querySelectorAll('#edit-art-cats .cat-pill').forEach(p => {
         p.classList.toggle('active', p.textContent.trim() === cat);
@@ -2128,7 +2124,8 @@ function resetArticleForm() {
   document.getElementById('char-count').textContent = '0 karakter';
   document.getElementById('filename-preview').textContent = 'nama-file.md';
   document.querySelectorAll('#article-screen .cat-pill').forEach((p,i) => p.classList.toggle('active', i===0));
-  document.getElementById('category-input').value = 'Opinions';
+  const firstCatPill = document.querySelector('#article-screen .cat-pill');
+  document.getElementById('category-input').value = firstCatPill ? firstCatPill.textContent.trim() : '';
   document.getElementById('art-img-preview').style.display = 'none';
   setUploadStatus('art-upload-status','','');
   artImgBase64 = null; artImgName = null;
