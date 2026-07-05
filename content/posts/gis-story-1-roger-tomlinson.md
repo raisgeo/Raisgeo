@@ -1,9 +1,9 @@
 ---
 title: "GIS Story #1: Roger Tomlinson, The Father of GIS"
-date: 2020-07-14T05:27:00+07:00
+date: 2020-07-14T07:00:00+07:00
 draft: false
 categories: ["Insight"]
-image: "https://miro.medium.com/v2/resize:fit:1200/1*PLy_MQi_O7451A1JWZXHSw.png"
+image: "{{< figure src="/images/posts/1783250576038-gis-story-1-cover.png" >}}"
 description: "Kisah Roger Tomlinson, bapak GIS dunia, dan bagaimana proyek pemetaan hutan di Kenya tahun 1962 melahirkan sistem informasi geografis modern."
 ---
 
