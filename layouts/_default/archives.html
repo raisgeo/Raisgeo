@@ -232,14 +232,21 @@ html { scroll-behavior: smooth; }
   padding: 3px 9px;
   border-radius: 100px;
 }
+/* Notes & Insight sifatnya informatif/faktual — dibedakan warna biru dari
+   kategori lain (Opinions/Reflections/Book Review) yang tetap merah */
+.arch-item[data-cat="notes"] .arch-tag,
+.arch-item[data-cat="insight"] .arch-tag {
+  color: var(--info);
+  background: var(--info-bg);
+}
 .arch-new {
   font-family: 'Inter', sans-serif;
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #fff;
-  background: var(--ac);
+  color: var(--warn);
+  background: var(--warn-bg);
   padding: 3px 9px;
   border-radius: 100px;
 }
