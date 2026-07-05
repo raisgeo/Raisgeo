@@ -31,15 +31,16 @@
 
   // Bangunan hanya diambil di area lebih kecil & terpusat (inti kota) — biar tetap ringan
   // dan warnanya mengelompok di tengah (mirip poster referensi), tidak merata ke seluruh peta.
-  const BLD_LAT_SPAN = LAT_SPAN * 0.55;
-  const BLD_LNG_SPAN = LNG_SPAN * 0.55;
+  // Area dikecilkan lebih jauh agar payload dari Overpass jauh lebih ringan → loading lebih cepat.
+  const BLD_LAT_SPAN = LAT_SPAN * 0.32;
+  const BLD_LNG_SPAN = LNG_SPAN * 0.32;
   const BLD_SOUTH = CENTER_LAT - BLD_LAT_SPAN / 2;
   const BLD_NORTH = CENTER_LAT + BLD_LAT_SPAN / 2;
   const BLD_WEST  = CENTER_LNG - BLD_LNG_SPAN / 2;
   const BLD_EAST  = CENTER_LNG + BLD_LNG_SPAN / 2;
 
   // Batas jumlah bangunan yang dirender — jaga performa tetap ringan meski data OSM padat
-  const MAX_BUILDINGS = 700;
+  const MAX_BUILDINGS = 550;
 
   // Palet warna bangunan (gaya "15-minute city" map) — dipilih bergilir per bangunan
   const BUILDING_COLORS = ['45,212,191', '242,193,78']; // teal, amber (format "r,g,b")
@@ -64,6 +65,7 @@
   const ALL_HIGHWAY_TYPES = [].concat(ROAD_TIERS.major, ROAD_TIERS.mid, ROAD_TIERS.minor);
 
   const CACHE_KEY = 'raisgeoHeroRoadsV2';
+  const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 jam — pengunjung yang balik lagi tidak perlu fetch ulang
   const ANIM_DELAY = 250;
 
   /* ──────────────────────────────────────────
@@ -132,6 +134,14 @@
   const style = document.createElement('style');
   style.textContent = `
     #heroCanvas { position: relative; overflow: hidden; }
+    .hm-road, .hm-buildings {
+      opacity: 0;
+      transition: opacity 1.1s ease;
+    }
+    #heroMapZoomGroup.hm-content-ready .hm-road,
+    #heroMapZoomGroup.hm-content-ready .hm-buildings {
+      opacity: 1;
+    }
     .hm-road path {
       fill: none;
       stroke-linecap: round;
@@ -219,12 +229,26 @@
     });
   }
 
-  function getRoadData() {
-    // Cek cache sesi dulu — hindari fetch ulang tiap kali pindah halaman dalam sesi yang sama
+  function readCache() {
     try {
-      const cached = sessionStorage.getItem(CACHE_KEY);
-      if (cached) return Promise.resolve(JSON.parse(cached));
-    } catch (e) { /* sessionStorage tidak tersedia — lanjut fetch biasa */ }
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (!parsed || !parsed.t || (Date.now() - parsed.t) > CACHE_TTL_MS) return null;
+      return parsed.elements;
+    } catch (e) { return null; } // localStorage tidak tersedia (mis. private browsing) — lanjut fetch biasa
+  }
+
+  function writeCache(elements) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), elements: elements }));
+    } catch (e) { /* penuh/diblokir — tidak fatal, cukup skip cache */ }
+  }
+
+  function getRoadData() {
+    // Cek cache dulu (berlaku 24 jam) — pengunjung yang balik lagi tidak perlu nunggu fetch ulang
+    const cached = readCache();
+    if (cached) return Promise.resolve(cached);
 
     const query = buildQuery();
 
@@ -234,7 +258,7 @@
       })
       .then(function (data) {
         const elements = (data && data.elements) ? data.elements : [];
-        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(elements)); } catch (e) {}
+        writeCache(elements);
         return elements;
       });
   }
@@ -305,6 +329,15 @@
     return roadsDrawn;
   }
 
+  function revealContent() {
+    // Trigger fade-in halus (bukan pop tiba-tiba) begitu path sudah selesai dirender
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        zoomGroup.classList.add('hm-content-ready');
+      });
+    });
+  }
+
   function startZoom() {
     // requestAnimationFrame agar browser sudah selesai layout sebelum animasi CSS dipicu
     requestAnimationFrame(function () {
@@ -324,6 +357,7 @@
       // Kalau ternyata data kosong (mis. bbox salah/area tidak ada jalan ter-tag),
       // biarkan fallback grid saja tampil — tidak perlu treatment khusus lagi.
       if (drawn === 0) return;
+      revealContent();
       setTimeout(startZoom, ANIM_DELAY);
     })
     .catch(function (err) {
