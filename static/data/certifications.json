@@ -19,5 +19,12 @@
     "name": "Remote Pilot Certification (Drone Safety & Ethics Training)",
     "issuer": "Asosiasi Pilot Drone Indonesia (APDI) - 2024",
     "date": "2024-05"
+  },
+  {
+    "code": "B4",
+    "img": "/images/about/cert-b4.jpg",
+    "name": "Training of QGIS Basic for Plantation Forest Management",
+    "issuer": "APP Forestry - 2023",
+    "date": "2023-10"
   }
 ]
