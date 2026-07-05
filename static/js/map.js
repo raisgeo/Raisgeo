@@ -63,9 +63,9 @@
   // titik itu akan jatuh di luar area yang kelihatan dan seolah "hilang". Offset horizontal
   // jauh lebih aman karena lebar viewBox selalu tampil penuh, berapa pun lebar layarnya.
   const MARKERS = [
-    { lat: CENTER_LAT,                    lng: CENTER_LNG,                     delay: 0    },
-    { lat: CENTER_LAT + LAT_SPAN * 0.08,  lng: CENTER_LNG + LNG_SPAN * 0.32,   delay: 0.8  },
-    { lat: CENTER_LAT - LAT_SPAN * 0.07,  lng: CENTER_LNG - LNG_SPAN * 0.30,   delay: 1.6  }
+    { lat: CENTER_LAT,                    lng: CENTER_LNG,                     delay: 0,   color: '#CC0000' },
+    { lat: CENTER_LAT + LAT_SPAN * 0.08,  lng: CENTER_LNG + LNG_SPAN * 0.32,   delay: 0.8, color: '#378ADD' },
+    { lat: CENTER_LAT - LAT_SPAN * 0.07,  lng: CENTER_LNG - LNG_SPAN * 0.30,   delay: 1.6, color: '#EF9F27' }
   ];
 
   /* ──────────────────────────────────────────
@@ -129,6 +129,7 @@
     g.setAttribute('class', 'hm-marker');
     g.setAttribute('transform', `translate(${x.toFixed(1)},${y.toFixed(1)})`);
     g.style.animationDelay = m.delay + 's';
+    g.style.setProperty('--marker-color', m.color);
 
     const ring = document.createElementNS(NS, 'circle');
     ring.setAttribute('class', 'hm-marker-ring');
@@ -188,13 +189,15 @@
       .hm-marker-ring { animation: none !important; }
     }
 
-    /* Titik radar merah — 3 titik menyebar, berkedip async (gaya monitoring) */
+    /* Titik radar — 3 titik menyebar, berkedip async (gaya monitoring). Warna
+       per titik diatur lewat --marker-color (di-set per elemen dari JS):
+       titik pusat kota merah, dua titik lain biru & kuning sebagai aksen. */
     .hm-marker-dot {
-      fill: var(--ac, #CC0000);
-      filter: drop-shadow(0 0 4px rgba(204,0,0,0.85));
+      fill: var(--marker-color, #CC0000);
+      filter: drop-shadow(0 0 4px var(--marker-color, #CC0000));
     }
     .hm-marker-ring {
-      fill: var(--ac, #CC0000);
+      fill: var(--marker-color, #CC0000);
       opacity: 0.55;
       transform-box: fill-box;
       transform-origin: center;
