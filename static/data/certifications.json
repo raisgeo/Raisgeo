@@ -138,5 +138,12 @@
     "name": "Pelajari Data dari Awal dengan Menggunakan SQL, Data Studio, dan RStudio",
     "issuer": "Skill Academy by Ruangguru - 2021",
     "date": "2021-06"
+  },
+  {
+    "code": "B22",
+    "img": "/images/about/cert-b22.jpg",
+    "name": "Dasar Statistik untuk Data Science",
+    "issuer": "Skill Academy by Ruangguru",
+    "date": "2020-04"
   }
 ]
