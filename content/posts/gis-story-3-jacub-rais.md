@@ -3,7 +3,7 @@ title: "GIS Story #3: Jacub Rais, Bapak Geodesi Indonesia"
 date: 2020-12-03T07:00:00+07:00
 draft: false
 categories: ["Insight"]
-image: "{{< figure src="/images/posts/1783250649174-gis-story-3-cover.png" >}}"
+image: "/images/posts/1783250649174-gis-story-3-cover.png"
 description: "Mengenal Prof. Jacub Rais, pendiri BAKOSURTANAL (kini Badan Informasi Geospasial) dan sosok di balik datum geodetik nasional pertama Indonesia, ID-74."
 ---
 
