@@ -1659,7 +1659,7 @@ function insertMdEdit(before, after) {
 // ════════════════════════════════════════
 // ACHIEVEMENT PHOTOS (A1, A2, A3, ...)
 // ════════════════════════════════════════
-const ACH_JSON_PATH = 'data/achievements.json';
+const ACH_JSON_PATH = 'static/data/achievements.json';
 const ACH_IMG_DIR = 'static/images/about';
 
 async function loadAchievementsJson() {
@@ -1780,7 +1780,7 @@ async function deleteAchievementByCode(code) {
 // ════════════════════════════════════════
 // CERTIFICATION PHOTOS (B1, B2, B3, ...)
 // ════════════════════════════════════════
-const CERT_JSON_PATH = 'data/certifications.json';
+const CERT_JSON_PATH = 'static/data/certifications.json';
 
 let certPendingBase64 = null;
 let certPendingFilename = null;
@@ -1935,7 +1935,7 @@ function fileToBase64(file) {
 // ════════════════════════════════════════
 // PROFILE / ACTIVITY PHOTOS (C1, C2, C3, ...)
 // ════════════════════════════════════════
-const PHOTOS_JSON_PATH = 'data/profile-photos.json';
+const PHOTOS_JSON_PATH = 'static/data/profile-photos.json';
 
 async function loadPhotosJson() {
   try {
