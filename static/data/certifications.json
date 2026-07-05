@@ -75,5 +75,12 @@
     "name": "Pelatihan Dasar Object Based Image Analysis (OBIA)",
     "issuer": "IPB University - 2021",
     "date": "2021-07"
+  },
+  {
+    "code": "B13",
+    "img": "/images/about/cert-b13.jpg",
+    "name": "Bincang Mangrove 2: Pemetaan, Monitoring, dan Degradasi",
+    "issuer": "WRI Indonesia & Wetlands International (YLBA) - 2021",
+    "date": "2022-07"
   }
 ]
