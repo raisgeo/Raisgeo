@@ -56,12 +56,16 @@
   const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 jam — pengunjung yang balik lagi tidak perlu fetch ulang
   const ANIM_DELAY = 250;
 
-  // Titik-titik "radar" — 1 di pusat kota, 2 lainnya menyebar di sekitarnya.
-  // Berkedip dengan delay berbeda-beda supaya tidak nyala barengan (kesan monitoring live).
+  // Titik-titik "radar" — 1 di pusat kota, 2 lainnya menyebar ke KIRI-KANAN (horizontal).
+  // Offset vertikal (lat) dibuat sangat kecil dengan sengaja: karena hero situs ini sangat
+  // lebar (rasio ~4:1) sementara peta ini rasionya ~1.3:1, mode "slice" pada SVG memotong
+  // habis bagian atas-bawah viewBox di layar lebar — kalau offset vertikal terlalu besar,
+  // titik itu akan jatuh di luar area yang kelihatan dan seolah "hilang". Offset horizontal
+  // jauh lebih aman karena lebar viewBox selalu tampil penuh, berapa pun lebar layarnya.
   const MARKERS = [
-    { lat: CENTER_LAT,                      lng: CENTER_LNG,                      delay: 0    },
-    { lat: CENTER_LAT + LAT_SPAN * 0.24,    lng: CENTER_LNG + LNG_SPAN * 0.27,    delay: 0.8  },
-    { lat: CENTER_LAT - LAT_SPAN * 0.20,    lng: CENTER_LNG - LNG_SPAN * 0.24,    delay: 1.6  }
+    { lat: CENTER_LAT,                    lng: CENTER_LNG,                     delay: 0    },
+    { lat: CENTER_LAT + LAT_SPAN * 0.08,  lng: CENTER_LNG + LNG_SPAN * 0.32,   delay: 0.8  },
+    { lat: CENTER_LAT - LAT_SPAN * 0.07,  lng: CENTER_LNG - LNG_SPAN * 0.30,   delay: 1.6  }
   ];
 
   /* ──────────────────────────────────────────
