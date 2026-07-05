@@ -1,7 +1,11 @@
 /**
- * map.js — Raisgeo Hero Map
- * Single-layer ESRI World Imagery, CSS-zoom ke Banjarbaru
- * Ringan, no flash, no layer switching
+ * map.js — Raisgeo Hero Map (v2)
+ * Poster jaringan jalan Banjarbaru dari data OpenStreetMap (live, via Overpass API),
+ * dirender sebagai SVG vektor — tajam di semua ukuran layar, tidak ada tile raster
+ * yang berat/pecah. Fokus langsung ke Banjarbaru, 1 layer, dengan efek zoom halus.
+ *
+ * Fallback aman: jika data OSM gagal dimuat (offline, API sedang down, dll),
+ * hero tetap tampil rapi sebagai latar grid minimal — tidak pernah "pecah"/broken.
  */
 
 (function () {
@@ -11,242 +15,259 @@
      CONFIG
   ────────────────────────────────────────── */
 
-  // Koordinat pusat Banjarbaru (kota, bukan airport)
-  const CENTER_LAT  = -3.4457;
-  const CENTER_LNG  = 114.8308;
+  // Koordinat pusat Banjarbaru (kota)
+  const CENTER_LAT = -3.4457;
+  const CENTER_LNG = 114.8308;
 
-  // Tile source — ESRI World Imagery (gratis, no key, resolusi tinggi hingga zoom 19)
-  const TILE_URL = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+  // Cakupan area (derajat) — menentukan seberapa luas jaringan jalan yang tampil.
+  // ~11km (lat) x ~14km (lng), cukup untuk menangkap pola grid kota Banjarbaru.
+  const LAT_SPAN = 0.10;
+  const LNG_SPAN = 0.13;
 
-  // Zoom awal dan zoom akhir — hanya 1 layer, tidak ada pergantian
-  // z=13 → view kota-kecamatan level (jalan besar terlihat)
-  // z=16 → detail blok kota, perumahan, jalan kecil terlihat
-  const ZOOM_START  = 13;
-  const ZOOM_END    = 16;
+  const SOUTH = CENTER_LAT - LAT_SPAN / 2;
+  const NORTH = CENTER_LAT + LAT_SPAN / 2;
+  const WEST  = CENTER_LNG - LNG_SPAN / 2;
+  const EAST  = CENTER_LNG + LNG_SPAN / 2;
 
-  // Durasi animasi (ms)
-  const ANIM_DURATION = 7000;   // total durasi zoom
-  const ANIM_DELAY    = 300;    // delay sebelum mulai
+  // Ukuran viewBox SVG (unit bebas, proporsional terhadap cakupan area di atas)
+  const VB_W = 1300;
+  const VB_H = Math.round(VB_W * (LAT_SPAN / LNG_SPAN));
 
-  /* ──────────────────────────────────────────
-     UTILS
-  ────────────────────────────────────────── */
+  // Overpass API — 2 mirror publik untuk keandalan (coba mirror 1, fallback ke mirror 2)
+  const OVERPASS_ENDPOINTS = [
+    'https://overpass-api.de/api/interpreter',
+    'https://overpass.kumi.systems/api/interpreter'
+  ];
+  const FETCH_TIMEOUT_MS = 7000;
 
-  function deg2rad(d) { return d * Math.PI / 180; }
+  // Jenis jalan yang diambil, dikelompokkan jadi 3 tingkat ketebalan garis (gaya poster)
+  const ROAD_TIERS = {
+    major: ['motorway', 'trunk', 'primary'],
+    mid:   ['secondary', 'tertiary'],
+    minor: ['residential', 'unclassified', 'living_street']
+  };
+  const ALL_HIGHWAY_TYPES = [].concat(ROAD_TIERS.major, ROAD_TIERS.mid, ROAD_TIERS.minor);
 
-  // Konversi lat/lng ke tile x,y pada zoom z
-  function latLngToTile(lat, lng, z) {
-    const n   = Math.pow(2, z);
-    const x   = Math.floor((lng + 180) / 360 * n);
-    const rad = deg2rad(lat);
-    const y   = Math.floor((1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2 * n);
-    return { x, y };
-  }
-
-  // Konversi lat/lng ke piksel dalam tile grid pada zoom z
-  // (piksel = posisi absolut dalam dunia tile, 256px per tile)
-  function latLngToPixel(lat, lng, z) {
-    const tile  = latLngToTile(lat, lng, z);
-    const n     = Math.pow(2, z);
-    const px    = (lng + 180) / 360 * n * 256;
-    const rad   = deg2rad(lat);
-    const py    = (1 - Math.log(Math.tan(rad) + 1 / Math.cos(rad)) / Math.PI) / 2 * n * 256;
-    return { px, py };
-  }
-
-  // Easing — cubic ease in-out
-  function easeInOutCubic(t) {
-    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  }
+  const CACHE_KEY = 'raisgeoHeroRoadsV1';
+  const ANIM_DELAY = 250;
 
   /* ──────────────────────────────────────────
-     TILE RENDERER
+     PROYEKSI lat/lng → koordinat SVG
+     (area kecil & dekat ekuator → proyeksi linear sederhana cukup akurat)
   ────────────────────────────────────────── */
 
-  const canvas  = document.getElementById('heroCanvas');
-  if (!canvas) return;
-  const ctx     = canvas.getContext('2d');
+  function projectX(lng) { return ((lng - WEST) / LNG_SPAN) * VB_W; }
+  function projectY(lat) { return ((NORTH - lat) / LAT_SPAN) * VB_H; }
 
-  // Cache gambar tile
-  const tileCache = new Map();
+  /* ──────────────────────────────────────────
+     SETUP CONTAINER
+  ────────────────────────────────────────── */
 
-  function getTileImg(z, x, y) {
-    const key = `${z}/${x}/${y}`;
-    if (tileCache.has(key)) return tileCache.get(key);
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = TILE_URL.replace('{z}', z).replace('{x}', x).replace('{y}', y);
-    tileCache.set(key, img);
-    return img;
+  const container = document.getElementById('heroCanvas');
+  if (!container) return;
+
+  // Latar aman selagi/jika data OSM belum/tidak ada — grid tipis, bukan warna polos kosong
+  container.style.background =
+    '#111111 ' +
+    'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), ' +
+    'linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)';
+  container.style.backgroundSize = '40px 40px, 40px 40px';
+
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
+  svg.setAttribute('viewBox', `0 0 ${VB_W} ${VB_H}`);
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+  svg.style.width = '100%';
+  svg.style.height = '100%';
+  svg.style.display = 'block';
+  container.appendChild(svg);
+
+  const zoomGroup = document.createElementNS(NS, 'g');
+  zoomGroup.setAttribute('id', 'heroMapZoomGroup');
+  svg.appendChild(zoomGroup);
+
+  const groups = {
+    major: document.createElementNS(NS, 'g'),
+    mid:   document.createElementNS(NS, 'g'),
+    minor: document.createElementNS(NS, 'g')
+  };
+  groups.minor.setAttribute('class', 'hm-road hm-road-minor');
+  groups.mid.setAttribute('class', 'hm-road hm-road-mid');
+  groups.major.setAttribute('class', 'hm-road hm-road-major');
+  // Urutan append: minor dulu (paling bawah), major terakhir (paling atas)
+  zoomGroup.appendChild(groups.minor);
+  zoomGroup.appendChild(groups.mid);
+  zoomGroup.appendChild(groups.major);
+
+  // Titik penanda pusat kota — pulse dot merah (elemen HTML, bukan SVG, selalu tepat di tengah container)
+  const pulseWrap = document.createElement('div');
+  pulseWrap.className = 'hm-pulse-wrap';
+  pulseWrap.innerHTML = '<span class="hm-pulse-ring"></span><span class="hm-pulse-dot"></span>';
+  container.appendChild(pulseWrap);
+
+  /* ──────────────────────────────────────────
+     STYLE — disuntik sekali dari JS agar file ini mandiri
+  ────────────────────────────────────────── */
+
+  const style = document.createElement('style');
+  style.textContent = `
+    #heroCanvas { position: relative; overflow: hidden; }
+    .hm-road path {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .hm-road-major path { stroke: rgba(235,232,228,0.55); stroke-width: 2.4; }
+    .hm-road-mid path   { stroke: rgba(210,206,200,0.38); stroke-width: 1.5; }
+    .hm-road-minor path { stroke: rgba(180,176,170,0.22); stroke-width: 0.8; }
+
+    #heroMapZoomGroup {
+      transform-origin: ${VB_W / 2}px ${VB_H / 2}px;
+      animation: heroMapZoom 9s cubic-bezier(0.45, 0, 0.15, 1) forwards;
+      animation-play-state: paused;
+    }
+    #heroMapZoomGroup.hm-play { animation-play-state: running; }
+    @keyframes heroMapZoom {
+      from { transform: scale(1); }
+      to   { transform: scale(1.32); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #heroMapZoomGroup { animation: none !important; }
+    }
+
+    .hm-pulse-wrap {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 0; height: 0;
+      z-index: 2;
+    }
+    .hm-pulse-dot {
+      position: absolute;
+      top: -4px; left: -4px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--ac, #CC0000);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.25);
+    }
+    .hm-pulse-ring {
+      position: absolute;
+      top: -4px; left: -4px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--ac, #CC0000);
+      opacity: 0.55;
+      animation: hmPulseRing 2.4s ease-out infinite;
+    }
+    @keyframes hmPulseRing {
+      0%   { transform: scale(1);   opacity: 0.55; }
+      100% { transform: scale(7);   opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  /* ──────────────────────────────────────────
+     FETCH — Overpass API dengan timeout + fallback mirror + cache sesi
+  ────────────────────────────────────────── */
+
+  function fetchWithTimeout(url, options, ms) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), ms);
+    return fetch(url, Object.assign({}, options, { signal: controller.signal }))
+      .finally(() => clearTimeout(timer));
+  }
+
+  function buildQuery() {
+    const typesRegex = ALL_HIGHWAY_TYPES.join('|');
+    return `[out:json][timeout:25];way["highway"~"^(${typesRegex})$"](${SOUTH},${WEST},${NORTH},${EAST});out geom;`;
+  }
+
+  function fetchFromEndpoint(url, query) {
+    return fetchWithTimeout(url, {
+      method: 'POST',
+      body: 'data=' + encodeURIComponent(query)
+    }, FETCH_TIMEOUT_MS).then(function (res) {
+      if (!res.ok) throw new Error('Overpass response not OK: ' + res.status);
+      return res.json();
+    });
+  }
+
+  function getRoadData() {
+    // Cek cache sesi dulu — hindari fetch ulang tiap kali pindah halaman dalam sesi yang sama
+    try {
+      const cached = sessionStorage.getItem(CACHE_KEY);
+      if (cached) return Promise.resolve(JSON.parse(cached));
+    } catch (e) { /* sessionStorage tidak tersedia — lanjut fetch biasa */ }
+
+    const query = buildQuery();
+
+    return fetchFromEndpoint(OVERPASS_ENDPOINTS[0], query)
+      .catch(function () {
+        return fetchFromEndpoint(OVERPASS_ENDPOINTS[1], query);
+      })
+      .then(function (data) {
+        const elements = (data && data.elements) ? data.elements : [];
+        try { sessionStorage.setItem(CACHE_KEY, JSON.stringify(elements)); } catch (e) {}
+        return elements;
+      });
   }
 
   /* ──────────────────────────────────────────
-     DRAW — render tile grid pada zoom z
-     dengan view center di (centerPx, centerPy)
-     dan skala (scale) untuk CSS-zoom efek
+     RENDER — bangun <path> per ruas jalan, dikelompokkan per tingkat
   ────────────────────────────────────────── */
 
-  function drawMap(z, centerPx, centerPy) {
-    const W = canvas.width;
-    const H = canvas.height;
+  function tierOf(highwayType) {
+    if (ROAD_TIERS.major.indexOf(highwayType) !== -1) return 'major';
+    if (ROAD_TIERS.mid.indexOf(highwayType) !== -1) return 'mid';
+    return 'minor';
+  }
 
-    // Offset: pusat canvas = pusat koordinat
-    const originX = W / 2 - centerPx % 256;
-    const originY = H / 2 - centerPy % 256;
+  function renderRoads(elements) {
+    let drawn = 0;
+    for (let i = 0; i < elements.length; i++) {
+      const way = elements[i];
+      if (!way.geometry || way.geometry.length < 2) continue;
+      const tier = tierOf(way.tags && way.tags.highway);
 
-    // Tile di pusat
-    const tileX0 = Math.floor(centerPx / 256);
-    const tileY0 = Math.floor(centerPy / 256);
-
-    // Berapa banyak tile yang perlu ditarik ke setiap arah
-    const tilesX = Math.ceil(W / 256) + 2;
-    const tilesY = Math.ceil(H / 256) + 2;
-
-    ctx.clearRect(0, 0, W, H);
-
-    for (let dy = -tilesY; dy <= tilesY; dy++) {
-      for (let dx = -tilesX; dx <= tilesX; dx++) {
-        const tx = tileX0 + dx;
-        const ty = tileY0 + dy;
-        const maxTile = Math.pow(2, z);
-        if (tx < 0 || ty < 0 || tx >= maxTile || ty >= maxTile) continue;
-
-        const img = getTileImg(z, tx, ty);
-        const drawX = originX + dx * 256;
-        const drawY = originY + dy * 256;
-
-        if (img.complete && img.naturalWidth > 0) {
-          ctx.drawImage(img, drawX, drawY, 256, 256);
-        } else {
-          // Placeholder abu-abu sambil tile load
-          ctx.fillStyle = '#1a1a1a';
-          ctx.fillRect(drawX, drawY, 256, 256);
-          img.onload = () => { /* animasi loop akan redraw otomatis */ };
-        }
+      let d = '';
+      for (let j = 0; j < way.geometry.length; j++) {
+        const pt = way.geometry[j];
+        const x = projectX(pt.lon).toFixed(1);
+        const y = projectY(pt.lat).toFixed(1);
+        d += (j === 0 ? 'M' : 'L') + x + ',' + y + ' ';
       }
+
+      const path = document.createElementNS(NS, 'path');
+      path.setAttribute('d', d.trim());
+      groups[tier].appendChild(path);
+      drawn++;
     }
+    return drawn;
+  }
+
+  function startZoom() {
+    // requestAnimationFrame agar browser sudah selesai layout sebelum animasi CSS dipicu
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        zoomGroup.classList.add('hm-play');
+      });
+    });
   }
 
   /* ──────────────────────────────────────────
-     PRE-LOAD TILES sebelum animasi dimulai
+     INIT
   ────────────────────────────────────────── */
 
-  function preloadTiles(z, centerLat, centerLng, radius) {
-    const { x: cx, y: cy } = latLngToTile(centerLat, centerLng, z);
-    const promises = [];
-    for (let dy = -radius; dy <= radius; dy++) {
-      for (let dx = -radius; dx <= radius; dx++) {
-        const img = getTileImg(z, cx + dx, cy + dy);
-        if (!img.complete) {
-          promises.push(new Promise(res => {
-            img.onload  = res;
-            img.onerror = res; // jika gagal, tetap lanjut
-          }));
-        }
-      }
-    }
-    return Promise.all(promises);
-  }
-
-  /* ──────────────────────────────────────────
-     CANVAS RESIZE
-  ────────────────────────────────────────── */
-
-  function resizeCanvas() {
-    const section = canvas.parentElement;
-    canvas.width  = section.offsetWidth;
-    canvas.height = section.offsetHeight;
-  }
-
-  resizeCanvas();
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-    // Redraw frame saat ini jika sudah ada
-    if (currentFrame !== null) drawFrame(currentFrame);
-  });
-
-  /* ──────────────────────────────────────────
-     ANIMASI ZOOM — pure lerp antara 2 zoom level
-     pada 1 tile layer (ESRI z=13 s/d z=16)
-
-     Cara kerja:
-     - Render tile pada ZOOM_START
-     - Gunakan CSS-like transform lewat ctx.setTransform
-       untuk zoom in secara halus ke titik pusat
-     - Tidak ada pergantian layer → tidak ada flash
-  ────────────────────────────────────────── */
-
-  let currentFrame = 0;
-  let animStart    = null;
-  let rafId        = null;
-
-  // Piksel pusat Banjarbaru pada ZOOM_START
-  const centerPixStart = latLngToPixel(CENTER_LAT, CENTER_LNG, ZOOM_START);
-
-  // Scale akhir: jika zoom naik dari Z ke Z+n,
-  // maka scale CSS = 2^n (karena setiap zoom level = 2× lebih dekat)
-  const scaleEnd = Math.pow(2, ZOOM_END - ZOOM_START);
-
-  function drawFrame(t) {
-    currentFrame = t;
-    const W = canvas.width;
-    const H = canvas.height;
-
-    const ease  = easeInOutCubic(t);
-    const scale = 1 + (scaleEnd - 1) * ease;
-
-    ctx.save();
-    ctx.clearRect(0, 0, W, H);
-
-    // Transformasi: zoom terhadap titik pusat canvas
-    // Efeknya = kamera mendekati CENTER_LAT/CENTER_LNG
-    ctx.translate(W / 2, H / 2);
-    ctx.scale(scale, scale);
-    ctx.translate(-W / 2, -H / 2);
-
-    drawMap(ZOOM_START, centerPixStart.px, centerPixStart.py);
-
-    ctx.restore();
-  }
-
-  function animate(timestamp) {
-    if (!animStart) animStart = timestamp;
-    const elapsed = timestamp - animStart;
-    const t = Math.min(elapsed / ANIM_DURATION, 1);
-
-    drawFrame(t);
-
-    if (t < 1) {
-      rafId = requestAnimationFrame(animate);
-    } else {
-      // Animasi selesai — tetap tampilkan frame akhir, berhenti loop
-      drawFrame(1);
-    }
-  }
-
-  /* ──────────────────────────────────────────
-     INIT — preload tile utama lalu mulai animasi
-  ────────────────────────────────────────── */
-
-  // Draw frame 0 segera (tampilan awal sebelum preload selesai)
-  drawFrame(0);
-
-  // Preload tile di sekitar pusat untuk zoom start dan sedikit zoom end
-  Promise.all([
-    preloadTiles(ZOOM_START, CENTER_LAT, CENTER_LNG, 3),
-    preloadTiles(ZOOM_END,   CENTER_LAT, CENTER_LNG, 2),
-  ]).then(() => {
-    // Semua tile inti sudah siap — mulai animasi
-    setTimeout(() => {
-      rafId = requestAnimationFrame(animate);
-    }, ANIM_DELAY);
-  });
-
-  // Fallback: mulai animasi setelah 1.5s meski preload belum selesai
-  setTimeout(() => {
-    if (rafId === null) {
-      rafId = requestAnimationFrame(animate);
-    }
-  }, 1500);
+  getRoadData()
+    .then(function (elements) {
+      const drawn = renderRoads(elements);
+      // Kalau ternyata data kosong (mis. bbox salah/area tidak ada jalan ter-tag),
+      // biarkan fallback grid saja tampil — tidak perlu treatment khusus lagi.
+      if (drawn === 0) return;
+      setTimeout(startZoom, ANIM_DELAY);
+    })
+    .catch(function (err) {
+      // Gagal total (offline / kedua mirror down) — fallback grid tetap tampil, tidak ada error visual
+      console.warn('Hero map: gagal memuat data OSM, menampilkan fallback.', err);
+    });
 
 })();
