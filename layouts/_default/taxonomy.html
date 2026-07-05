@@ -378,6 +378,7 @@ html.dark .tax-card:hover {
   </div>
 
   {{ $pages := .Pages.ByDate.Reverse }}
+  {{ $infoCats := slice }}{{ range .Site.Data.categories }}{{ if .info }}{{ $infoCats = $infoCats | append .name }}{{ end }}{{ end }}
 
   <!-- Featured: artikel pertama -->
   {{ with index $pages 0 }}
@@ -389,7 +390,7 @@ html.dark .tax-card:hover {
     </div>
     <div class="tax-featured-body">
       {{ $cat := "" }}{{ with .Params.categories }}{{ $cat = index . 0 }}{{ end }}
-      {{ $infoCls := "" }}{{ if or (eq $cat "Notes") (eq $cat "Insight") }}{{ $infoCls = " tax-badge--info" }}{{ end }}
+      {{ $infoCls := "" }}{{ if in $infoCats $cat }}{{ $infoCls = " tax-badge--info" }}{{ end }}
       <div class="tax-featured-badge{{ $infoCls }}">{{ if $cat }}{{ $cat }}{{ else }}Artikel{{ end }}</div>
       <div class="tax-featured-title">{{ .Title }}</div>
       <div class="tax-featured-excerpt">{{ .Summary | plainify | truncate 180 }}</div>
@@ -414,7 +415,7 @@ html.dark .tax-card:hover {
       </div>
       <div class="tax-card-body">
         {{ $cardCat := "" }}{{ with $p.Params.categories }}{{ $cardCat = index . 0 }}{{ end }}
-        {{ $cardInfoCls := "" }}{{ if or (eq $cardCat "Notes") (eq $cardCat "Insight") }}{{ $cardInfoCls = " tax-badge--info" }}{{ end }}
+        {{ $cardInfoCls := "" }}{{ if in $infoCats $cardCat }}{{ $cardInfoCls = " tax-badge--info" }}{{ end }}
         <span class="tax-card-badge{{ $cardInfoCls }}">{{ if $cardCat }}{{ $cardCat }}{{ else }}Artikel{{ end }}</span>
         <div class="tax-card-title">{{ $p.Title }}</div>
         <div class="tax-card-meta">
