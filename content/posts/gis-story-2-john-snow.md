@@ -3,7 +3,7 @@ title: "GIS Story #2: John Snow, the First Geographical Analysis of Disease Data
 date: 2020-12-02T07:00:00+07:00
 draft: false
 categories: ["Insight"]
-image: "https://miro.medium.com/v2/resize:fit:1078/1*Mjhmmp4ydXcGiGl8G0WM_Q.png"
+image: "{{< figure src="/images/posts/1783250615494-gis-story-2-cover.png" >}}"
 description: "Bagaimana Dr. John Snow memakai peta untuk melacak sumber wabah kolera London 1854 — awal mula metode hotspot analysis dalam GIS."
 ---
 
