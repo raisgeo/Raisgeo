@@ -66,11 +66,11 @@
   const container = document.getElementById('heroCanvas');
   if (!container) return;
 
-  // Latar aman selagi/jika data OSM belum/tidak ada — grid tipis, bukan warna polos kosong
-  container.style.background =
-    '#111111 ' +
-    'linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), ' +
-    'linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)';
+  // Latar aman selagi/jika data OSM belum/tidak ada — grid tipis di atas hitam pekat
+  container.style.backgroundColor = '#050505';
+  container.style.backgroundImage =
+    'linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px), ' +
+    'linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px)';
   container.style.backgroundSize = '40px 40px, 40px 40px';
 
   const NS = 'http://www.w3.org/2000/svg';
@@ -117,9 +117,11 @@
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    .hm-road-major path { stroke: rgba(235,232,228,0.55); stroke-width: 2.4; }
-    .hm-road-mid path   { stroke: rgba(210,206,200,0.38); stroke-width: 1.5; }
-    .hm-road-minor path { stroke: rgba(180,176,170,0.22); stroke-width: 0.8; }
+    .hm-road-major path { stroke: rgba(255,255,255,0.88); stroke-width: 2.2; }
+    .hm-road-mid path   { stroke: rgba(255,255,255,0.52); stroke-width: 1.3; }
+    .hm-road-minor path { stroke: rgba(255,255,255,0.20); stroke-width: 0.7; }
+    .hm-road-major { filter: drop-shadow(0 0 3px rgba(255,255,255,0.45)); }
+    .hm-road-mid   { filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.2)); }
 
     #heroMapZoomGroup {
       transform-origin: ${VB_W / 2}px ${VB_H / 2}px;
@@ -147,7 +149,7 @@
       width: 8px; height: 8px;
       border-radius: 50%;
       background: var(--ac, #CC0000);
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.25);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.25), 0 0 10px 2px rgba(204,0,0,0.55);
     }
     .hm-pulse-ring {
       position: absolute;
