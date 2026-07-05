@@ -77,7 +77,7 @@
   font-size: clamp(34px, 5vw, 50px);
   font-weight: 900;
   line-height: 1.12;
-  color: var(--text, #1a1814);
+  color: var(--ac, #CC0000);
   margin: 0 0 28px;
 }
 .ab-hero-title em {
@@ -92,6 +92,16 @@
   color: var(--text2, #6b6560);
 }
 .ab-hero-body p { margin: 0 0 20px; }
+.ab-hero-body p:first-of-type::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 0.8;
+  float: left;
+  padding-right: 10px;
+  padding-top: 6px;
+  color: var(--text, #1a1814);
+}
 .ab-hero-body strong { color: var(--text, #1a1814); font-weight: 600; }
 
 /* ════════════════════════════════
@@ -605,7 +615,7 @@ html.dark .ab-map-svg .prov.visited.is-active {
        1. SUMMARY
   ════════════════════════════ -->
   <section class="ab-sec">
-    <div class="ab-hero-eyebrow">About Me</div>
+    <h1 class="ab-hero-title">About Me</h1>
     <div class="ab-hero-body">
       <p>Welcome to my personal blog. I am a professional who has consistently pursued geography for more than 10 years, from senior high school through my current career.</p>
       <p>I currently serve as Planning and Mapping Unit Head at Nusantara Climate Initiative (NCI), working on spatial planning and mapping for nature-based solutions across forest and peatland landscapes in Kalimantan.</p>
