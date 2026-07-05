@@ -327,6 +327,8 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
               <button class="md-btn" onclick="insertMd('\n- ','')">• List</button>
               <button class="md-btn" onclick="insertMd('\n> ','')">❝ Quote</button>
               <button class="md-btn" onclick="insertMd('\n---\n','')">— Garis</button>
+              <div class="md-sep"></div>
+              <button class="md-btn" onclick="triggerInlineImage('write')">🖼️ Gambar</button>
             </div>
             <textarea id="content-input" placeholder="Tulis isi artikel di sini..."></textarea>
           </div>
@@ -567,6 +569,8 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
               <button class="md-btn" onclick="insertMdEdit('\n- ','')">• List</button>
               <button class="md-btn" onclick="insertMdEdit('\n> ','')">❝ Quote</button>
               <button class="md-btn" onclick="insertMdEdit('\n---\n','')">— Garis</button>
+              <div class="md-sep"></div>
+              <button class="md-btn" onclick="triggerInlineImage('edit')">🖼️ Gambar</button>
             </div>
             <textarea id="edit-content-input" placeholder="Isi artikel..."></textarea>
           </div>
@@ -2149,7 +2153,56 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+// ── SISIPKAN GAMBAR DI TENGAH ARTIKEL (Tulis Artikel & Edit Artikel) ──
+const INLINE_IMG_DIR = 'static/images/posts';
+let _inlineImgTarget = null; // 'write' atau 'edit' — form mana yang memicu
+
+function triggerInlineImage(target) {
+  _inlineImgTarget = target;
+  document.getElementById('inline-img-input').value = '';
+  document.getElementById('inline-img-input').click();
+}
+
+async function handleInlineImageSelected(inputEl) {
+  const file = inputEl.files[0];
+  if (!file) return;
+
+  const isEdit = _inlineImgTarget === 'edit';
+  const ta = document.getElementById(isEdit ? 'edit-content-input' : 'content-input');
+  if (!ta) return;
+
+  const caption = window.prompt('Keterangan gambar (opsional, kosongkan jika tidak perlu):', '') || '';
+
+  // Sisipkan placeholder dulu di posisi kursor, supaya ada tanda proses sedang berjalan
+  const s = ta.selectionStart, e = ta.selectionEnd;
+  const placeholder = '\n\n_(mengupload gambar...)_\n\n';
+  ta.value = ta.value.substring(0, s) + placeholder + ta.value.substring(e);
+  ta.focus();
+
+  try {
+    const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '') || 'jpg';
+    const baseName = slugify(file.name.replace(/\.[^/.]+$/, '')) || 'gambar';
+    const filename = `${Date.now()}-${baseName}.${ext}`;
+
+    const base64 = await fileToBase64(file);
+    await ghUploadImg(`${INLINE_IMG_DIR}/${filename}`, base64, `upload: inline image ${filename}`);
+
+    const safeCaption = caption.replace(/"/g, '&quot;');
+    const shortcode = caption
+      ? `\n\n{{< figure src="/images/posts/${filename}" caption="${safeCaption}" >}}\n\n`
+      : `\n\n{{< figure src="/images/posts/${filename}" >}}\n\n`;
+
+    ta.value = ta.value.replace(placeholder, shortcode);
+    showToast('🖼️ Gambar berhasil disisipkan');
+  } catch (err) {
+    ta.value = ta.value.replace(placeholder, '\n\n');
+    showToast('⚠️ Gagal upload gambar — cek token GitHub & koneksi');
+    console.error(err);
+  }
+}
+
 // AI dinonaktifkan sementara
 </script>
+<input type="file" id="inline-img-input" accept="image/*" style="display:none" onchange="handleInlineImageSelected(this)">
 </body>
 </html>
