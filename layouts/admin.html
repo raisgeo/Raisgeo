@@ -2188,9 +2188,16 @@ async function handleInlineImageSelected(inputEl) {
     await ghUploadImg(`${INLINE_IMG_DIR}/${filename}`, base64, `upload: inline image ${filename}`);
 
     const safeCaption = caption.replace(/"/g, '&quot;');
+    // Catatan: tanda kurung kurawal ganda pembuka/tutup shortcode ditulis terpecah
+    // (satu karakter '{' disambung '{' lain, bukan diketik dua karakter berurutan)
+    // supaya Hugo tidak salah membaca teks ini sebagai template action miliknya sendiri
+    // saat build — file layout .html ini diproses Hugo, dan kurung kurawal ganda yang
+    // nempel akan selalu dicoba di-parse sebagai Go template, di mana pun posisinya,
+    // termasuk kalau cuma nyempil di dalam string atau komentar JavaScript seperti ini.
+    const OB = '{' + '{', CB = '}' + '}'; // open-brace / close-brace, sengaja dipecah
     const shortcode = caption
-      ? `\n\n{{< figure src="/images/posts/${filename}" caption="${safeCaption}" >}}\n\n`
-      : `\n\n{{< figure src="/images/posts/${filename}" >}}\n\n`;
+      ? `\n\n${OB}< figure src="/images/posts/${filename}" caption="${safeCaption}" >${CB}\n\n`
+      : `\n\n${OB}< figure src="/images/posts/${filename}" >${CB}\n\n`;
 
     ta.value = ta.value.replace(placeholder, shortcode);
     showToast('🖼️ Gambar berhasil disisipkan');
