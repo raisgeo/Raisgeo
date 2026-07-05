@@ -9,69 +9,293 @@
 <link rel="stylesheet" href="/css/tempo.css">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
+html { scroll-behavior: smooth; }
+
+/* ── STATS LINE ── */
+.arch-stats {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: var(--text3);
+  margin-bottom: 28px;
+  letter-spacing: 0.02em;
+}
+.arch-stats strong { color: var(--ac); font-weight: 600; }
+
+/* ── SEARCH — modern floating bar ── */
 .search-wrap {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
+}
+.search-box-outer {
+  position: relative;
+}
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  pointer-events: none;
 }
 .search-box {
   width: 100%;
-  padding: 12px 18px;
+  padding: 15px 74px 15px 46px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
   outline: none;
-  background: #fff;
-  color: #111;
-  transition: border-color 0.15s;
+  background: var(--bg2);
+  color: var(--text);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
-.search-box:focus { border-color: #CC0000; }
-.search-box::placeholder { color: #aaa; }
+.search-box:focus {
+  border-color: var(--ac);
+  background: var(--card);
+  box-shadow: 0 0 0 4px hsla(0, 80%, 45%, 0.09), 0 8px 24px rgba(0,0,0,0.06);
+}
+.search-box::placeholder { color: var(--text3); }
+.search-kbd {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 3px 7px;
+  background: var(--bg);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
 .search-results { margin-top: 8px; }
 .search-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border);
   text-decoration: none;
   color: inherit;
+  gap: 16px;
+  transition: padding-left 0.2s;
 }
-.search-item:hover .search-item-title { color: #CC0000; }
+.search-item:hover { padding-left: 10px; }
+.search-item:hover .search-item-title { color: var(--ac); }
 .search-item-title {
   font-family: 'Playfair Display', serif;
   font-size: 15px;
-  color: #111;
+  font-weight: 700;
+  color: var(--text);
   transition: color 0.15s;
 }
+.search-item-title mark {
+  background: var(--tag-bg);
+  color: var(--ac);
+  border-radius: 3px;
+  padding: 0 2px;
+}
 .search-item-meta {
-  font-size: 12px;
-  color: #aaa;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text3);
   white-space: nowrap;
   margin-left: 16px;
+  flex-shrink: 0;
 }
 .search-empty {
   font-size: 13px;
-  color: #aaa;
+  color: var(--text3);
   font-style: italic;
-  padding: 16px 0;
+  padding: 32px 0;
   font-family: 'Lora', serif;
+  text-align: center;
 }
 .search-count {
   font-size: 12px;
-  color: #aaa;
-  margin-bottom: 8px;
+  color: var(--text3);
+  margin-bottom: 4px;
   font-family: 'Inter', sans-serif;
 }
 
-html.dark .search-box {
-  background: #1a1a1a;
-  border-color: #333;
-  color: #eee;
+/* ── FILTER PILLS (kategori) ── */
+.arch-filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
 }
-html.dark .search-box:focus { border-color: #FF3333; }
-html.dark .search-item { border-color: #222; }
-html.dark .search-item-title { color: #eee; }
-html.dark .search-item:hover .search-item-title { color: #FF3333; }
+.arch-filter-btn {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 8px 16px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.arch-filter-btn:hover { border-color: var(--ac); color: var(--ac); }
+.arch-filter-btn.active {
+  background: var(--ac);
+  color: #fff;
+  border-color: var(--ac);
+  box-shadow: 0 3px 10px hsla(0, 80%, 45%, 0.25);
+}
+
+/* ── YEAR QUICK-JUMP ── */
+.arch-year-nav {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.arch-year-pill {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text2);
+  text-decoration: none;
+  padding: 5px 12px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+.arch-year-pill:hover { background: var(--tag-bg); color: var(--ac); }
+
+/* ── ARCHIVE LIST (card upgrade) ── */
+.arch-year {
+  scroll-margin-top: 100px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.arch-year.in-view { opacity: 1; transform: translateY(0); }
+
+.arch-item {
+  position: relative;
+  border-radius: 10px;
+  padding: 14px 16px 14px 20px !important;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--border) !important;
+  transition: background 0.2s, padding-left 0.2s, border-color 0.2s;
+}
+.arch-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--ac);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.arch-item:hover {
+  background: var(--tag-bg);
+  padding-left: 26px !important;
+  border-color: transparent !important;
+}
+.arch-item:hover::before { opacity: 1; }
+
+.arch-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.arch-item-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.arch-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tag);
+  background: var(--tag-bg);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+.arch-new {
+  font-family: 'Inter', sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--ac);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+.arch-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.arch-arrow {
+  font-size: 14px;
+  color: var(--ac);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+.arch-item:hover .arch-arrow { opacity: 1; transform: translateX(0); }
+
+.arch-empty-filter {
+  display: none;
+  text-align: center;
+  padding: 64px 24px;
+}
+.arch-empty-icon { font-size: 28px; margin-bottom: 12px; opacity: 0.6; }
+
+/* ── BACK TO TOP ── */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ac);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px hsla(0, 80%, 45%, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  z-index: 40;
+}
+.back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover { background: var(--ac2); }
+
+@media (max-width: 640px) {
+  .search-kbd { display: none; }
+  .search-box { padding-right: 16px; }
+  .arch-item { padding: 12px 12px 12px 16px !important; }
+  .arch-item:hover { padding-left: 20px !important; }
+}
 </style>
 </head>
 <body>
@@ -80,30 +304,67 @@ html.dark .search-item:hover .search-item-title { color: #FF3333; }
   <div class="page-eyebrow">Semua tulisan</div>
   <h1 class="page-title">Arsip</h1>
 
+  {{ $posts := where .Site.RegularPages "Type" "posts" }}
+  {{ $totalPosts := len $posts }}
+  {{ $yearGroups := $posts.GroupByDate "2006" }}
+  {{ $totalYears := len $yearGroups }}
+
+  <div class="arch-stats"><strong>{{ $totalPosts }}</strong> tulisan · <strong>{{ $totalYears }}</strong> tahun perjalanan</div>
+
   <div class="search-wrap">
-    <input
-      type="text"
-      id="searchInput"
-      class="search-box"
-      placeholder="Cari artikel..."
-      autocomplete="off"
-    />
+    <div class="search-box-outer">
+      <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input
+        type="text"
+        id="searchInput"
+        class="search-box"
+        placeholder="Cari artikel, topik, atau kategori..."
+        autocomplete="off"
+      />
+      <span class="search-kbd"><span id="kbdKey">Ctrl</span>+K</span>
+    </div>
     <div id="searchCount" class="search-count"></div>
     <div id="searchResults" class="search-results"></div>
   </div>
 
+  <div class="arch-filter-bar" id="archFilterBar">
+    <button class="arch-filter-btn active" data-filter="all" onclick="setArchFilter('all', this)">Semua</button>
+    <button class="arch-filter-btn" data-filter="notes" onclick="setArchFilter('notes', this)">Notes</button>
+    <button class="arch-filter-btn" data-filter="opinions" onclick="setArchFilter('opinions', this)">Opinions</button>
+    <button class="arch-filter-btn" data-filter="reflections" onclick="setArchFilter('reflections', this)">Reflections</button>
+    <button class="arch-filter-btn" data-filter="book review" onclick="setArchFilter('book review', this)">Book Review</button>
+  </div>
+
+  {{ if gt $totalYears 1 }}
+  <div class="arch-year-nav">
+    {{ range $yearGroups }}
+    <a href="#year-{{ .Key }}" class="arch-year-pill">{{ .Key }}</a>
+    {{ end }}
+  </div>
+  {{ end }}
+
   <div id="archiveList">
-    {{ range (where .Site.RegularPages "Type" "posts").GroupByDate "2006" }}
-    <div class="arch-year">
+    {{ range $yearGroups }}
+    <div class="arch-year" id="year-{{ .Key }}">
       <div class="arch-year-label">{{ .Key }}</div>
       {{ range (.Pages.GroupByDate "January 2006") }}
       <div class="arch-month">
         <div class="arch-month-label">{{ .Key }}</div>
         <div class="arch-posts">
           {{ range .Pages }}
-          <a href="{{ .RelPermalink }}" class="arch-item">
-            <span class="arch-title">{{ .Title }}</span>
+          {{ $cat := "" }}
+          {{ with .Params.categories }}{{ $cat = index . 0 }}{{ end }}
+          {{ $isNew := gt .Date.Unix (now.AddDate 0 0 -30).Unix }}
+          <a href="{{ .RelPermalink }}" class="arch-item" data-cat="{{ $cat | lower }}">
+            <div class="arch-item-main">
+              <div class="arch-item-tags">
+                {{ if $cat }}<span class="arch-tag">{{ $cat }}</span>{{ end }}
+                {{ if $isNew }}<span class="arch-new">Baru</span>{{ end }}
+              </div>
+              <span class="arch-title">{{ .Title }}</span>
+            </div>
             <span class="arch-meta">{{ .Date.Format "2 Jan" }} · {{ .ReadingTime }} menit</span>
+            <span class="arch-arrow">→</span>
           </a>
           {{ end }}
         </div>
@@ -111,8 +372,16 @@ html.dark .search-item:hover .search-item-title { color: #FF3333; }
       {{ end }}
     </div>
     {{ end }}
+    <div class="arch-empty-filter" id="archEmptyFilter">
+      <div class="arch-empty-icon">🗂️</div>
+      <div class="empty-title">Tidak ada tulisan di kategori ini.</div>
+    </div>
   </div>
 </div>
+
+<button class="back-to-top" id="backToTop" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+</button>
 <footer class="site-footer-new">
   <div class="sfn-inner">
     <div class="sfn-left">
@@ -184,11 +453,67 @@ html.dark .search-item:hover .search-item-title { color: #FF3333; }
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/7.0.0/fuse.min.js"></script>
 <script src="/js/map.js"></script>
 <script>
+var archActiveFilter = 'all';
+
+// Deteksi Mac untuk label shortcut yang tepat
+(function() {
+  var isMac = /Mac|iPhone|iPod|iPad/.test(navigator.platform || navigator.userAgent);
+  var kbdKey = document.getElementById('kbdKey');
+  if (isMac && kbdKey) kbdKey.textContent = '⌘';
+})();
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, function(c) {
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function highlightMatch(text, query) {
+  if (!query) return escapeHtml(text);
+  var escQ = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  var re = new RegExp('(' + escQ + ')', 'ig');
+  return escapeHtml(text).replace(re, '<mark>$1</mark>');
+}
+
+// ── FILTER KATEGORI (mempengaruhi tampilan arsip & hasil search) ──
+function setArchFilter(cat, btn) {
+  archActiveFilter = cat;
+  document.querySelectorAll('.arch-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+
+  var input = document.getElementById('searchInput');
+  if (input.value.trim()) {
+    runSearch(input.value.trim());
+  } else {
+    applyArchFilter();
+  }
+}
+
+function applyArchFilter() {
+  var anyVisible = false;
+  document.querySelectorAll('.arch-year').forEach(function(yearEl) {
+    var yearHasVisible = false;
+    yearEl.querySelectorAll('.arch-month').forEach(function(monthEl) {
+      var monthHasVisible = false;
+      monthEl.querySelectorAll('.arch-item').forEach(function(item) {
+        var show = archActiveFilter === 'all' || item.dataset.cat === archActiveFilter;
+        item.style.display = show ? 'flex' : 'none';
+        if (show) { monthHasVisible = true; yearHasVisible = true; anyVisible = true; }
+      });
+      monthEl.style.display = monthHasVisible ? 'block' : 'none';
+    });
+    yearEl.style.display = yearHasVisible ? 'block' : 'none';
+  });
+  var empty = document.getElementById('archEmptyFilter');
+  if (empty) empty.style.display = anyVisible ? 'none' : 'block';
+}
+
+// ── SEARCH (Fuse.js) + filter kategori terintegrasi + highlight ──
 (function() {
   var input = document.getElementById('searchInput');
   var results = document.getElementById('searchResults');
   var count = document.getElementById('searchCount');
   var archive = document.getElementById('archiveList');
+  var filterBar = document.getElementById('archFilterBar');
   var fuse = null;
   var data = [];
 
@@ -203,31 +528,84 @@ html.dark .search-item:hover .search-item-title { color: #FF3333; }
       });
     });
 
-  input.addEventListener('input', function() {
-    var q = this.value.trim();
+  window.runSearch = function(q) {
     if (!q) {
       results.innerHTML = '';
       count.innerHTML = '';
       archive.style.display = 'block';
+      applyArchFilter();
       return;
     }
     archive.style.display = 'none';
     if (!fuse) return;
-    var res = fuse.search(q);
+    var res = fuse.search(q).map(function(r) { return r.item; });
+    if (archActiveFilter !== 'all') {
+      res = res.filter(function(item) {
+        var cats = (item.categories || []).map(function(c) { return c.toLowerCase(); });
+        return cats.indexOf(archActiveFilter) !== -1;
+      });
+    }
     count.innerHTML = res.length + ' artikel ditemukan';
     if (res.length === 0) {
-      results.innerHTML = '<div class="search-empty">Tidak ada artikel yang cocok dengan "' + q + '"</div>';
+      results.innerHTML = '<div class="search-empty">Tidak ada artikel yang cocok dengan &ldquo;' + escapeHtml(q) + '&rdquo;</div>';
       return;
     }
-    results.innerHTML = res.map(function(r) {
-      var item = r.item;
+    results.innerHTML = res.map(function(item) {
       var cat = item.categories ? item.categories[0] : '';
       return '<a href="' + item.url + '" class="search-item">' +
-        '<span class="search-item-title">' + item.title + '</span>' +
+        '<span class="search-item-title">' + highlightMatch(item.title, q) + '</span>' +
         '<span class="search-item-meta">' + item.date + (cat ? ' · ' + cat : '') + '</span>' +
         '</a>';
     }).join('');
+  };
+
+  input.addEventListener('input', function() {
+    window.runSearch(this.value.trim());
   });
+
+  // ── KEYBOARD SHORTCUT: Ctrl/Cmd+K atau "/" untuk fokus search ──
+  document.addEventListener('keydown', function(e) {
+    var isTypingField = ['INPUT', 'TEXTAREA'].indexOf(document.activeElement.tagName) !== -1;
+    if ((e.key === 'k' || e.key === 'K') && (e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+      input.focus();
+      input.select();
+    } else if (e.key === '/' && !isTypingField) {
+      e.preventDefault();
+      input.focus();
+    } else if (e.key === 'Escape' && document.activeElement === input) {
+      input.value = '';
+      window.runSearch('');
+      input.blur();
+    }
+  });
+})();
+
+// ── BACK TO TOP ──
+(function() {
+  var btn = document.getElementById('backToTop');
+  if (!btn) return;
+  window.addEventListener('scroll', function() {
+    btn.classList.toggle('visible', window.scrollY > 480);
+  });
+})();
+
+// ── SCROLL REVEAL untuk setiap blok tahun ──
+(function() {
+  var years = document.querySelectorAll('.arch-year');
+  if (!('IntersectionObserver' in window) || years.length === 0) {
+    years.forEach(function(y) { y.classList.add('in-view'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  years.forEach(function(y) { obs.observe(y); });
 })();
 </script>
 </body>
