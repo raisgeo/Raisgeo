@@ -8,15 +8,15 @@ description: "Di era post-truth, kebenaran menjadi relatif. Dari hadis Arbain Na
 ---
 
 <!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">Di usia 20 tahunan ini, mungkin idealnya kita sudah cukup berdamai dengan diri kita dan tidak perlu lagi mempertanyakan apa itu kebenaran. Tapi kalo masih mempersoalkan itu, apa jangan-jangan kita belum akil baligh (wkwk). Iya, dalam hukum Islam, ada istilah ‘Baligh’ yang secara bahasa (Arab) artinya ‘sampai’ maksudnya ‘sampai pada usia yang telah dewasa’. Kalo dalam bahasa Latin ada istilah <em>pubes </em>(Pubertas) yang berarti 'usia menuju kedewasaan'. Orang dikatakan baligh kalo sudah bisa memahami dan membedakan mana yang baik dan mana yang buruk. Masa pubertas ini dialami bagi laki-laki di usia sekitar 15 tahun pada umumnya, ditandai dengan perubahan pada fisik tubuhnya.</p>
+<p class="has-text-align-justify">Di usia 20 tahunan, mungkin idealnya kita sudah cukup mapan dan tidak perlu lagi mempertanyakan apa itu kebenaran — toh secara sosial kita sudah dianggap dewasa, sudah semestinya bisa membedakan mana yang baik dan mana yang buruk. Tapi kenyataannya, pertanyaan itu justru sering muncul kembali, bukannya makin jarang.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">Tapi pernah gak sih, masih terlintas di benakmu pertanyaan tentang apa itu kebenaran, sedang usia udah terbilang tua, hehe.. mungkin dapat saja dimaklumi karna sering kali kita mengukur kebenaran itu dari banyaknya suara yang mengatakan sesuatu itu benar, lalu kita merasionalkannya. Saya pernah mendengar istilah ‘<strong>kebenaran numerik</strong>’ benar yang hanya secara kuantitatif, sayangnya saya belum mendapatkan literature yang cukup tentang istilah itu sehingga sulit menjelaskannya. Tapi mungkin kamu tidak asing dengan istilah ‘era post-truth’ inilah era yang tengah kita lalui sekarang. Era pembenaran bukan kebenaran. Memang ini sifatnya politis, lihat saja di tahun-tahun politik kemarin, betapa banyak beredar berita-berita <em>hoax</em> sehingga wajar bila usiamu udah tua sekalipun :v tapi masih mempertanyakan apa itu kebenaran, karna efek dari era post-truth tadi.</p>
+<p class="has-text-align-justify">Mungkin ini bisa dimaklumi, karena kita sering mengukur kebenaran dari banyaknya suara yang membenarkan sesuatu, lalu kita rasionalkan begitu saja. Saya pernah mendengar istilah ‘<strong>kebenaran numerik</strong>’ — benar yang sifatnya kuantitatif, sekadar karena banyak yang bilang begitu. Sayangnya saya belum menemukan literatur yang cukup tentang istilah ini untuk menjelaskannya lebih jauh. Tapi mungkin kamu tidak asing dengan istilah ‘era post-truth’ — era yang tengah kita lalui sekarang. Era pembenaran, bukan kebenaran. Sifatnya politis: lihat saja betapa banyak berita <em>hoax</em> beredar di tahun-tahun politik kemarin. Wajar rasanya, di usia berapa pun, pertanyaan tentang apa itu kebenaran terus muncul — sebagai efek dari era post-truth ini.</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">Saya pernah menyinggung sedikit tentang kebenaran dalam artikel saya sebelumnya  (<a href="https://raisgeo.wordpress.com/2020/01/03/di-balik-layar-para-fasilitator-dakwah-2/">click here</a>). Di situ saya mengutip dari kajiannya Pak Fahrudin Faiz, bahwa dalam filsafat Islam (Ilmu Kalam) salah satu parameter kebenaran adalah Syukunun Nafs yakni ketenangan jiwa. Saya jadi teringat dengan salah satu Hadis Rasulullah dalam Arbain Nawawi, hadis nomor ke-27 :</p>
+<p class="has-text-align-justify">Saya pernah menyinggung sedikit tentang kebenaran dalam artikel saya sebelumnya (<a href="https://raisgeo.wordpress.com/2020/01/03/di-balik-layar-para-fasilitator-dakwah-2/">dapat dibaca di sini</a>). Di situ saya mengutip dari kajiannya Pak Fahrudin Faiz, bahwa dalam filsafat Islam (Ilmu Kalam) salah satu parameter kebenaran adalah Syukunun Nafs yakni ketenangan jiwa. Saya jadi teringat dengan salah satu Hadis Rasulullah dalam Arbain Nawawi, hadis nomor ke-27 :</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"center"} -->
@@ -24,7 +24,7 @@ description: "Di era post-truth, kebenaran menjadi relatif. Dari hadis Arbain Na
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"justify"} -->
-<p class="has-text-align-justify">Saya mengkutip Hadis yang Hasan ya.. (tidak perlu diragukan kredibilitasnya), ada yang menarik dari matan hadis ini, coba kamu perhatiin.. sahabat Wabishah ini datang kepada Rasulullah dan belum mengajukan pertanyaannya, tetapi Rasulullah udah tau beliau mau nanya tentang apa :v dan Rasulullah tidak sekedar menerka-nerka, karna Wabishah bilang ‘iya’ membenarkan Rasulullah. Dari hadis ini kita belajar tentang bukti kenabian dari Rasulullah Muhammad (Shollu Ala Nabi)…</p>
+<p class="has-text-align-justify">Saya mengkutip Hadis yang Hasan ya.. (tidak perlu diragukan kredibilitasnya), ada yang menarik dari matan hadis ini, coba kamu perhatikan.. sahabat Wabishah ini datang kepada Rasulullah dan belum mengajukan pertanyaannya, tetapi Rasulullah sudah tahu beliau mau bertanya tentang apa. Rasulullah tidak sekadar menerka-nerka, karna Wabishah bilang ‘iya’ membenarkan Rasulullah. Dari hadis ini kita belajar tentang bukti kenabian dari Rasulullah Muhammad (Shollu Ala Nabi)…</p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"align":"justify"} -->
