@@ -298,6 +298,16 @@ html.dark .home-card:hover {
   height: 2px;
   background: var(--ac, #CC0000);
 }
+/* Notes & Insight — sifatnya informatif/faktual, dibedakan warna biru dari
+   kategori lain (Opinions/Reflections/Book Review) yang tetap merah */
+.home-featured-badge.home-badge--info,
+.home-card-badge.home-badge--info {
+  color: var(--info, #185FA5);
+}
+.home-featured-badge.home-badge--info::before,
+.home-card-badge.home-badge--info::before {
+  background: var(--info, #185FA5);
+}
 .home-card-title {
   font-family: 'Playfair Display', serif;
   font-size: 15px;
@@ -575,7 +585,9 @@ html.dark .sidebar-list {
       </div>
       <div class="home-featured-body">
         <div>
-          <div class="home-featured-badge">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
+          {{ $cat := "" }}{{ with .Params.categories }}{{ $cat = index . 0 }}{{ end }}
+          {{ $infoCls := "" }}{{ if or (eq $cat "Notes") (eq $cat "Insight") }}{{ $infoCls = " home-badge--info" }}{{ end }}
+          <div class="home-featured-badge{{ $infoCls }}">{{ if $cat }}{{ $cat }}{{ else }}Artikel{{ end }}</div>
           <span class="home-featured-title">{{ .Title }}</span>
           <div class="home-featured-excerpt">{{ .Summary | plainify | truncate 180 }}</div>
         </div>
@@ -598,7 +610,9 @@ html.dark .sidebar-list {
           <div class="home-card-img-num">{{ printf "%02d" (add $i 2) }}</div>
         </a>
         <div class="home-card-body">
-          <span class="home-card-badge">{{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</span>
+          {{ $cardCat := "" }}{{ with $p.Params.categories }}{{ $cardCat = index . 0 }}{{ end }}
+          {{ $cardInfoCls := "" }}{{ if or (eq $cardCat "Notes") (eq $cardCat "Insight") }}{{ $cardInfoCls = " home-badge--info" }}{{ end }}
+          <span class="home-card-badge{{ $cardInfoCls }}">{{ if $cardCat }}{{ $cardCat }}{{ else }}Artikel{{ end }}</span>
           <a href="{{ $p.RelPermalink }}" class="home-card-title">{{ $p.Title }}</a>
           <div class="home-card-meta">
             <span>{{ $p.Date.Format "2 Jan 2006" }}</span>
