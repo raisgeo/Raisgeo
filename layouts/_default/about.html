@@ -913,6 +913,9 @@ html.dark .ab-map-svg .prov.visited.is-active {
       .then(r => r.ok ? r.json() : [])
       .then(data => {
         certs = Array.isArray(data) ? data : [];
+        // Urut dari tanggal terbaru ke terlama — TIDAK tergantung urutan upload di Admin.
+        // Item tanpa tanggal (data lama) otomatis ditaruh paling belakang.
+        certs.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
         if (certs.length === 0) {
           if (certSection) certSection.style.display = 'none';
           return;
