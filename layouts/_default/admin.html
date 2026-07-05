@@ -817,6 +817,10 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
         <label>Penerbit & tahun</label>
         <input type="text" id="cert-issuer-input" placeholder="Contoh: Asosiasi Pilot Drone Indonesia (APDI) · 2024">
       </div>
+      <div class="field">
+        <label>Bulan & tahun sertifikat diterbitkan (untuk urutan otomatis)</label>
+        <input type="month" id="cert-date-input">
+      </div>
       <button class="btn-publish" id="btn-add-cert" onclick="addCertification()">➕ Tambahkan ke Carousel</button>
     </div>
 
@@ -1821,14 +1825,15 @@ function renderCertGrid(list) {
     wrap.innerHTML = '<div class="manage-empty"><div class="manage-empty-title">Belum ada sertifikat.</div></div>';
     return;
   }
+  const sorted = [...list].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
   const grid = document.createElement('div');
   grid.className = 'photo-grid';
-  list.forEach(item => {
+  sorted.forEach(item => {
     const tile = document.createElement('div');
     tile.className = 'photo-tile';
     tile.innerHTML = `
       <img src="${item.img}" alt="${item.name}">
-      <span class="photo-tile-code">${item.code}</span>
+      <span class="photo-tile-code">${item.code}${item.date ? ' · ' + item.date : ''}</span>
       <button class="photo-tile-del" onclick="promptDeleteCert('${item.code}')" title="Hapus">✕</button>
       <div class="photo-tile-cap">${item.name}</div>`;
     grid.appendChild(tile);
@@ -1857,9 +1862,11 @@ async function addCertification() {
   const btn = document.getElementById('btn-add-cert');
   const name = document.getElementById('cert-name-input').value.trim();
   const issuer = document.getElementById('cert-issuer-input').value.trim();
+  const date = document.getElementById('cert-date-input').value; // format: YYYY-MM
 
   if (!certPendingBase64) { showToast('⚠️ Upload foto sertifikat dulu'); return; }
   if (!name || !issuer) { showToast('⚠️ Nama dan penerbit wajib diisi'); return; }
+  if (!date) { showToast('⚠️ Isi bulan & tahun sertifikat dulu (dipakai untuk urutan otomatis)'); return; }
 
   btn.disabled = true;
   btn.textContent = '⏳ Menyimpan...';
@@ -1874,7 +1881,7 @@ async function addCertification() {
 
     const fresh = await loadCertsJson();
     const newList = fresh.list;
-    newList.push({ code, img: `/images/about/${filename}`, name, issuer });
+    newList.push({ code, img: `/images/about/${filename}`, name, issuer, date });
     await saveCertsJson(newList, fresh.sha, `add certification ${code}: ${name}`);
 
     window._certCache = newList;
@@ -1883,6 +1890,7 @@ async function addCertification() {
     // Reset form
     document.getElementById('cert-name-input').value = '';
     document.getElementById('cert-issuer-input').value = '';
+    document.getElementById('cert-date-input').value = '';
     document.getElementById('cert-img-preview').style.display = 'none';
     setUploadStatus('cert-upload-status', '', '');
     certPendingBase64 = null;
