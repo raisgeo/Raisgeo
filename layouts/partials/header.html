@@ -25,12 +25,16 @@
         <div class="hdr-pill-wrap" id="blog-wrap">
           <a href="/" class="hdr-pill" id="pill-blog">Blog ▾</a>
           <div class="hdr-dropdown" id="blog-dropdown">
+            <div class="hdr-dropdown-inner">
             <a href="/" class="hdr-drop-item">
               <span class="hdr-drop-icon">✦</span>All Posts
             </a>
             <div class="hdr-drop-divider"></div>
             <a href="/categories/notes/" class="hdr-drop-item">
               <span class="hdr-drop-icon">○</span>Notes
+            </a>
+            <a href="/categories/insight/" class="hdr-drop-item">
+              <span class="hdr-drop-icon">○</span>Insight
             </a>
             <a href="/categories/opinions/" class="hdr-drop-item">
               <span class="hdr-drop-icon">○</span>Opinions
@@ -41,6 +45,7 @@
             <a href="/categories/book-review/" class="hdr-drop-item">
               <span class="hdr-drop-icon">○</span>Book Review
             </a>
+            </div>
           </div>
         </div>
 
@@ -191,24 +196,31 @@ html.dark .hdr-float-pill .tog::after {
 }
 
 /* ── DROPDOWN ── */
+/* .hdr-dropdown = hit-area saja (transparan, nempel langsung di bawah pill, TANPA gap)
+   agar kursor tidak pernah keluar dari area hover saat bergerak turun ke menu.
+   Jarak visual 8px dipindah jadi padding-top di sini (bagian dari hit-area, bukan gap kosong). */
 .hdr-dropdown {
   display: none;
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
+  padding-top: 8px;
   min-width: 200px;
+  z-index: 9999;
+}
+/* .hdr-dropdown-inner = kotak visual yang sebenarnya tampil (background, border, shadow) */
+.hdr-dropdown-inner {
   background: #ffffff;
   border: 1px solid #e8e8e8;
   border-radius: 12px;
   box-shadow: 0 16px 40px rgba(0,0,0,0.12);
-  z-index: 9999;
   overflow: hidden;
   animation: dropIn .18s ease;
 }
 @keyframes dropIn {
-  from { opacity:0; transform: translateX(-50%) translateY(-6px); }
-  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+  from { opacity:0; transform: translateY(-6px); }
+  to   { opacity:1; transform: translateY(0); }
 }
 .hdr-pill-wrap { position: relative; display: inline-block; }
 .hdr-drop-item {
@@ -235,7 +247,7 @@ html.dark .hdr-float-pill .tog::after {
 .hdr-drop-item:hover .hdr-drop-icon { color: #CC0000; }
 .hdr-drop-divider { height: 1px; background: #f0f0f0; margin: 4px 0; }
 
-html.dark .hdr-dropdown { background: #1a1a1a; border-color: #2a2a2a; box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+html.dark .hdr-dropdown-inner { background: #1a1a1a; border-color: #2a2a2a; box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
 html.dark .hdr-drop-item { color: #ccc; }
 html.dark .hdr-drop-item:hover { background: #1f1f1f; color: #FF3333; border-left-color: #FF3333; }
 html.dark .hdr-drop-divider { background: #2a2a2a; }
@@ -299,6 +311,8 @@ html.dark .site-header {
     subtitle = "The Geographer\u2019s Journal | Book Review";
   } else if (path.startsWith('/categories/notes')) {
     subtitle = "The Geographer\u2019s Journal | Notes";
+  } else if (path.startsWith('/categories/insight')) {
+    subtitle = "The Geographer\u2019s Journal | Insight";
   } else {
     subtitle = "The Geographer\u2019s Journal | Notes From Every Journey";
   }
@@ -310,11 +324,16 @@ html.dark .site-header {
   var dropdown = document.getElementById('blog-dropdown');
 
   if (wrap && dropdown) {
+    var closeTimer = null;
     wrap.addEventListener('mouseenter', function () {
+      if (closeTimer) { clearTimeout(closeTimer); closeTimer = null; }
       dropdown.style.display = 'block';
     });
     wrap.addEventListener('mouseleave', function () {
-      dropdown.style.display = 'none';
+      // Delay singkat — toleransi kalau kursor sempat keluar sebentar (mis. gerakan cepat/diagonal)
+      closeTimer = setTimeout(function () {
+        dropdown.style.display = 'none';
+      }, 200);
     });
   }
 })();
