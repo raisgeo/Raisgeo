@@ -2,11 +2,13 @@
   --bg:#FFFFFF;--bg2:#F5F5F5;--text:#111111;--text2:#444444;--text3:#888888;
   --ac:#CC0000;--ac2:#AA0000;--border:#E0E0E0;--card:#FFFFFF;
   --nav-bg:#FFFFFF;--tag-bg:#FFF0F0;--tag:#CC0000;
+  --info:#185FA5;--info-bg:#E6F1FB;--warn:#633806;--warn-bg:#FAC775;
 }
 html.dark{
   --bg:#0C0C0C;--bg2:#161616;--text:#F5F5F5;--text2:#BBBBBB;--text3:#666666;
   --ac:#FF3333;--ac2:#CC0000;--border:#222222;--card:#161616;
   --nav-bg:#0C0C0C;--tag-bg:#1A0000;--tag:#FF3333;
+  --info:#6EB6FF;--info-bg:#0F2A40;--warn:#FAC775;--warn-bg:#3D2B04;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;transition:background .4s,color .4s}
@@ -99,7 +101,7 @@ footer{padding:20px 48px;border-top:1px solid var(--border);display:flex;justify
 .post-body{font-family:'Lora',serif;font-size:18px;line-height:1.9;color:var(--text)}
 .post-body p{margin-bottom:1.6em}
 .post-body h2,.post-body h3{font-family:'Playfair Display',serif;color:var(--text);margin:2em 0 0.8em;font-weight:900}
-.post-body a{color:var(--ac)}
+.post-body a{color:var(--info)}
 .post-body blockquote{border-left:3px solid var(--ac);padding-left:20px;font-style:italic;color:var(--text2);margin:2em 0}
 .post-body img{max-width:100%;height:auto;display:block;margin:2.2em auto;border:1px solid var(--border)}
 .post-body figure{margin:2.2em 0}
