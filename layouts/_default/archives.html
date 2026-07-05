@@ -232,10 +232,11 @@ html { scroll-behavior: smooth; }
   padding: 3px 9px;
   border-radius: 100px;
 }
-/* Notes & Insight sifatnya informatif/faktual — dibedakan warna biru dari
-   kategori lain (Opinions/Reflections/Book Review) yang tetap merah */
-.arch-item[data-cat="notes"] .arch-tag,
-.arch-item[data-cat="insight"] .arch-tag {
+/* Kategori dengan info:true di data/categories.json (Notes & Insight) sifatnya
+   informatif/faktual — dibedakan warna biru dari kategori lain yang tetap merah */
+{{ $infoSel := slice }}
+{{ range .Site.Data.categories }}{{ if .info }}{{ $infoSel = $infoSel | append (printf ".arch-item[data-cat=\"%s\"] .arch-tag" (.name | lower)) }}{{ end }}{{ end }}
+{{ delimit $infoSel ",\n" }} {
   color: var(--info);
   background: var(--info-bg);
 }
@@ -336,11 +337,9 @@ html { scroll-behavior: smooth; }
 
   <div class="arch-filter-bar" id="archFilterBar">
     <button class="arch-filter-btn active" data-filter="all" onclick="setArchFilter('all', this)">Semua</button>
-    <button class="arch-filter-btn" data-filter="notes" onclick="setArchFilter('notes', this)">Notes</button>
-    <button class="arch-filter-btn" data-filter="insight" onclick="setArchFilter('insight', this)">Insight</button>
-    <button class="arch-filter-btn" data-filter="opinions" onclick="setArchFilter('opinions', this)">Opinions</button>
-    <button class="arch-filter-btn" data-filter="reflections" onclick="setArchFilter('reflections', this)">Reflections</button>
-    <button class="arch-filter-btn" data-filter="book review" onclick="setArchFilter('book review', this)">Book Review</button>
+    {{ range .Site.Data.categories }}
+    <button class="arch-filter-btn" data-filter="{{ .name | lower }}" onclick="setArchFilter('{{ .name | lower }}', this)">{{ .name }}</button>
+    {{ end }}
   </div>
 
   {{ if gt $totalYears 1 }}
