@@ -68,5 +68,12 @@
     "name": "Stradata Academy: Learning Python 101",
     "issuer": "Stradata Academy - 2021",
     "date": "2021-07"
+  },
+  {
+    "code": "B12",
+    "img": "/images/about/cert-b12.jpg",
+    "name": "Pelatihan Dasar Object Based Image Analysis (OBIA)",
+    "issuer": "IPB University - 2021",
+    "date": "2021-07"
   }
 ]
