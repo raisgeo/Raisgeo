@@ -275,6 +275,16 @@ html.dark .tax-card:hover {
   height: 2px;
   background: var(--ac, #CC0000);
 }
+/* Notes & Insight — sifatnya informatif/faktual, dibedakan warna biru dari
+   kategori lain (Opinions/Reflections/Book Review) yang tetap merah */
+.tax-featured-badge.tax-badge--info,
+.tax-card-badge.tax-badge--info {
+  color: var(--info, #185FA5);
+}
+.tax-featured-badge.tax-badge--info::before,
+.tax-card-badge.tax-badge--info::before {
+  background: var(--info, #185FA5);
+}
 .tax-card-title {
   font-family: 'Playfair Display', serif;
   font-size: 15px;
@@ -378,7 +388,9 @@ html.dark .tax-card:hover {
       {{ end }}
     </div>
     <div class="tax-featured-body">
-      <div class="tax-featured-badge">{{ with .Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</div>
+      {{ $cat := "" }}{{ with .Params.categories }}{{ $cat = index . 0 }}{{ end }}
+      {{ $infoCls := "" }}{{ if or (eq $cat "Notes") (eq $cat "Insight") }}{{ $infoCls = " tax-badge--info" }}{{ end }}
+      <div class="tax-featured-badge{{ $infoCls }}">{{ if $cat }}{{ $cat }}{{ else }}Artikel{{ end }}</div>
       <div class="tax-featured-title">{{ .Title }}</div>
       <div class="tax-featured-excerpt">{{ .Summary | plainify | truncate 180 }}</div>
       <div class="tax-featured-meta">
@@ -401,7 +413,9 @@ html.dark .tax-card:hover {
         <div class="tax-card-img-num">{{ printf "%02d" (add $i 2) }}</div>
       </div>
       <div class="tax-card-body">
-        <span class="tax-card-badge">{{ with $p.Params.categories }}{{ index . 0 }}{{ else }}Artikel{{ end }}</span>
+        {{ $cardCat := "" }}{{ with $p.Params.categories }}{{ $cardCat = index . 0 }}{{ end }}
+        {{ $cardInfoCls := "" }}{{ if or (eq $cardCat "Notes") (eq $cardCat "Insight") }}{{ $cardInfoCls = " tax-badge--info" }}{{ end }}
+        <span class="tax-card-badge{{ $cardInfoCls }}">{{ if $cardCat }}{{ $cardCat }}{{ else }}Artikel{{ end }}</span>
         <div class="tax-card-title">{{ $p.Title }}</div>
         <div class="tax-card-meta">
           <span>{{ $p.Date.Format "2 Jan 2006" }}</span>
