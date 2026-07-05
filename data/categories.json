@@ -1,0 +1,7 @@
+[
+  { "name": "Notes",       "urlSlug": "notes",       "info": true },
+  { "name": "Insight",     "urlSlug": "insight",     "info": true },
+  { "name": "Opinions",    "urlSlug": "opinions",    "info": false },
+  { "name": "Reflections", "urlSlug": "reflections", "info": false },
+  { "name": "Book Review", "urlSlug": "book-review", "info": false }
+]
