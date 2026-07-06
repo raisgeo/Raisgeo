@@ -109,6 +109,12 @@ footer{padding:20px 48px;border-top:1px solid var(--border);display:flex;justify
 .post-body figcaption{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:0.02em;color:var(--text3);text-align:center;margin-top:10px;line-height:1.6}
 .post-body ul,.post-body ol{margin:0 0 1.6em 1.4em}
 .post-body li{margin-bottom:0.5em}
+.post-body table{width:100%;border-collapse:collapse;margin:2.2em 0;font-family:'Inter',sans-serif;font-size:15px;line-height:1.6;display:block;overflow-x:auto;white-space:nowrap}
+.post-body table thead,.post-body table tbody{display:table;width:100%;table-layout:fixed}
+.post-body th,.post-body td{padding:12px 16px;border:1px solid var(--border);text-align:left;white-space:normal;vertical-align:top}
+.post-body th{background:var(--bg2);color:var(--text);font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:0.03em;border-bottom:2px solid var(--ac)}
+.post-body tbody tr:nth-child(even){background:var(--bg2)}
+.post-body td{color:var(--text2)}
 .post-nav{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);margin-top:56px}
 .post-nav-link{background:var(--card);padding:20px;text-decoration:none;transition:background .3s}
 .post-nav-link:hover{background:var(--bg2)}
