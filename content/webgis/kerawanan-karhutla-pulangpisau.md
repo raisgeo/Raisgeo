@@ -52,7 +52,7 @@ Model Random Forest di atas menjawab pertanyaan "di mana yang secara historis pa
 
 Untuk itu, dashboard ini melengkapi peta struktural dengan indeks kekeringan dinamis: **SDCI (Scaled Drought Condition Index)**, mengikuti metode Rhee, Im, dan Carbone (2010) yang mengombinasikan tiga sinyal satelit sekaligus:
 
-$$SDCI = 0.25 \times TCI + 0.5 \times PCI + 0.25 \times VCI$$
+> **SDCI = 0,25 × TCI + 0,5 × PCI + 0,25 × VCI**
 
 - **TCI (Temperature Condition Index)** — dari suhu permukaan tanah (MODIS LST); makin panas dari kondisi historis bulan yang sama, makin rendah nilainya
 - **PCI (Precipitation Condition Index)** — dari curah hujan (CHIRPS); makin kering dari historis, makin rendah nilainya, dan diberi bobot terbesar (50%) karena curah hujan adalah pemicu paling langsung
@@ -68,7 +68,7 @@ Catatan praktis: pilihan Tahun & Bulan di dashboard sengaja dibatasi tidak bisa 
 
 Peta kerawanan struktural menunjukkan kerentanan jangka panjang suatu lokasi. Peta SDCI menunjukkan seberapa kering kondisi saat ini. Dashboard ini menggabungkan keduanya menjadi satu layer tambahan:
 
-$$\text{Risiko Saat Ini} = \text{Probabilitas Kerawanan Struktural} \times (1 - SDCI)$$
+> **Risiko Saat Ini = Probabilitas Kerawanan Struktural × (1 − SDCI)**
 
 Logikanya sederhana: lokasi yang secara struktural rawan *dan* sedang mengalami kekeringan parah bulan ini adalah yang paling perlu diwaspadai *sekarang*; lokasi yang struktural rawan tapi kondisinya sedang basah, risikonya untuk saat ini lebih rendah. Ini adalah heuristik operasional untuk membantu prioritisasi kewaspadaan musiman — **bukan model yang divalidasi secara terpisah** seperti model struktural di atas, jadi sebaiknya dibaca sebagai alat bantu komunikasi risiko, bukan angka probabilitas yang presisi.
 
