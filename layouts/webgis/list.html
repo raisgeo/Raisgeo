@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon.ico">
+<title>WebGIS · {{ .Site.Title }}</title>
+<meta name="description" content="{{ .Description | default .Site.Params.description }}">
+<link rel="stylesheet" href="/css/tempo.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+.webgis-intro {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text2);
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 620px;
+  margin-bottom: 48px;
+}
+.webgis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+.webgis-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: box-shadow .25s, transform .2s, border-color .25s;
+}
+.webgis-card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+  transform: translateY(-3px);
+  border-color: var(--ac);
+}
+html.dark .webgis-card:hover {
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45);
+}
+.webgis-card-icon {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  background: linear-gradient(135deg, var(--bg2), var(--bg));
+  border-bottom: 1px solid var(--border);
+}
+.webgis-card-body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.webgis-card-region {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ac);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.webgis-card-region::before {
+  content: '';
+  display: inline-block;
+  width: 14px;
+  height: 2px;
+  background: var(--ac);
+}
+.webgis-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.35;
+  margin-bottom: 10px;
+  transition: color .2s;
+}
+.webgis-card:hover .webgis-card-title { color: var(--ac); }
+.webgis-card-desc {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 16px;
+}
+.webgis-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.webgis-tag {
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--info);
+  background: var(--info-bg);
+  padding: 3px 9px;
+  border-radius: 20px;
+}
+.webgis-card-cta {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ac);
+}
+.webgis-empty {
+  padding: 60px 32px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text3);
+}
+</style>
+</head>
+<body>
+
+{{ partial "header.html" . }}
+
+<div class="page-wrap" style="max-width:960px;">
+
+  <div class="page-eyebrow">Peta Interaktif</div>
+  <h1 class="page-title">WebGIS Dashboard</h1>
+  <p class="webgis-intro">{{ .Description }}</p>
+
+  {{ $items := .Pages.ByDate.Reverse }}
+  {{ if $items }}
+  <div class="webgis-grid">
+    {{ range $items }}
+    <a href="{{ .Permalink }}" class="webgis-card">
+      <div class="webgis-card-icon">{{ .Params.icon | default "🗺️" }}</div>
+      <div class="webgis-card-body">
+        {{ if .Params.region }}
+        <div class="webgis-card-region">{{ .Params.region }}</div>
+        {{ end }}
+        <div class="webgis-card-title">{{ .Title }}</div>
+        <div class="webgis-card-desc">{{ .Description }}</div>
+        {{ if .Params.indeks }}
+        <div class="webgis-card-tags">
+          {{ range .Params.indeks }}
+          <span class="webgis-tag">{{ . }}</span>
+          {{ end }}
+        </div>
+        {{ end }}
+        <div class="webgis-card-cta">Lihat Dashboard →</div>
+      </div>
+    </a>
+    {{ end }}
+  </div>
+  {{ else }}
+  <div class="webgis-empty">
+    Dashboard sedang disiapkan. Kembali lagi sebentar lagi.
+  </div>
+  {{ end }}
+
+</div>
+
+<footer>
+  <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <a class="foot-logo" href="/">The Geographer's Journal</a>
+</footer>
+
+</body>
+</html>
