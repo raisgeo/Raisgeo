@@ -11,7 +11,7 @@ Bagi Tenaga Teknis bidang Perencanaan Hutan (GANISPH-CANHUT), sertifikat kompete
 
 ## Apa Itu Ujikom Sertifikasi Ulang?
 
-Ujikom sertifikasi ulang adalah proses asesmen kompetensi bagi pemegang sertifikat GANISPH yang masa berlakunya telah atau akan berakhir. Tujuannya adalah memverifikasi bahwa pemegang sertifikat masih menguasai dan menerapkan kompetensi sesuai unit-unit kerja yang menjadi lingkup profesinya, berdasarkan Standar Kompetensi Kerja Nasional Indonesia (SKKNI) dan peraturan terkait tenaga teknis pengelolaan hutan (di antaranya SKKNI No. 21 Tahun 2019 dan Permen LHK No. 11 Tahun 2022).
+Ujikom sertifikasi ulang adalah proses asesmen kompetensi bagi pemegang sertifikat GANISPH yang masa berlakunya telah atau akan berakhir. Tujuannya adalah memverifikasi bahwa pemegang sertifikat masih menguasai dan menerapkan kompetensi sesuai unit-unit kerja yang menjadi lingkup profesinya, berdasarkan Standar Kompetensi Kerja Nasional Indonesia (SKKNI) dan peraturan terkait tenaga teknis pengelolaan hutan (di antaranya SKKNI No. 21 Tahun 2019 dan Permen LHK No. 11 Tahun 2022). Sebagai latarbelakang status GANISPH-CANHUT saya diperoleh melalui Pendidikan dan Pelatihan (Diklat) GANIS yang diselenggarakan oleh Pusat Pendidikan dan Pelatihan Sumber Daya Manusia (Pusdiklat SDM) Kementerian Lingkungan Hidup dan Kehutanan yang diselesaikan pada Agustus 2022, kemudian SK Penugasan pertama terbit Maret 2023 dan berlaku 3 tahun, sehingga pada Maret 2026 masa penugasan saya berakhir dan status GANISPH-CANHUT saya non-aktif. Maka untuk melanjutkan status aktif sebagai GANISPH-CANHUT saya wajib mengikuti ujikom sertifikasi ulang.
 
 ## Proses Pelaksanaan
 
