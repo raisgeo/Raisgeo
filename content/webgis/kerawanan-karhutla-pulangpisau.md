@@ -2,7 +2,7 @@
 title: "Peta Kerawanan Kebakaran Hutan & Lahan — Kabupaten Pulang Pisau"
 date: 2026-07-06T00:00:00+07:00
 draft: false
-description: "Model spasial berbasis Random Forest untuk memetakan tingkat kerawanan karhutla di lanskap gambut Kabupaten Pulang Pisau, dilatih dari riwayat titik panas 20+ tahun terakhir."
+description: "Model spasial berbasis Random Forest (akurasi 92,8%) untuk memetakan kerawanan karhutla di lanskap gambut Kabupaten Pulang Pisau, dilengkapi indeks kekeringan musiman SDCI untuk pemantauan bulanan."
 region: "Kabupaten Pulang Pisau, Kalimantan Tengah"
 indeks: ["Fire Susceptibility", "Random Forest", "SDCI"]
 sumber_data: "FIRMS/MODIS, ESA WorldCover, SoilGrids, CHIRPS, MOD11A2 LST, SRTM"
@@ -41,7 +41,7 @@ Prosesnya secara garis besar:
 1. **Label**: seluruh riwayat titik panas FIRMS (satelit MODIS) di Kabupaten Pulang Pisau sejak tahun 2001 dijadikan peta biner "pernah terbakar" vs "tidak pernah terbakar terdeteksi"
 2. **Sampel**: diambil titik-titik representatif dari kedua kelas tersebut, dipisah menjadi data latih (70%) dan data uji (30%)
 3. **Pelatihan**: model Random Forest dilatih memakai data latih dan 9 variabel lanskap di atas
-4. **Validasi**: akurasi model diuji memakai data uji yang *tidak* dilihat model saat pelatihan — nilai akurasi ditampilkan langsung di panel "Tentang Data & Metode" pada dashboard, bukan diklaim tanpa bukti
+4. **Validasi**: akurasi model diuji memakai data uji yang *tidak* dilihat model saat pelatihan — hasilnya **akurasi 92,8%** dengan **Kappa 0,86** (nilai ini juga ditampilkan langsung di panel "Tentang Data & Metode" pada dashboard, bukan diklaim tanpa bukti)
 5. **Prediksi**: model diterapkan ke seluruh wilayah kabupaten, menghasilkan peta probabilitas kerawanan 0–1, lalu diklasifikasi menjadi 5 kelas (Sangat Rendah hingga Sangat Tinggi) berbasis kuantil
 
 Secara teknis, tahap pelatihan & baseline historis di atas dijalankan sekali secara terpisah (bukan setiap kali dashboard dibuka), lalu hasilnya disimpan sebagai data siap-pakai yang dibaca dashboard secara langsung. Ini murni pertimbangan performa — supaya dashboard tetap ringan dan cepat diakses publik — bukan bagian dari validitas ilmiah metodenya.
@@ -62,6 +62,8 @@ Nilai SDCI berkisar 0–1, diklasifikasikan menjadi 6 kategori dari "Tidak Ada K
 
 Konteks kenapa fitur ini penting *sekarang*: proyeksi NOAA CPC (per rilis Mei 2026) menunjukkan probabilitas tinggi munculnya El Niño kuat pada Agustus–Oktober 2026, memuncak di akhir tahun — beberapa pihak menjulukinya potensi "Godzilla El Niño", merujuk pada istilah yang pertama kali dipakai klimatolog NASA Bill Patzert tahun 2015 untuk kejadian El Niño terkuat sejak 1950. Ini konsisten dengan pemaparan BMKG di sosialisasi karhutla Pulang Pisau Juni 2026 yang sudah disinggung di awal artikel ini. Dengan layer SDCI, perkembangan kekeringan musim kemarau 2026 di Pulang Pisau bisa dipantau bulan demi bulan begitu datanya tersedia.
 
+Catatan praktis: pilihan Tahun & Bulan di dashboard sengaja dibatasi tidak bisa memilih 1-2 bulan paling akhir dari hari ini diakses — ini bukan pembatasan sembarangan, tapi menyesuaikan jeda pemrosesan data satelit (suhu permukaan & vegetasi biasanya baru "matang" datanya beberapa minggu setelah perekaman).
+
 ## Risiko Gabungan: Struktural x Kondisi Berjalan
 
 Peta kerawanan struktural menunjukkan kerentanan jangka panjang suatu lokasi. Peta SDCI menunjukkan seberapa kering kondisi saat ini. Dashboard ini menggabungkan keduanya menjadi satu layer tambahan:
@@ -69,6 +71,8 @@ Peta kerawanan struktural menunjukkan kerentanan jangka panjang suatu lokasi. Pe
 $$\text{Risiko Saat Ini} = \text{Probabilitas Kerawanan Struktural} \times (1 - SDCI)$$
 
 Logikanya sederhana: lokasi yang secara struktural rawan *dan* sedang mengalami kekeringan parah bulan ini adalah yang paling perlu diwaspadai *sekarang*; lokasi yang struktural rawan tapi kondisinya sedang basah, risikonya untuk saat ini lebih rendah. Ini adalah heuristik operasional untuk membantu prioritisasi kewaspadaan musiman — **bukan model yang divalidasi secara terpisah** seperti model struktural di atas, jadi sebaiknya dibaca sebagai alat bantu komunikasi risiko, bukan angka probabilitas yang presisi.
+
+Catatan tampilan: layer ini punya legenda sendiri ("Tingkat Risiko Gabungan", 5 kelas) — meski skema warnanya sama dengan Kelas Kerawanan struktural, angkanya sudah dihitung ulang khusus untuk kombinasi ini, jadi jangan disamakan langsung dengan kelas kerawanan struktural murni.
 
 ## Kenapa Fokus ke Lanskap Gambut
 
@@ -94,11 +98,19 @@ Karena data titik panas FIRMS beresolusi asli ~1 km, seluruh analisis bekerja pa
 
 ## Cara Membaca Peta
 
-Peta utama menampilkan 5 kelas kerawanan struktural dari hijau (Sangat Rendah) hingga merah (Sangat Tinggi). Gunakan menu dropdown untuk berpindah ke:
+Dashboard punya 6 pilihan layer di menu dropdown, masing-masing dengan legenda sendiri yang otomatis menyesuaikan. Bisa dikelompokkan jadi 3 kategori:
 
-- **Probabilitas kontinu** atau **variabel prediktor** individual — untuk memahami *kenapa* suatu area diklasifikasikan rawan
-- **SDCI — Kondisi Kekeringan Berjalan** — pilih Tahun & Bulan untuk melihat tingkat kekeringan aktual pada periode tersebut
-- **Risiko Gabungan** — kombinasi kerawanan struktural dengan kondisi kekeringan bulan yang dipilih, untuk melihat prioritas kewaspadaan saat ini
+**Kerawanan struktural (statis, jawab "di mana"):**
+- **Kelas Kerawanan (5 kelas)** — tampilan utama, hijau (Sangat Rendah) hingga merah (Sangat Tinggi). Paling cocok dibaca cepat.
+- **Probabilitas Kerawanan (kontinu)** — angka mentah 0–1 di balik 5 kelas tadi, untuk yang butuh detail lebih presisi.
+
+**Data pendukung/diagnostik (bahan mentah, bukan hasil model):**
+- **Frekuensi Titik Panas Historis** — berapa kali suatu titik terdeteksi panas sejak 2001. Salah satu bahan pembentuk model struktural, ditampilkan terpisah supaya bisa dibandingkan langsung dengan hasil model.
+- **Tutupan Lahan** — jenis lahan (hutan, semak/lahan terbuka, gambut, kebun, permukiman, dst) dari ESA WorldCover. Membantu memahami *kenapa* suatu area diklasifikasikan rawan — area rawan tinggi di Pulang Pisau umumnya berimpit dengan tutupan semak/lahan terbuka bekas gambut.
+
+**Kondisi berjalan (dinamis, jawab "kapan harus waspada", bisa pilih Tahun & Bulan):**
+- **SDCI - Kondisi Kekeringan Berjalan** — seberapa kering bulan yang dipilih dibanding riwayat historisnya.
+- **Risiko Gabungan (Struktural x Kekeringan Berjalan)** — kombinasi kerawanan struktural dengan kondisi kekeringan bulan yang dipilih; ini yang paling cocok dibaca sebagai "peringatan dini musiman".
 
 Bagi yang membutuhkan data mentahnya untuk analisis lebih lanjut (GIS desktop, penelitian, atau pelaporan), tersedia tombol unduh GeoTIFF untuk layer kerawanan struktural langsung dari dashboard.
 
