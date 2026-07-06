@@ -1,0 +1,10 @@
+# Hugo build output — jangan di-commit, Cloudflare Pages akan build ulang dari source
+public/
+
+# File resource cache Hugo (kalau ada)
+resources/_gen/
+.hugo_build.lock
+
+# File sistem OS
+.DS_Store
+Thumbs.db
