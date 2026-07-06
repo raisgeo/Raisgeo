@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon.ico">
+<title>{{ .Title }} · WebGIS · {{ .Site.Title }}</title>
+<meta name="description" content="{{ .Description }}">
+<link rel="stylesheet" href="/css/tempo.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+.webgis-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text3);
+  text-decoration: none;
+  margin-bottom: 28px;
+  transition: color .2s;
+}
+.webgis-back:hover { color: var(--ac); }
+.webgis-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.webgis-meta-pill {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 20px;
+  color: var(--info);
+  background: var(--info-bg);
+}
+.webgis-meta-pill.region {
+  color: var(--ac);
+  background: var(--tag-bg);
+}
+.webgis-dashboard-section {
+  margin: 56px 0;
+}
+.webgis-dashboard-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--text);
+}
+.webgis-dashboard-label {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  text-transform: uppercase;
+  font-weight: 800;
+}
+.webgis-dashboard-fullscreen {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--ac);
+  text-decoration: none;
+}
+.webgis-iframe-wrap {
+  position: relative;
+  width: 100%;
+  height: 650px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg2);
+}
+.webgis-iframe-wrap iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.webgis-dashboard-note {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 10px;
+  line-height: 1.6;
+}
+@media (max-width: 680px) {
+  .webgis-iframe-wrap { height: 520px; }
+}
+</style>
+</head>
+<body>
+
+{{ partial "header.html" . }}
+
+<div class="post-wrap">
+
+  <a href="/webgis/" class="webgis-back">← Semua WebGIS</a>
+
+  <div class="post-header">
+    <div class="page-eyebrow">{{ .Params.icon | default "🗺️" }}&nbsp; WebGIS Dashboard</div>
+    <h1 class="post-title">{{ .Title }}</h1>
+    <div class="webgis-meta-row" style="margin-top:20px;">
+      {{ if .Params.region }}
+      <span class="webgis-meta-pill region">{{ .Params.region }}</span>
+      {{ end }}
+      {{ range .Params.indeks }}
+      <span class="webgis-meta-pill">{{ . }}</span>
+      {{ end }}
+    </div>
+  </div>
+
+  <div class="post-body">
+    {{ .Content }}
+  </div>
+
+  {{ if .Params.gee_app_url }}
+  <div class="webgis-dashboard-section">
+    <div class="webgis-dashboard-head">
+      <span class="webgis-dashboard-label">Dashboard Interaktif</span>
+      <a href="{{ .Params.gee_app_url }}" target="_blank" rel="noopener" class="webgis-dashboard-fullscreen">
+        Buka layar penuh ↗
+      </a>
+    </div>
+    <div class="webgis-iframe-wrap">
+      <iframe src="{{ .Params.gee_app_url }}" loading="lazy" allowfullscreen title="{{ .Title }}"></iframe>
+    </div>
+    <p class="webgis-dashboard-note">
+      Peta di atas interaktif — geser, zoom, dan ubah periode/indeks lewat panel di sebelah kiri peta.
+      {{ if .Params.sumber_data }}Sumber data: {{ .Params.sumber_data }}.{{ end }}
+      Kalau peta tidak muncul, coba buka lewat tautan "Buka layar penuh" di atas.
+    </p>
+  </div>
+  {{ end }}
+
+</div>
+
+<footer>
+  <span class="foot-l">© {{ now.Year }} Raisgeo · Notes from every journey</span>
+  <a class="foot-logo" href="/">The Geographer's Journal</a>
+</footer>
+
+</body>
+</html>
