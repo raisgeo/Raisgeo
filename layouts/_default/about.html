@@ -324,7 +324,7 @@
   display: flex;
   gap: 16px;
   width: max-content;
-  animation: ab-scroll 28s linear infinite;
+  animation: ab-scroll 45s linear infinite;
 }
 .ab-slider-track:hover { animation-play-state: paused; }
 @keyframes ab-scroll {
@@ -838,6 +838,11 @@ html.dark .ab-map-svg .prov.visited.is-active {
         track.innerHTML = doubled.map(p =>
           `<div class="ab-slider-item"><img src="${p.img}" alt="${p.alt || 'Penghargaan'}"></div>`
         ).join('');
+        // Durasi dihitung dari jumlah foto (± 6 detik per foto) supaya kecepatan
+        // geser tetap konsisten pelan berapa pun jumlah foto ke depannya,
+        // bukan durasi tetap yang jadi makin cepat kalau fotonya nambah.
+        const duration = Math.max(30, photos.length * 6);
+        track.style.animationDuration = duration + 's';
       })
       .catch(() => {
         if (wrap) wrap.style.display = 'none';
