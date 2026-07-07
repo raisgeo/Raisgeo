@@ -2,5 +2,9 @@
   {
     "code": "A1",
     "img": "/images/about/achievement-a1.png"
+  },
+  {
+    "code": "A2",
+    "img": "/images/about/achievement-a2.jpg"
   }
 ]
