@@ -771,10 +771,19 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
     <div class="card">
       <div class="card-title">Upload Foto Baru</div>
       <div class="drop-zone" id="ach-drop-zone">
-        <input type="file" accept="image/*" multiple onchange="handleAchUpload(this)">
+        <input type="file" accept="image/*" multiple onchange="handleAchFilesSelected(this)">
         <div class="drop-zone-text">🏆 <strong>Klik atau drag & drop</strong> foto penghargaan<br><span style="font-size:11px">Bisa pilih beberapa foto sekaligus · JPG/PNG · Ideal di bawah 300KB</span></div>
       </div>
       <div class="upload-status" id="ach-upload-status"></div>
+      <div id="ach-preview-wrap" style="display:none;margin-top:16px">
+        <div class="card-title" style="font-size:13px;margin-bottom:6px">Pratinjau & Urutan</div>
+        <div class="page-subtitle" style="margin-bottom:10px">Cek dulu urutannya sebelum upload — kode di pojok kiri atas adalah kode final yang akan dipakai. Pakai ⬅️➡️ untuk atur urutan, ✕ untuk buang foto yang salah pilih.</div>
+        <div id="ach-preview-grid" class="photo-grid"></div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="btn-publish" id="btn-ach-confirm-upload" onclick="confirmAchUpload()">⬆️ Upload</button>
+          <button class="back-btn" onclick="cancelAchPreview()">Batal</button>
+        </div>
+      </div>
     </div>
 
     <div class="card-title" style="margin:28px 0 14px">Foto Tersimpan</div>
@@ -851,10 +860,19 @@ textarea { font-family: 'Lora', serif; font-size: 15px; line-height: 1.85; min-h
     <div class="card">
       <div class="card-title">Upload Foto Baru</div>
       <div class="drop-zone" id="photos-drop-zone">
-        <input type="file" accept="image/*" multiple onchange="handlePhotosUpload(this)">
+        <input type="file" accept="image/*" multiple onchange="handlePhotosFilesSelected(this)">
         <div class="drop-zone-text">📷 <strong>Klik atau drag & drop</strong> foto profil/kegiatan<br><span style="font-size:11px">Bisa pilih beberapa foto sekaligus · JPG/PNG · Ideal di bawah 300KB</span></div>
       </div>
       <div class="upload-status" id="photos-upload-status"></div>
+      <div id="photos-preview-wrap" style="display:none;margin-top:16px">
+        <div class="card-title" style="font-size:13px;margin-bottom:6px">Pratinjau & Urutan</div>
+        <div class="page-subtitle" style="margin-bottom:10px">Cek dulu urutannya sebelum upload — kode di pojok kiri atas adalah kode final yang akan dipakai. Pakai ⬅️➡️ untuk atur urutan, ✕ untuk buang foto yang salah pilih.</div>
+        <div id="photos-preview-grid" class="photo-grid"></div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="btn-publish" id="btn-photos-confirm-upload" onclick="confirmPhotosUpload()">⬆️ Upload</button>
+          <button class="back-btn" onclick="cancelPhotosPreview()">Batal</button>
+        </div>
+      </div>
       <div class="tip-box" style="margin-top:12px">
         <div class="tip-title">💡 Tentang keterangan foto</div>
         <div class="tip-text">Foto langsung tersimpan tanpa keterangan. Mau tambah keterangan singkat (misal "Survei lapangan, Kalimantan Tengah")? Klik foto di bawah setelah ter-upload.</div>
@@ -1763,13 +1781,72 @@ function renderAchGrid(list) {
   wrap.appendChild(grid);
 }
 
-async function handleAchUpload(input) {
-  if (_ghOpBusy) { showToast('⏳ Masih ada proses lain berjalan, tunggu sebentar'); input.value = ''; return; }
+let _achPendingFiles = [];
+let _achBaseCodeNum = 0;
+
+async function handleAchFilesSelected(input) {
   const files = Array.from(input.files || []);
+  input.value = '';
   if (files.length === 0) return;
+  if (_achPendingFiles.length === 0) {
+    const { list } = await loadAchievementsJson();
+    let max = 0;
+    list.forEach(item => { const m = (item.code || '').match(/^A(\d+)$/); if (m) max = Math.max(max, parseInt(m[1])); });
+    _achBaseCodeNum = max;
+  }
+  _achPendingFiles = _achPendingFiles.concat(files);
+  renderAchPreview();
+}
+
+function renderAchPreview() {
+  const wrap = document.getElementById('ach-preview-wrap');
+  const grid = document.getElementById('ach-preview-grid');
+  grid.innerHTML = '';
+  if (_achPendingFiles.length === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  _achPendingFiles.forEach((file, idx) => {
+    const code = 'A' + (_achBaseCodeNum + idx + 1);
+    const url = URL.createObjectURL(file);
+    const tile = document.createElement('div');
+    tile.className = 'photo-tile';
+    tile.innerHTML = `
+      <img src="${url}" alt="${code}">
+      <span class="photo-tile-code">${code}</span>
+      <button class="photo-tile-del" onclick="achRemovePending(${idx})" title="Buang dari daftar upload">✕</button>
+      <div style="display:flex;gap:4px;justify-content:center;margin-top:4px">
+        <button class="back-btn" style="padding:2px 8px;font-size:11px" onclick="achMovePending(${idx},-1)" ${idx === 0 ? 'disabled' : ''}>⬅️</button>
+        <button class="back-btn" style="padding:2px 8px;font-size:11px" onclick="achMovePending(${idx},1)" ${idx === _achPendingFiles.length - 1 ? 'disabled' : ''}>➡️</button>
+      </div>`;
+    grid.appendChild(tile);
+  });
+  document.getElementById('btn-ach-confirm-upload').textContent = `⬆️ Upload ${_achPendingFiles.length} Foto Ini`;
+}
+
+function achMovePending(idx, dir) {
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= _achPendingFiles.length) return;
+  [_achPendingFiles[idx], _achPendingFiles[newIdx]] = [_achPendingFiles[newIdx], _achPendingFiles[idx]];
+  renderAchPreview();
+}
+
+function achRemovePending(idx) {
+  _achPendingFiles.splice(idx, 1);
+  renderAchPreview();
+}
+
+function cancelAchPreview() {
+  _achPendingFiles = [];
+  renderAchPreview();
+  setUploadStatus('ach-upload-status', '', '');
+}
+
+async function confirmAchUpload() {
+  if (_ghOpBusy) { showToast('⏳ Masih ada proses lain berjalan, tunggu sebentar'); return; }
+  if (_achPendingFiles.length === 0) return;
   _ghOpBusy = true;
-  input.disabled = true;
-  const statusEl = document.getElementById('ach-upload-status');
+  const btn = document.getElementById('btn-ach-confirm-upload');
+  btn.disabled = true;
+  const files = _achPendingFiles;
   setUploadStatus('ach-upload-status', '', `⏳ Mengupload ${files.length} foto...`);
 
   let { list, sha } = await loadAchievementsJson();
@@ -1802,8 +1879,10 @@ async function handleAchUpload(input) {
   renderAchGrid(list);
   setUploadStatus('ach-upload-status', okCount > 0 ? 'success' : 'error',
     `✓ ${okCount} foto berhasil${failCount > 0 ? `, ${failCount} gagal` : ''}`);
-  input.value = '';
-  input.disabled = false;
+
+  _achPendingFiles = [];
+  renderAchPreview();
+  btn.disabled = false;
   _ghOpBusy = false;
 }
 
@@ -2049,12 +2128,72 @@ function renderPhotosGrid(list) {
   wrap.appendChild(grid);
 }
 
-async function handlePhotosUpload(input) {
-  if (_ghOpBusy) { showToast('⏳ Masih ada proses lain berjalan, tunggu sebentar'); input.value = ''; return; }
+let _photosPendingFiles = [];
+let _photosBaseCodeNum = 0;
+
+async function handlePhotosFilesSelected(input) {
   const files = Array.from(input.files || []);
+  input.value = '';
   if (files.length === 0) return;
+  if (_photosPendingFiles.length === 0) {
+    const { list } = await loadPhotosJson();
+    let max = 0;
+    list.forEach(item => { const m = (item.code || '').match(/^C(\d+)$/); if (m) max = Math.max(max, parseInt(m[1])); });
+    _photosBaseCodeNum = max;
+  }
+  _photosPendingFiles = _photosPendingFiles.concat(files);
+  renderPhotosPreview();
+}
+
+function renderPhotosPreview() {
+  const wrap = document.getElementById('photos-preview-wrap');
+  const grid = document.getElementById('photos-preview-grid');
+  grid.innerHTML = '';
+  if (_photosPendingFiles.length === 0) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'block';
+  _photosPendingFiles.forEach((file, idx) => {
+    const code = 'C' + (_photosBaseCodeNum + idx + 1);
+    const url = URL.createObjectURL(file);
+    const tile = document.createElement('div');
+    tile.className = 'photo-tile';
+    tile.innerHTML = `
+      <img src="${url}" alt="${code}">
+      <span class="photo-tile-code">${code}</span>
+      <button class="photo-tile-del" onclick="photosRemovePending(${idx})" title="Buang dari daftar upload">✕</button>
+      <div style="display:flex;gap:4px;justify-content:center;margin-top:4px">
+        <button class="back-btn" style="padding:2px 8px;font-size:11px" onclick="photosMovePending(${idx},-1)" ${idx === 0 ? 'disabled' : ''}>⬅️</button>
+        <button class="back-btn" style="padding:2px 8px;font-size:11px" onclick="photosMovePending(${idx},1)" ${idx === _photosPendingFiles.length - 1 ? 'disabled' : ''}>➡️</button>
+      </div>`;
+    grid.appendChild(tile);
+  });
+  document.getElementById('btn-photos-confirm-upload').textContent = `⬆️ Upload ${_photosPendingFiles.length} Foto Ini`;
+}
+
+function photosMovePending(idx, dir) {
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= _photosPendingFiles.length) return;
+  [_photosPendingFiles[idx], _photosPendingFiles[newIdx]] = [_photosPendingFiles[newIdx], _photosPendingFiles[idx]];
+  renderPhotosPreview();
+}
+
+function photosRemovePending(idx) {
+  _photosPendingFiles.splice(idx, 1);
+  renderPhotosPreview();
+}
+
+function cancelPhotosPreview() {
+  _photosPendingFiles = [];
+  renderPhotosPreview();
+  setUploadStatus('photos-upload-status', '', '');
+}
+
+async function confirmPhotosUpload() {
+  if (_ghOpBusy) { showToast('⏳ Masih ada proses lain berjalan, tunggu sebentar'); return; }
+  if (_photosPendingFiles.length === 0) return;
   _ghOpBusy = true;
-  input.disabled = true;
+  const btn = document.getElementById('btn-photos-confirm-upload');
+  btn.disabled = true;
+  const files = _photosPendingFiles;
   setUploadStatus('photos-upload-status', '', `⏳ Mengupload ${files.length} foto...`);
 
   let { list } = await loadPhotosJson();
@@ -2086,8 +2225,10 @@ async function handlePhotosUpload(input) {
   renderPhotosGrid(list);
   setUploadStatus('photos-upload-status', okCount > 0 ? 'success' : 'error',
     `✓ ${okCount} foto berhasil${failCount > 0 ? `, ${failCount} gagal` : ''}`);
-  input.value = '';
-  input.disabled = false;
+
+  _photosPendingFiles = [];
+  renderPhotosPreview();
+  btn.disabled = false;
   _ghOpBusy = false;
 }
 
