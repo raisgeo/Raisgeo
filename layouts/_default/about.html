@@ -322,7 +322,7 @@
   display: flex;
   gap: 16px;
   width: max-content;
-  animation: ab-scroll 45s linear infinite;
+  animation: ab-scroll 35s linear infinite;
 }
 .ab-slider-track:hover { animation-play-state: paused; }
 @keyframes ab-scroll {
@@ -615,10 +615,9 @@ html.dark .ab-map-svg .prov.visited.is-active {
   <section class="ab-sec">
     <h1 class="ab-hero-title">About Me</h1>
     <div class="ab-hero-body">
-      <p>Welcome to my little corner of the web. I've been geeking out over geography for more than 10 years now — starting back in senior high school, and it's stuck with me all the way into my career.</p>
-      <p>Currently, I'm the Planning and Mapping Unit Head at Nusantara Climate Initiative (NCI), focused on nature-based solutions for forest and peatland restoration in Kalimantan.</p>
-      <p>But this blog isn't just about my work. It's where I write whatever crosses my mind — books I'm reading, things I'm up to, and the occasional take on what's going on around me.</p>
-      <p>And naturally, forests and climate will show up here too — they're too much a part of me to leave out.</p>
+      <p>Welcome to my personal blog. I am a professional who has consistently pursued geography for more than 10 years, from senior high school through my current career.</p>
+      <p>I currently serve as Planning and Mapping Unit Head at Nusantara Climate Initiative (NCI), working on spatial planning and mapping for nature-based solutions across forest and peatland landscapes in Kalimantan.</p>
+      <p>This blog isn't about my work. It's where I write whatever crosses my mind — books, activities, ideas, and the occasional observation about life, society, and the places around me. Sometimes, writing about forest, climate, and the environment will find its way here too.</p>
     </div>
   </section>
 
@@ -837,10 +836,10 @@ html.dark .ab-map-svg .prov.visited.is-active {
         track.innerHTML = doubled.map(p =>
           `<div class="ab-slider-item"><img src="${p.img}" alt="${p.alt || 'Penghargaan'}"></div>`
         ).join('');
-        // Durasi dihitung dari jumlah foto (± 6 detik per foto) supaya kecepatan
-        // geser tetap konsisten pelan berapa pun jumlah foto ke depannya,
+        // Durasi dihitung dari jumlah foto (± 5 detik per foto) supaya kecepatan
+        // geser tetap konsisten berapa pun jumlah foto ke depannya,
         // bukan durasi tetap yang jadi makin cepat kalau fotonya nambah.
-        const duration = Math.max(30, photos.length * 6);
+        const duration = Math.max(20, photos.length * 5);
         track.style.animationDuration = duration + 's';
       })
       .catch(() => {
