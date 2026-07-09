@@ -268,3 +268,55 @@ html.dark .cat-pill.active{background:#FF3333;border-color:#FF3333;color:#fff}
 .giscus-frame {
   width: 100% !important;
 }
+
+/* ── Paywall / Konten Eksklusif ── */
+.paywall-gate {
+  margin: 32px 0;
+  padding: 32px 24px;
+  border: 1px solid rgba(204, 0, 0, 0.25);
+  border-radius: 16px;
+  background: var(--tag-bg, #FFF0F0);
+  text-align: center;
+}
+.paywall-icon { font-size: 28px; margin-bottom: 8px; }
+.paywall-title {
+  font-weight: 700;
+  font-size: 18px;
+  margin: 4px 0;
+  color: var(--text, #111111);
+}
+.paywall-desc {
+  color: var(--text2, #444444);
+  font-size: 14px;
+  max-width: 420px;
+  margin: 0 auto 20px;
+}
+.paywall-form {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.paywall-form input {
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border, #E0E0E0);
+  background: var(--card, #FFFFFF);
+  color: var(--text, #111111);
+  min-width: 220px;
+}
+.paywall-form button {
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: none;
+  background: var(--ac, #CC0000);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.paywall-form button:hover { background: var(--ac2, #AA0000); }
+.paywall-error {
+  color: var(--ac, #CC0000);
+  font-size: 13px;
+  margin-top: 12px;
+}
