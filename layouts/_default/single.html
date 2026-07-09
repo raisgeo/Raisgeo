@@ -94,7 +94,28 @@
     <img src="{{ .Params.image }}" alt="{{ .Title }}">
   </div>
   {{ end }}
+  {{ if .Params.exclusive }}
+  {{ $marker := "PAYWALL_SPLIT_9f3a7c" }}
+  {{ $parts := split .Content $marker }}
+  <div class="post-body">
+    {{ index $parts 0 | safeHTML }}
+    <div class="paywall-gate" id="paywallGate" data-hash="{{ .Site.Data.paywall.codeHash }}">
+      <div class="paywall-icon">🔒</div>
+      <p class="paywall-title">Konten Eksklusif</p>
+      <p class="paywall-desc">Bagian selanjutnya dari tulisan ini dikunci. Masukkan kode akses untuk membaca selengkapnya.</p>
+      <form id="paywallForm" class="paywall-form" autocomplete="off">
+        <input type="password" id="paywallInput" placeholder="Masukkan kode akses" />
+        <button type="submit">Buka Konten</button>
+      </form>
+      <p class="paywall-error" id="paywallError" style="display:none">Kode salah, coba lagi.</p>
+    </div>
+    <div class="paywall-content" id="paywallContent" style="display:none">
+      {{ if gt (len $parts) 1 }}{{ index $parts 1 | safeHTML }}{{ end }}
+    </div>
+  </div>
+  {{ else }}
   <div class="post-body">{{ .Content }}</div>
+  {{ end }}
   <div class="post-nav">
     {{ with .PrevInSection }}
     <a href="{{ .RelPermalink }}" class="post-nav-link">
@@ -231,5 +252,48 @@
   });
 })();
 </script>
+
+{{ if .Params.exclusive }}
+<script>
+(function () {
+  const gate = document.getElementById('paywallGate');
+  if (!gate) return;
+
+  const storageKey = 'raisgeo_unlocked_' + '{{ .File.UniqueID }}';
+  const content = document.getElementById('paywallContent');
+  const form = document.getElementById('paywallForm');
+  const input = document.getElementById('paywallInput');
+  const error = document.getElementById('paywallError');
+  const correctHash = gate.dataset.hash;
+
+  function unlock() {
+    gate.style.display = 'none';
+    content.style.display = 'block';
+  }
+
+  if (localStorage.getItem(storageKey) === '1') {
+    unlock();
+  }
+
+  async function sha256Hex(text) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const hash = await sha256Hex(input.value.trim());
+    if (hash === correctHash) {
+      localStorage.setItem(storageKey, '1');
+      unlock();
+    } else {
+      error.style.display = 'block';
+      input.value = '';
+      input.focus();
+    }
+  });
+})();
+</script>
+{{ end }}
 </body>
 </html>
