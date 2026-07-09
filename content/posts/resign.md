@@ -5,11 +5,14 @@ draft: false
 categories: ["Reflections"]
 image: "/images/covers/simas.png"
 description: "Empat tahun, status karyawan tetap, promosi jabatan, motor dinas yang hampir lunas — semua ditinggalkan. Refleksi tentang resign sebagai hak, bukan permohonan izin, dan kesadaran bahwa bawahan pun berhak memilih pimpinan yang pantas."
+exclusive: true
 ---
 
 <!-- wp:paragraph -->
 <p>Februari 2026 menandai empat tahun perjalanan karir saya di perusahaan ini. Sebuah fase dimana saya merasa seperti berada di zona nyaman, karena pekerjaan mulai terasa lebih mudah, hanya mengulang ritme tahun-tahun sebelumnya. Namun bulan lalu, saya memutuskan untuk mengajukan pengunduran diri.</p>
 <!-- /wp:paragraph -->
+
+{{< paywall >}}
 
 <!-- wp:paragraph -->
 <p>Beberapa atasan di perusahaan menghubungi saya, bertanya mengapa saya mengambil keputusan itu, dan berusaha membujuk saya untuk bertahan. Saya hanya menyampaikan bahwa saya telah menerima tawaran di tempat lain, tapi di balik itu ada hal yang belum sempat saya sampaikan.</p>
