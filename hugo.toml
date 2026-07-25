@@ -1,4 +1,4 @@
-baseURL = "https://raisgeo.site/"
+baseURL = "https://raisgeo.com/"
 languageCode = "id"
 title = "The Geographer's Journal"
 pagination.pagerSize = 10
