@@ -3,7 +3,7 @@ title: "Uji Kompetensi (Ujikom) Sertifikasi Ulang GANISPH-CANHUT: Proses dan Jen
 date: 2026-07-04T07:00:00+07:00
 draft: false
 categories: ["Notes"]
-image: "/images/posts/1785372025992-cover-bnsp.jpg"
+image: "/images/posts/1785373195408-geminigeneratedimager760xyr760xyr760.png"
 description: "Proses dan jenis soal Ujikom Sertifikasi Ulang GANISPH-CANHUT, lengkap dengan 8 unit kompetensi dan tips persiapan."
 ---
 
