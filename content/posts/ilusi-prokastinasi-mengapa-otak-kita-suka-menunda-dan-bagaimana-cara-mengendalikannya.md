@@ -1,16 +1,11 @@
 ---
 title: "Ilusi Prokrastinasi"
-date: 2026-01-01T13:29:26+07:00
+date: 2026-01-01T07:00:00+07:00
 draft: false
 categories: ["Reflections"]
 image: "/images/covers/pro.png"
 description: "Prokrastinasi bukan soal kemalasan, melainkan respons biologis otak terhadap dopamin. Memahami Shiny Object Syndrome, ilusi waktu sempurna, dan tiga strategi praktis untuk meretas kebiasaan menunda — dari Micro-steps hingga Eat the Frog."
 ---
-
-
-<!-- wp:paragraph -->
-<p><em>Catatan: Artikel ini merupakan hasil eksperimen saya dengan melatih AI untuk memahami gaya bahasa dari arsip tulisan saya sebelumnya. Draf teks dibantu oleh AI, namun kendali substansi, pesan, dan penyuntingan akhir tetap berada sepenuhnya di bawah kurasi saya.</em></p>
-<!-- /wp:paragraph -->
 
 <!-- wp:paragraph -->
 <p>Pernahkah Anda berada di suatu minggu di mana Anda begitu menggebu-gebu mempelajari suatu hal—katakanlah <em>programming</em>—lalu di minggu berikutnya, fokus Anda mendadak bergeser total ke subjek lain, seperti geografi? Di saat yang sama, tumpukan pekerjaan berat yang seharusnya diselesaikan justru terpaksa terparkir rapi di sudut meja, menunggu waktu yang Anda sebut sebagai <em>"waktu yang tepat dengan energi penuh."</em></p>
