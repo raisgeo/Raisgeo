@@ -48,7 +48,7 @@
     <form id="ppForm">
       <label class="pp-label">Password</label>
       <input type="password" id="ppPassword" class="pp-input" placeholder="••••••••" autocomplete="off" required>
-      <div class="pp-hint">Password berganti tiap bulan (huruf besar), tanya admin kalau lupa.</div>
+      <div class="pp-hint">Password berganti tiap bulan, tanya admin kalau lupa.</div>
 
       <div class="pp-row">
         <div>
@@ -69,7 +69,7 @@
         </label>
         <label>
           <input type="radio" name="ppMode" value="desa">
-          <span>Pilih Desa Tujuan</span>
+          <span>Pilih Rute Tujuan</span>
         </label>
       </div>
 
@@ -80,9 +80,22 @@
       </div>
 
       <div id="ppDesaSection" class="pp-hidden">
-        <label class="pp-label">Nama Desa Tujuan</label>
-        <textarea id="ppDesaList" class="pp-textarea" rows="3" placeholder="Bahaur Hulu, Talio Hulu, Mulyasari"></textarea>
-        <div class="pp-hint">Pisahkan dengan koma. Rute otomatis dihitung dari basecamp lewat jaringan jalan.</div>
+        <label class="pp-label">Desa / Rute Tujuan</label>
+        <div class="pp-row">
+          <div>
+            <select id="ppDesaDropdown" class="pp-select">
+              <option value="">+ Tambah desa…</option>
+            </select>
+          </div>
+          <div>
+            <select id="ppRuteAirDropdown" class="pp-select">
+              <option value="">+ Tambah rute air…</option>
+            </select>
+          </div>
+        </div>
+        <textarea id="ppDesaList" class="pp-textarea" rows="3" style="margin-top:10px;"
+                  placeholder="Bahaur Hulu, Sei Talai, Mulyasari"></textarea>
+        <div class="pp-hint">Pilih dari dropdown (otomatis masuk ke kotak) atau ketik manual, pisahkan dengan koma. Desa (rute darat) dan rute air bisa digabung dalam 1 peta.</div>
       </div>
 
       <label class="pp-label">Format Unduhan</label>
@@ -119,6 +132,46 @@ for (let y = now.getFullYear() - 1; y <= now.getFullYear() + 1; y++) {
   tahunEl.appendChild(opt);
 }
 
+// Daftar tetap sesuai app/config.py (DAFTAR_DESA & DAFTAR_RUTE_AIR) di
+// backend -- kalau daftar itu berubah, sinkronkan manual di sini juga.
+const DAFTAR_DESA = ["Mulyasari","Dandang","Talio","Talio Hulu","Bahaur Hulu Permai",
+  "Bahaur Hulu","Bahaur Tengah","Bahaur Hilir","Papuyu 1","Papuyu 2","Papuyu 3",
+  "Paduran Sebangau","Sei Hambawang"];
+const DAFTAR_RUTE_AIR = ["Sei Talai","Sei Pagar","Sei Barunai","Sei Rangas","Lumpur","Menara"];
+
+const desaDropdown = document.getElementById('ppDesaDropdown');
+DAFTAR_DESA.forEach(nama => {
+  const opt = document.createElement('option');
+  opt.value = nama; opt.textContent = nama;
+  desaDropdown.appendChild(opt);
+});
+
+const ruteAirDropdown = document.getElementById('ppRuteAirDropdown');
+DAFTAR_RUTE_AIR.forEach(nama => {
+  const opt = document.createElement('option');
+  opt.value = nama; opt.textContent = nama;
+  ruteAirDropdown.appendChild(opt);
+});
+
+// Dropdown cuma nambah ke kotak teks (gak nge-replace apa yang udah
+// diketik manual) -- desa & rute air tetap 2 dropdown terpisah (gak
+// dicampur pilihannya), tapi dua-duanya nulis ke kotak yang sama, biar
+// bisa digabung dalam 1 peta.
+function ppAppendToList(nama) {
+  const ta = document.getElementById('ppDesaList');
+  const current = ta.value.split(',').map(s => s.trim()).filter(Boolean);
+  if (!current.some(c => c.toLowerCase() === nama.toLowerCase())) {
+    current.push(nama);
+  }
+  ta.value = current.join(', ');
+}
+desaDropdown.addEventListener('change', () => {
+  if (desaDropdown.value) { ppAppendToList(desaDropdown.value); desaDropdown.value = ''; }
+});
+ruteAirDropdown.addEventListener('change', () => {
+  if (ruteAirDropdown.value) { ppAppendToList(ruteAirDropdown.value); ruteAirDropdown.value = ''; }
+});
+
 document.querySelectorAll('input[name="ppMode"]').forEach(r => {
   r.addEventListener('change', () => {
     const mode = document.querySelector('input[name="ppMode"]:checked').value;
@@ -150,7 +203,7 @@ document.getElementById('ppForm').addEventListener('submit', async (e) => {
     fd.append('track_file', file);
   } else {
     const desaList = document.getElementById('ppDesaList').value.trim();
-    if (!desaList) { alert('Isi minimal 1 nama desa.'); return; }
+    if (!desaList) { alert('Isi atau pilih minimal 1 desa/rute tujuan.'); return; }
     fd.append('desa_list', desaList);
   }
 
