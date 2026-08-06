@@ -221,7 +221,11 @@ document.getElementById('ppForm').addEventListener('submit', async (e) => {
     const url = URL.createObjectURL(blob);
     const ext = output === 'jpg' ? 'jpg' : 'pdf';
     resultEl.className = 'pp-result ok';
-    resultEl.innerHTML = `Peta berhasil dibuat.<br><a class="pp-download" href="${url}" download="Peta_Patroli_${periode.replace(' ', '_')}.${ext}">Download ${ext.toUpperCase()}</a>`;
+    const notFound = res.headers.get('X-Villages-Not-Found');
+    const warnHtml = notFound
+      ? `<div style="color:#b45309;margin-top:6px;">⚠️ Gak ketemu (dilewati): ${notFound}</div>`
+      : '';
+    resultEl.innerHTML = `Peta berhasil dibuat.${warnHtml}<br><a class="pp-download" href="${url}" download="Peta_Patroli_${periode.replace(' ', '_')}.${ext}">Download ${ext.toUpperCase()}</a>`;
     resultEl.style.display = 'block';
   } catch (err) {
     resultEl.className = 'pp-result err';
