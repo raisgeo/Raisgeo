@@ -17,8 +17,6 @@ Mengerjakan hal yang sama secara manual di GIS desktop setiap bulan terasa tidak
 
 Aplikasi ini ditempatkan di situs ini (`raisgeo.com/webgis/peta-patroli/`) agar dapat diakses langsung oleh rekan kerja yang membutuhkan.
 
-{{< figure src="/images/posts/peta-patroli-preview.png" caption="Antarmuka WebGIS Peta Patroli Bulanan" >}}
-
 Secara alur penggunaan:
 
 1. **Input Rute:** Pengguna dapat mengunggah file rekam jejak GPS (`.gpx` atau `.zip` shapefile) jika tim lapangan membawa alat navigasi. Jika tidak ada file GPS, pengguna cukup memilih nama desa atau nama rute air dari daftar yang tersedia (*Paduran Sebangau*, *Bahaur Tengah*, *Sei Talai*, *STI*, dan lainnya).
