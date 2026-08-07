@@ -1,6 +1,6 @@
 ---
 title: "Analogi di Jalan Raya"
-date: 2026-06-01T15:34:14+07:00
+date: 2026-04-25T07:00:00+07:00
 draft: false
 categories: ["Opinions"]
 image: "/images/covers/analogi-jalan-raya.jpg"
